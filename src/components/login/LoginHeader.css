@@ -1,0 +1,17 @@
+.login-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.login-header img {
+    width: 35%;
+}
+
+.login-header .logo-text {
+    font-family: "Inter", serif;
+    color: #e1ff01;
+    font-size: 3rem;
+    font-weight: 800;
+}

@@ -1,0 +1,13 @@
+.pill-button {
+    border: none;
+    cursor: pointer;
+    padding: 0.375rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #e1ff01 -0.69%, #8aa800 99.31%);
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.pill-button:hover {
+    background: linear-gradient(135deg, #c8e300 -0.69%, #6f8700 99.31%);
+}

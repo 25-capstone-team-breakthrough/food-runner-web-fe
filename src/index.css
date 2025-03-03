@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+html {
+  font-size: 16px;
+  background-color: #000000;
+}
+
 body {
   height: 100%;
   -webkit-font-smoothing: antialiased;
@@ -32,4 +39,16 @@ input:-webkit-autofill:active {
 input:-moz-autofill {
     box-shadow: 0 0 0 30px white inset !important;
     -moz-text-fill-color: #000 !important;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  html {
+    font-size: 1.5625vw; /* 1024px: 1rem = 16px, 768px: 1rem = 12px */
+  }
 }
