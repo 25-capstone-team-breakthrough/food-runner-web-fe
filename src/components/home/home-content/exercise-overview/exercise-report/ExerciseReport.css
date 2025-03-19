@@ -1,0 +1,87 @@
+.exercise-report {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 24rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(100, 100, 100, 0.75) 0px 5px 15px 0px;
+}
+
+.exercise-report .date {
+    font-family: "Inter", serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #4e4e4e;
+    padding: 2rem 0;
+}
+
+.exercise-report .calorie-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 2.5rem;
+}
+
+.exercise-report .calorie-info .calorie-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #6a6a6a;
+}
+
+.exercise-report .calorie-info .calorie-amount {
+    font-family: "Inter", serif;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.exercise-report .calorie-info .calorie-amount span {
+    font-size: 2.5rem;
+    margin-right: 0.25rem;
+}
+
+.exercise-report .calorie-info .calorie-progress {
+    width: 20rem;
+    height: 0.25rem;
+    background-color: #ececec;
+    position: relative;
+    overflow: hidden;
+}
+
+.exercise-report .calorie-info .calorie-progress .calorie-progress-bar {
+    width: 25%;
+    height: 100%;
+    background-color: #ddfb21;
+}
+
+.exercise-report .report-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    width: 75%;
+    padding-bottom: 2.5rem;
+}
+
+.exercise-report .report-container .report-title {
+    font-family: "Inter", serif;
+    font-size: 1rem;
+    font-weight: 800;
+    padding-bottom: 0.5rem;
+}
+
+.exercise-report .report-detail-link {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.25rem;
+}
+
+.exercise-report .report-detail-link .report-detail-label {
+    font-family: "Inter", serif;
+    font-size: 1rem;
+    font-weight: 800;
+}
+

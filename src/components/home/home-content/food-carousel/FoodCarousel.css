@@ -1,0 +1,92 @@
+.food-carousel .food-carousel-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 0;
+    font-size: 1.5rem;
+}
+
+.food-carousel .food-carousel-title .text-wrapper {
+    width: 32rem;
+    margin-right: 12rem;
+}
+
+.food-carousel .food-carousel-title span {
+    font-weight: 800;
+}
+
+.food-carousel .food-carousel-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.food-carousel .food-carousel-list img {
+    width: 16rem;
+}
+
+.food-carousel-list-wrapper {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+}
+
+.food-carousel .food-carousel-list {
+    transition: transform 0.3s ease-in-out;
+}
+
+.food-carousel .food-carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2.5rem 7rem;
+}
+
+.food-carousel .food-carousel-controls .food-carousel-slider {
+    width: 36rem;
+    height: 0.25rem;
+    background-color: #dddddd;
+    position: relative;
+    overflow: hidden;
+}
+
+.food-carousel .food-carousel-controls .food-carousel-slider .food-carousel-slider-bar {
+    width: 25%;
+    height: 100%;
+    background-color: #000000;
+    position: absolute;
+    left: 0;
+    transition: left 0.3s ease-in-out;
+}
+
+.food-carousel .food-carousel-controls .food-carousel-indicator {
+    font-size: 0.75rem;
+}
+
+.carousel-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.food-carousel .food-carousel-controls .carousel-btn-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d9d9d9;
+    border-radius: 9999px;
+}
+
+.carousel-btn:hover {
+    opacity: 1;
+}
+
+.carousel-btn:disabled {
+    opacity: 0.2;
+    cursor: default;
+}

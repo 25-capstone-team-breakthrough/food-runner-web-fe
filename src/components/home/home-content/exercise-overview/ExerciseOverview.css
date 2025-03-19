@@ -1,0 +1,36 @@
+.exercise-overview .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 0;
+    font-size: 1.5rem;
+}
+
+.exercise-overview .title .text-wrapper {
+    width: 32rem;
+    margin-right: 12rem;
+}
+
+.exercise-overview .title span {
+    font-weight: 800;
+}
+
+.exercise-overview .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f3f3;
+    padding: 2.5rem 7rem;
+    gap: 5rem;
+}
+
+.exercise-overview .content .content-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.exercise-overview .content .content-right {
+    display: flex;
+    align-items: center;
+}

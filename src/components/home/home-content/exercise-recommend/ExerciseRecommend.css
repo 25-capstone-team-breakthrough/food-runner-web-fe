@@ -1,0 +1,39 @@
+.exercise-recommend .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 0 2rem 0;
+    font-size: 1.5rem;
+}
+
+.exercise-recommend .title .text-wrapper {
+    width: 32rem;
+    margin-right: 12rem;
+}
+
+.exercise-recommend .title span {
+    font-weight: 800;
+}
+
+.exercise-recommend .banner-img {
+    cursor: pointer;
+    padding-top: 6.5rem;
+    position: relative;
+    width: 48rem;
+    margin: 0 auto 2rem auto;
+}
+
+.exercise-recommend .banner-img img {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.exercise-recommend .content {
+    display: flex;
+    flex-direction: column;
+    background-color: #f3f3f3;
+    padding: 2.5rem 7rem;
+    gap: 6rem;
+}
