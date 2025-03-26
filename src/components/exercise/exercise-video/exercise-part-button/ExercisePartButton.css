@@ -1,0 +1,15 @@
+.exercise-part-button {
+    border: none;
+    cursor: pointer;
+    padding: 0.375rem 0;
+    background-color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    width: 5rem;
+    border-radius: 0.5rem;
+}
+
+.exercise-part-button-selected {
+    background: linear-gradient(135deg, #e1ff01 -0.69%, #c8e100 99.31%);
+}

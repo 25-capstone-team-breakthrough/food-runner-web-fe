@@ -1,0 +1,21 @@
+.exercise-video-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3rem;
+    gap: 1rem;
+}
+
+.exercise-video-list .list-title {
+    margin-right: 47.5rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.exercise-video-list .video-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #e8e8e8;
+}

@@ -1,0 +1,20 @@
+.exercise-video {
+    background-color: #ffffff;
+}
+
+.exercise-video .exercise-guide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.25rem;
+}
+
+.exercise-video .part-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
