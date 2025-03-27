@@ -1,11 +1,12 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/common/NavBar";
-import ExerciseVideo from "../components/exercise/exercise-video/ExerciseVideo";
 
 const Exercise = () => {
     return (
         <div className="exercise">
             <Navbar />
-            <ExerciseVideo />
+            {/* 하위 페이지 렌더링 */}
+            <Outlet />
         </div>
     );
 };
