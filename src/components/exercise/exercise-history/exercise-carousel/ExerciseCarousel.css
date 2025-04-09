@@ -1,0 +1,76 @@
+.exercise-carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 54rem;
+    margin: 0 auto;
+    padding: 2.5rem;
+}
+
+.exercise-carousel > .carousel-bar {
+    height: 0.25rem;
+    width: 100%;
+    background-color: #000000;
+    z-index: 1;
+}
+
+.exercise-carousel > .carousel-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.exercise-carousel .carousel-row > .arrow {
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.exercise-carousel .carousel-row > .exercise-carousel-items {
+    display: flex;
+    justify-content: center;
+}
+
+.exercise-carousel-items > .divider {
+    width: 1px;
+    margin-top: 0.75rem;
+    height: 2.5rem;
+    background-color: #cccccc;
+}
+
+.exercise-carousel-items > .exercise-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    padding: 0.5rem 1rem;
+    width: 8rem;
+    cursor: pointer;
+}
+
+.exercise-carousel-items > .exercise-item.selected {
+    background-color: #f6f6f6;
+}
+
+.exercise-carousel-items > .exercise-item.selected::before {
+    content: "";
+    position: absolute;
+    top: -0.25rem;
+    left: 0;
+    right: 0;
+    height: 0.25rem;
+    background-color: #ddfb21;
+    z-index: 3;
+}
+
+.exercise-item > .exercise-name {
+    font-size: 1.125rem;
+}
+
+.exercise-item > .exercise-part {
+    font-size: 0.75rem;
+    color: #808080;
+}

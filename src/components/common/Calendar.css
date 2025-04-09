@@ -1,0 +1,84 @@
+.calendar {
+    font-family: "Inter", serif;
+    width: 54rem;
+    margin: 0 auto;
+    user-select: none;
+    position: relative;
+}
+
+.calendar > .calendar-bar {
+    height: 0.5rem;
+    background-color: #000000;
+    position: relative;
+    z-index: 1;
+}
+
+.calendar > .calendar-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+}
+
+.calendar .calendar-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 5rem;
+    padding: 0.5rem;
+    padding-top: 0.25rem;
+    font-size: 1.75rem;
+    font-weight: 500;
+}
+
+.calendar .calendar-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.calendar .calendar-arrow {
+    font-size: 1rem;
+    padding: 0.25rem;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+    z-index: 3;
+}
+
+.calendar .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.calendar .calendar-day-wrapper {
+    cursor: pointer;
+    position: relative;
+    padding: 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.calendar .calendar-day-wrapper .day-number {
+    margin-top: 0.75rem;
+}
+
+.calendar .calendar-day-wrapper.highlight::before {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+    background-color: #ddfb21;
+    z-index: 3;
+}
+
+.calendar .calendar-day-wrapper.highlight {
+    background-color: #f6f6f6;
+    z-index: 2;
+}

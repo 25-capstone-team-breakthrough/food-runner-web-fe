@@ -1,0 +1,59 @@
+.exercise-detail-container {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    width: 54rem;
+    margin: 0 auto;
+    padding: 2.5rem;
+}
+
+.exercise-detail-container > .exercise-detail-label {
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    width: 4rem;
+    border-right: 1px solid #333333;
+}
+
+.exercise-detail-container > .exercise-detail-content {
+    flex: 1;
+    padding: 1rem 3rem;
+}
+
+.exercise-detail-content .exercise-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+}
+
+.exercise-detail-content .exercise-subparts {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #808080;
+}
+
+.exercise-detail-content .exercise-table {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.exercise-detail-content .exercise-table-header,
+.exercise-detail-content .exercise-table-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.125rem;
+    padding-bottom: 0.5rem;
+}
+
+.exercise-detail-content .exercise-table-header {
+    border-bottom: 1px solid #333333;
+}
+
+.exercise-detail-content .cell {
+    width: 5rem;
+    text-align: center;
+}
