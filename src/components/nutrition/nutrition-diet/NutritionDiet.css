@@ -1,0 +1,28 @@
+.nutrition-diet {
+    background-color: #ffffff;
+}
+
+.nutrition-diet .diet-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.25rem;
+}
+
+.nutrition-diet .title-img {
+    cursor: pointer;
+    padding-top: 16.8rem;
+    position: relative;
+    width: 54rem;
+    margin: 0 auto;
+}
+
+.nutrition-diet .title-img img {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}

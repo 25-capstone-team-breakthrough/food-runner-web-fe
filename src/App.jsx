@@ -6,6 +6,11 @@ import Exercise from './pages/Exercise'
 import ExerciseVideo from './components/exercise/exercise-video/ExerciseVideo'
 import ExerciseHistory from './components/exercise/exercise-history/ExerciseHistory'
 import ExerciseInbody from './components/exercise/exercise-inbody/ExerciseInbody'
+import Nutrition from './pages/Nutrition'
+import NutritionDiet from './components/nutrition/nutrition-diet/NutritionDiet'
+import NutritionCreate from './components/nutrition/nutrition-create/NutritionCreate'
+import NutritionRecipt from './components/nutrition/nutrition-recipt/NutritionRecipt'
+import NutritionHistory from './components/nutrition/nutrition-history/NutritionHistory'
 
 function App() {
   return (
@@ -19,6 +24,13 @@ function App() {
           <Route path="video" element={<ExerciseVideo />} />
           <Route path="history" element={<ExerciseHistory />} />
           <Route path="inbody" element={<ExerciseInbody />} />
+        </Route>
+        <Route path="/nutrition" element={<Nutrition />} >
+          <Route index element={<Navigate to="create" />} />
+          <Route path="create" element={<NutritionCreate />} />
+          <Route path="diet" element={<NutritionDiet />} />
+          <Route path="recipt" element={<NutritionRecipt />} />
+          <Route path="history" element={<NutritionHistory />} />
         </Route>
       </Routes>
     </div>
