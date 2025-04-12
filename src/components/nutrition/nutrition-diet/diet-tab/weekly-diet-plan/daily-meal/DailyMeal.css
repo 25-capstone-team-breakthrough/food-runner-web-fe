@@ -1,0 +1,25 @@
+.daily-meal {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 0 0 3rem;
+    border-top: 1px solid #b3b3b3;
+}
+
+.daily-meal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.daily-meal__type {
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.daily-meal__items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-left: 2rem;
+}

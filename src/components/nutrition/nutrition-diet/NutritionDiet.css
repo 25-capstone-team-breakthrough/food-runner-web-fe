@@ -1,28 +1,51 @@
 .nutrition-diet {
     background-color: #ffffff;
 }
-
-.nutrition-diet .diet-title {
+  
+.nutrition-diet__title {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     padding: 3rem;
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: 0.25rem;
 }
-
-.nutrition-diet .title-img {
-    cursor: pointer;
-    padding-top: 16.8rem;
+  
+.nutrition-diet__title-img {
     position: relative;
     width: 54rem;
     margin: 0 auto;
+    padding-top: 16.8rem;
+    cursor: pointer;
 }
-
-.nutrition-diet .title-img img {
-    left: 0;
+  
+.nutrition-diet__title-img img {
     position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
+}
+  
+.nutrition-diet__tabs {
+    display: flex;
+    width: 54rem;
+    margin: 6rem auto 0;
+    border-bottom: 1px solid #b3b3b3;
+}
+  
+.nutrition-diet__tab {
+    width: 4rem;
+    text-align: center;
+    font-size: 1.25rem;
+    color: #b3b3b3;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-top: 0.35rem solid #b3b3b3;
+}
+  
+.nutrition-diet__tab.active {
+    border-top: 0.35rem solid #ddfb21;
+    color: #000000;
+    font-weight: 800;
 }

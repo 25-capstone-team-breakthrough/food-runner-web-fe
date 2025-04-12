@@ -1,0 +1,49 @@
+.custom-checkbox {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: relative;
+    cursor: pointer;
+}
+
+/* 실제 input은 안 보이게 */
+.custom-checkbox input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+/* 체크박스 틀 */
+.custom-checkbox__mark {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.4);
+    border: none;
+    border-radius: 0;
+}
+
+/* 체크되었을 때: 검정 배경 + 흰색 체크 */
+.custom-checkbox input[type="checkbox"]:checked + .custom-checkbox__mark {
+    background-color: black;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .custom-checkbox__mark::after {
+    content: "";
+    position: absolute;
+    left: 0.475rem;
+    top: 0.2rem;
+    width: 0.45rem;
+    height: 0.75rem;
+    border: solid white;
+    border-width: 0 0.15rem 0.15rem 0;
+    transform: rotate(45deg);
+}
+
+/* 포커스 제거 (테두리만 제거하고 기존 box-shadow 유지) */
+.custom-checkbox input[type="checkbox"]:focus + .custom-checkbox__mark {
+    outline: none;
+}

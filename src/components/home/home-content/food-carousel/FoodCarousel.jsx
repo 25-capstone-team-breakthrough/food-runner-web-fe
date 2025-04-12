@@ -1,28 +1,12 @@
 import "./FoodCarousel.css";
-import sampleFood1 from "../../../../assets/images/sample-food-1.png";
-import sampleFood2 from "../../../../assets/images/sample-food-2.png";
-import sampleFood3 from "../../../../assets/images/sample-food-3.png";
-import sampleFood4 from "../../../../assets/images/sample-food-4.png";
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icons } from "../../../../utils";
+import { icons, mockFoods } from "../../../../utils";
 
 const FoodCarousel = () => {
-    const sampleFood = [
-        { name: "food1", img: sampleFood1 },
-        { name: "food2", img: sampleFood2 },
-        { name: "food3", img: sampleFood3 },
-        { name: "food4", img: sampleFood4 },
-        { name: "food5", img: sampleFood1 },
-        { name: "food6", img: sampleFood2 },
-        { name: "food7", img: sampleFood3 },
-        { name: "food8", img: sampleFood4 },
-        { name: "food9", img: sampleFood1 }
-    ];
-
-    const totalItems = sampleFood.length;
-    const itemWidth = 16; // rem 단위
-    const transitionDuration = 300; // ms
+    const totalItems = mockFoods.length;
+    const itemWidth = 16;
+    const transitionDuration = 300;
     const wrapperRef = useRef(null);
     const [visibleItems, setVisibleItems] = useState(1);
 
@@ -41,9 +25,9 @@ const FoodCarousel = () => {
 
     // 앞뒤로 visibleItems 개수만큼 추가하여 무한 루프 구현
     const extendedList = [
-        ...sampleFood.slice(-visibleItems),
-        ...sampleFood,
-        ...sampleFood.slice(0, visibleItems)
+        ...mockFoods.slice(-visibleItems),
+        ...mockFoods,
+        ...mockFoods.slice(0, visibleItems)
     ];
 
     const [index, setIndex] = useState(visibleItems);

@@ -1,0 +1,41 @@
+.meal-item {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.meal-item__image {
+    width: 10rem;
+    height: 10rem;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.meal-item__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.meal-item__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.meal-item__name {
+    font-size: 1.125rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+}
+
+.meal-item__nutrients {
+    font-size: 0.875rem;
+    color: #7d7d7d;
+}
+
+.meal-item__calories {
+    font-size: 0.875rem;
+    color: #7d7d7d;
+}

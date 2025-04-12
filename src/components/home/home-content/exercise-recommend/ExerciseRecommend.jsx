@@ -1,44 +1,9 @@
 import "./ExerciseRecommend.css";
 import exerciseVideoBanner from "../../../../assets/images/exercise-video-banner.png";
-import sampleExercise1 from "../../../../assets/images/sample-exercise-1.png";
-import sampleExercise2 from "../../../../assets/images/sample-exercise-2.png";
-import sampleExercise3 from "../../../../assets/images/sample-exercise-3.png";
-import sampleExercise4 from "../../../../assets/images/sample-exercise-4.png";
-import sampleExercise5 from "../../../../assets/images/sample-exercise-5.png";
-import sampleExercise6 from "../../../../assets/images/sample-exercise-6.png";
 import ExercisePart from "./exercise-part/ExercisePart";
+import { mockLinkImgs1, mockLinkImgs2 } from "../../../../utils";
 
 const ExerciseRecommend = () => {
-    const linkImgs1 = [
-        {
-            img: sampleExercise1,
-            label: "숄더프레스"
-        },
-        {
-            img: sampleExercise2,
-            label: "벤치프레스"
-        },
-        {
-            img: sampleExercise3,
-            label: "벤치프레스"
-        }
-    ];
-
-    const linkImgs2 = [
-        {
-            img: sampleExercise4,
-            label: "숄더프레스"
-        },
-        {
-            img: sampleExercise5,
-            label: "벤치프레스"
-        },
-        {
-            img: sampleExercise6,
-            label: "벤치프레스"
-        }
-    ];
-
     return (
         <div className="exercise-recommend">
             <div className="title">
@@ -50,8 +15,8 @@ const ExerciseRecommend = () => {
                 <img src={exerciseVideoBanner} />
             </div>
             <div className="content">
-                <ExercisePart partName={"어깨"} linkImgs={linkImgs1} />
-                <ExercisePart partName={"등"} linkImgs={linkImgs2} />
+                <ExercisePart partName={"어깨"} linkImgs={mockLinkImgs1} />
+                <ExercisePart partName={"등"} linkImgs={mockLinkImgs2} />
             </div>
         </div>
     );

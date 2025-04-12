@@ -1,0 +1,15 @@
+.rect-button {
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 1rem 5rem;
+    letter-spacing: 0.1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.rect-button:hover {
+    opacity: 0.8;
+}
