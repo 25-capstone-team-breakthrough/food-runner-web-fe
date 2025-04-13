@@ -261,6 +261,7 @@ export const mockAllVideos = [
         }
 ];
 
+// 식재료 목 데이터
 export const mockIngredients = [
     { name: "가지", calories: 24, nutrients: "식이섬유 | 안토시아닌", image: ingredientCard1 },
     { name: "갈치", calories: 143, nutrients: "오메가3 | 비타민D", image: ingredientCard6 },
@@ -270,6 +271,7 @@ export const mockIngredients = [
     { name: "강낭콩", calories: 41, nutrients: "단백질 | 식이섬유", image: ingredientCard2 },
 ];
 
+// 식단 추천 목 데이터
 export const mockMeals = [
     {
         type: "아침",
@@ -342,6 +344,49 @@ export const mockMeals = [
                 nutrients: "철분 | 비타민 K"
             }
         ]
+    }
+];
+
+// 식단 히스토리 목 데이터
+export const mockDietData = [
+    {
+        date: "2025-04-11",
+        calorie: 1950,
+        meals: {
+            아침: [
+                { name: "현미밥", image: sampleDiet1, calories: 150, nutrients: "탄수화물 | 식이섬유", type: "식사" },
+                { name: "계란후라이", image: sampleDiet2, calories: 90, nutrients: "단백질 | 지방", type: "식사" },
+                { name: "종합비타민", image: sampleDiet2, calories: 0, nutrients: "비타민A | C", type: "영양제" }
+            ],
+            점심: [
+                { name: "잡곡밥", image: sampleDiet1, calories: 180, nutrients: "탄수화물 | 단백질", type: "식사" },
+                { name: "닭가슴살", image: sampleDiet2, calories: 165, nutrients: "단백질 | 저지방", type: "식사" },
+                { name: "비타민D", image: sampleDiet2, calories: 0, nutrients: "칼슘 흡수 도움", type: "영양제" }
+            ],
+            저녁: [
+                { name: "고구마", image: sampleDiet1, calories: 120, nutrients: "탄수화물 | 베타카로틴", type: "식사" },
+                { name: "연어", image: sampleDiet2, calories: 200, nutrients: "오메가3 | 단백질", type: "식사" },
+                { name: "유산균", image: sampleDiet2, calories: 0, nutrients: "장 건강", type: "영양제" }
+            ]
+        }
+    },
+    {
+        date: "2025-04-12",
+        calorie: 2120,
+        meals: {
+            아침: [
+                { name: "토스트", image: sampleDiet1, calories: 170, nutrients: "탄수화물 | 지방", type: "식사" },
+                { name: "우유", image: sampleDiet2, calories: 100, nutrients: "칼슘 | 단백질", type: "식사" }
+            ],
+            점심: [
+                { name: "비빔밥", image: sampleDiet1, calories: 350, nutrients: "탄수화물 | 단백질 | 야채", type: "식사" },
+                { name: "비타민C", image: sampleDiet2, calories: 0, nutrients: "항산화", type: "영양제" }
+            ],
+            저녁: [
+                { name: "현미밥", image: sampleDiet1, calories: 150, nutrients: "복합 탄수화물", type: "식사" },
+                { name: "닭볶음탕", image: sampleDiet2, calories: 280, nutrients: "단백질 | 지방", type: "식사" }
+            ]
+        }
     }
 ];
 

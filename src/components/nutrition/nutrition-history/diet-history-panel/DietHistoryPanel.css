@@ -1,0 +1,44 @@
+.diet-history-panel {
+    width: 54rem;
+    margin: 2rem auto;
+}
+
+.diet-history-panel__tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6rem;
+}
+
+.diet-history-panel__tab {
+    font-size: 1.25rem;
+    flex: 1;
+    text-align: center;
+    padding: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    border-top: 0.25rem solid #000000;
+    background-color: #ffffff;
+}
+
+.diet-history-panel__tab.active {
+    background-color: #f6f6f6;
+    border-top: 0.25rem solid #ddfb21;
+}
+
+.diet-history-panel__section {
+    padding: 2rem 3rem;
+    border-bottom: 1px solid #b3b3b3;
+}
+
+.diet-history-panel__section-label {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.diet-history-panel__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-left: 2rem;
+}

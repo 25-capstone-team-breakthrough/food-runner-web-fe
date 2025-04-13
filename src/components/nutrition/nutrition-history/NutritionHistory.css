@@ -1,0 +1,28 @@
+.nutrition-history {
+    background-color: #ffffff;
+}
+  
+.nutrition-history__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.25rem;
+}
+  
+.nutrition-history__title-img {
+    position: relative;
+    width: 54rem;
+    margin: 0 auto;
+    padding-top: 16.8rem;
+    cursor: pointer;
+}
+  
+.nutrition-history__title-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
