@@ -9,8 +9,9 @@ import ExerciseInbody from './components/exercise/exercise-inbody/ExerciseInbody
 import Nutrition from './pages/Nutrition'
 import NutritionDiet from './components/nutrition/nutrition-diet/NutritionDiet'
 import NutritionCreate from './components/nutrition/nutrition-create/NutritionCreate'
-import NutritionRecipt from './components/nutrition/nutrition-recipt/NutritionRecipt'
 import NutritionHistory from './components/nutrition/nutrition-history/NutritionHistory'
+import RecipeList from './components/nutrition/nutrition-recipe/recipe-list/RecipeList'
+import RecipeDetail from './components/nutrition/nutrition-recipe/recipe-detail/RecipeDetail'
 
 function App() {
   return (
@@ -29,7 +30,10 @@ function App() {
           <Route index element={<Navigate to="create" />} />
           <Route path="create" element={<NutritionCreate />} />
           <Route path="diet" element={<NutritionDiet />} />
-          <Route path="recipt" element={<NutritionRecipt />} />
+          <Route path="recipe">
+            <Route index element={<RecipeList />} />
+            <Route path=":id" element={<RecipeDetail />} />
+          </Route>
           <Route path="history" element={<NutritionHistory />} />
         </Route>
       </Routes>

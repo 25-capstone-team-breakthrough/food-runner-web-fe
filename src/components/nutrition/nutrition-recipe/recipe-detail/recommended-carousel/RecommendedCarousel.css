@@ -1,0 +1,41 @@
+.recommended-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.recommended-carousel__track {
+    display: flex;
+    gap: 4rem;
+}
+
+.recommended-carousel__card {
+    cursor: pointer;
+    width: 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.recommended-carousel__card img {
+    width: 100%;
+}
+
+.recommended-carousel__name {
+    font-size: 0.875rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 10rem;
+}
+
+.recommended-carousel__arrow {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    cursor: pointer;
+    padding-bottom: 1.75rem;
+}

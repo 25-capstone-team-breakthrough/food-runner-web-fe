@@ -22,6 +22,11 @@ import ingredientCard6 from "./assets/images/ingredient-card-6.png";
 import sampleDiet1 from "./assets/images/sample-diet-1.png";
 import sampleDiet2 from "./assets/images/sample-diet-2.png";
 
+import sampleRecipe1 from "./assets/images/sample-recipe-1.png";
+import sampleRecipe2 from "./assets/images/sample-recipe-2.png";
+import sampleRecipe3 from "./assets/images/sample-recipe-3.png";
+
+
 export const icons = {
     faChevronLeft,
     faChevronRight,
@@ -350,7 +355,7 @@ export const mockMeals = [
 // 식단 히스토리 목 데이터
 export const mockDietData = [
     {
-        date: "2025-04-11",
+        date: "2025-04-14",
         calorie: 1950,
         meals: {
             아침: [
@@ -371,7 +376,7 @@ export const mockDietData = [
         }
     },
     {
-        date: "2025-04-12",
+        date: "2025-04-15",
         calorie: 2120,
         meals: {
             아침: [
@@ -389,6 +394,107 @@ export const mockDietData = [
         }
     }
 ];
+
+const baseRecipes = [
+    {
+        id: 1,
+        name: "아보카도 닭가슴살 샐러드",
+        image: sampleRecipe1,
+        calories: 400,
+        ingredients: [
+            "닭가슴살 100g",
+            "고구마 1개",
+            "브로콜리 1줌",
+            "마늘 2쪽",
+            "간장 1작은술",
+            "올리브오일 1큰술",
+            "소금",
+            "후추 약간"
+        ],
+        instructions: [
+            "닭가슴살을 삶거나 에어프라이어로 구운 뒤 먹기 좋게 썬다.",
+            "고구마는 찌거나 굽고, 브로콜리는 데친다.",
+            "마늘은 슬라이스하여 볶아준다.",
+            "모든 재료를 그릇에 담고 간장, 올리브오일, 소금, 후추를 넣어 섞는다."
+        ],
+        nutrients: {
+            calories: "350~450 kcal",
+            protein: "35~40g",
+            fat: "20~25g",
+            carbs: "10~15g",
+            fiber: "6~8g",
+            salt: "2~4g",
+            sodium: "300~500mg",
+        },
+    },
+    {
+        id: 2,
+        name: "연어 샐러드",
+        image: sampleRecipe2,
+        calories: 380,
+        ingredients: [
+            "연어 100g",
+            "샐러드 채소 1줌",
+            "삶은 계란 1개",
+            "방울토마토 4~5개",
+            "옥수수 약간",
+            "발사믹 드레싱"
+        ],
+        instructions: [
+            "연어를 구워 식혀준다.",
+            "샐러드 채소와 방울토마토를 씻어 준비한다.",
+            "삶은 계란은 반으로 자른다.",
+            "모든 재료를 담고 드레싱을 뿌려 완성한다."
+        ],
+        nutrients: {
+            calories: "330~430 kcal",
+            protein: "30~35g",
+            fat: "18~22g",
+            carbs: "12~18g",
+            fiber: "5~7g",
+            salt: "1.5~3g",
+            sodium: "250~400mg",
+        },
+    },
+    {
+        id: 3,
+        name: "연어 아보카도 샌드위치",
+        image: sampleRecipe3,
+        calories: 450,
+        ingredients: [
+            "통밀빵 2장",
+            "아보카도 1/2개",
+            "훈제 연어 50g",
+            "크림치즈 1큰술",
+            "양상추 약간",
+            "방울토마토 2개"
+        ],
+        instructions: [
+            "빵에 크림치즈를 바른다.",
+            "아보카도는 슬라이스하고, 토마토는 얇게 썬다.",
+            "빵 위에 양상추, 연어, 아보카도, 토마토 순으로 올린다.",
+            "다른 빵으로 덮고 반으로 자른다."
+        ],
+        nutrients: {
+            calories: "400~500 kcal",
+            protein: "25~30g",
+            fat: "22~27g",
+            carbs: "30~35g",
+            fiber: "4~6g",
+            salt: "2~3g",
+            sodium: "280~450mg",
+        }
+    }
+];
+
+const dummyRecipes = Array.from({ length: 200 }, (_, i) => ({
+    id: i + 4,
+    name: `레시피 ${i + 4}`,
+    image: [sampleRecipe1, sampleRecipe2, sampleRecipe3][i % 3],
+    calories: 300 + (i * 10)
+}));
+
+export const mockRecipes = [...baseRecipes, ...dummyRecipes];
 
 export const getWeekDates = (baseDate) => {
     const start = new Date(baseDate);
