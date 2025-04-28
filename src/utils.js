@@ -1,4 +1,4 @@
-import  { faChevronDown, faChevronLeft, faChevronRight, faCirclePlus, faCircleXmark, faMagnifyingGlass, faTimes } from "@fortawesome/free-solid-svg-icons";
+import  { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faCirclePlus, faCircleXmark, faMagnifyingGlass, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import sampleFood1 from "./assets/images/sample-food-1.png";
 import sampleFood2 from "./assets/images/sample-food-2.png";
@@ -26,15 +26,22 @@ import sampleRecipe1 from "./assets/images/sample-recipe-1.png";
 import sampleRecipe2 from "./assets/images/sample-recipe-2.png";
 import sampleRecipe3 from "./assets/images/sample-recipe-3.png";
 
+import sampleMeal1 from "./assets/images/sample-meal-1.png";
+import sampleMeal2 from "./assets/images/sample-meal-2.png";
+import sampleMeal3 from "./assets/images/sample-meal-3.png";
+import sampleSupplement1 from "./assets/images/sample-supplement-1.png";
+import sampleSupplement2 from "./assets/images/sample-supplement-2.png";
 
 export const icons = {
     faChevronLeft,
     faChevronRight,
+    faChevronUp,
     faChevronDown,
     faCirclePlus,
-    faTimes,
     faCircleXmark,
-    faMagnifyingGlass
+    faMagnifyingGlass,
+    faPlus,
+    faMinus
 };
 
 export const mockFoods = [
@@ -495,6 +502,34 @@ const dummyRecipes = Array.from({ length: 200 }, (_, i) => ({
 }));
 
 export const mockRecipes = [...baseRecipes, ...dummyRecipes];
+
+// 전체 영양소 섭취량 목 데이터
+export const nutrientData = [
+    { name: "당류", status: "적정", value: 95.1 },
+    { name: "나트륨", status: "부족", value: 60.4 },
+    { name: "식이섬유", status: "적정", value: 93.3 },
+    { name: "칼슘", status: "적정", value: 98.7 },
+    { name: "포화지방", status: "초과", value: 120.2 },
+    { name: "트랜스지방", status: "초과", value: 111.4 },
+    { name: "콜레스테롤", status: "초과", value: 134.7 },
+    { name: "비타민 A", status: "부족", value: 70.0 },
+    { name: "비타민 C", status: "적정", value: 91.0 },
+    { name: "비타민 D", status: "초과", value: 121.5 },
+    { name: "비타민 B1", status: "적정", value: 95.0 },
+    { name: "비타민 E", status: "적정", value: 94.3 }
+];
+
+// 식단, 영양제 검색 창 목 데이터
+export const initialMeals = [
+    { id: 1, name: "빅맥버거", kcal: 889, brand: "맥도날드", image: sampleMeal1, isFavorite: true, type: "meal" },
+    { id: 2, name: "불고기버거", kcal: 489, brand: "롯데리아", image: sampleMeal2, isFavorite: false, type: "meal" },
+    { id: 3, name: "쉑쉑버거", kcal: 1089, brand: "쉑쉑", image: sampleMeal3, isFavorite: false, type: "meal" },
+    { id: 4, name: "오메가3", kcal: 0, brand: "네이처메이드", image: sampleSupplement1, isFavorite: true, type: "supplement" },
+    { id: 5, name: "빅맥버거", kcal: 889, brand: "맥도날드", image: sampleMeal2, isFavorite: true, type: "meal" },
+    { id: 6, name: "불고기버거", kcal: 489, brand: "롯데리아", image: sampleMeal3, isFavorite: false, type: "meal" },
+    { id: 7, name: "쉑쉑버거", kcal: 1089, brand: "쉑쉑", image: sampleMeal1, isFavorite: false, type: "meal" },
+    { id: 8, name: "비타민C", kcal: 0, brand: "종근당건강", image: sampleSupplement2, isFavorite: true, type: "supplement" }
+];
 
 export const getWeekDates = (baseDate) => {
     const start = new Date(baseDate);

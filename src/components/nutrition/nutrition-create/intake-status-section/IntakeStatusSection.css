@@ -1,0 +1,38 @@
+.intake-status-section__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 32rem;
+    padding: 2rem 0 1rem;
+    font-size: 1.5rem;
+    font-weight: 800;
+    gap: 0.75rem;
+}
+
+.intake-status-section__arrow {
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+.intake-status-section__content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.intake-status-section__content.expanded {
+    /* max-height는 JS에서 설정하므로 생략 */
+    opacity: 1;
+}
+
+.intake-status-section__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 25rem;
+    padding: 2.5rem 12rem;
+    background-color: #fafafa;
+}

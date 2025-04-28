@@ -1,0 +1,70 @@
+.intake-status__item {
+    display: flex;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    width: 40rem;
+}
+
+.intake-status__nutrient {
+    width: 8rem;
+    font-weight: 800;
+}
+
+.intake-status__level {
+    width: 4rem;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+.intake-status__level--adequate {
+    color: #26c51e;
+}
+
+.intake-status__level--deficient {
+    color: #ff4646;
+}
+
+.intake-status__level--excessive {
+    color: #ff4646;
+}
+
+.intake-status__bar-container {
+    flex: 1;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.intake-status__bar-track {
+    position: relative;
+    height: 0.3rem;
+    background-color: #efefef;
+    border-radius: 9999px;
+}
+
+.intake-status__bar-indicator {
+    position: absolute;
+    top: 0.075rem;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-color: #b3b3b3;
+    border-radius: 50%;
+    transform: translate(-50%, -25%);
+}
+
+.intake-status__bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #878787;
+    padding: 0 0.25rem;
+}
+
+.intake-status__bar-labels span {
+    text-align: center;
+}
+
+.intake-status__label-center {
+    color: #000000;
+}

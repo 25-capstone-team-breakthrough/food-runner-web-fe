@@ -1,0 +1,47 @@
+.nutrient-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2.5rem 7rem;
+}
+
+.nutrient-slider__track {
+    width: 36rem;
+    height: 0.25rem;
+    background-color: #dddddd;
+    position: relative;
+    overflow: hidden;
+}
+
+.nutrient-slider__bar {
+    height: 100%;
+    background-color: #000000;
+    position: absolute;
+    top: 0;
+    transition: left 0.3s ease-in-out;
+}
+
+.nutrient-slider__indicator {
+    font-size: 0.75rem;
+}
+
+.nutrient-slider__buttons {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d9d9d9;
+    border-radius: 9999px;
+}
+
+.nutrient-slider__btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    opacity: 0.6;
+}
+
+.nutrient-slider__btn:hover {
+    opacity: 1;
+}
