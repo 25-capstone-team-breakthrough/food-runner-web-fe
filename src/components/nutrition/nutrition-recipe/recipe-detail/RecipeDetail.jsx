@@ -13,10 +13,6 @@ const RecipeDetail = () => {
         return <div>레시피를 찾을 수 없습니다.</div>;
     }
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [id]);
-
     return (
         <div className="recipe-detail">
             <div className="recipe-detail__title">|RECIPE|</div>

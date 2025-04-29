@@ -2,8 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./ExerciseReport.css";
 import { icons } from "../../../../../utils";
 import ReportItem from "./report-item/ReportItem";
+import { useNavigate } from "react-router-dom";
 
 const ExerciseReport = () => {
+    const navigate = useNavigate();
+
     const current = 539;
     const max = 1000;
 
@@ -26,7 +29,7 @@ const ExerciseReport = () => {
                 <ReportItem name={"데드 리프트"} part={"대퇴사두, 대퇴이두"} sets={5} />
                 <ReportItem name={"덤벨 프레스"} part={"가슴"} sets={5} />
             </div>
-            <a className="report-detail-link">
+            <a className="report-detail-link" onClick={() => navigate("/exercise/history")}>
                 <div className="report-detail-label">DETAIL</div>
                 <FontAwesomeIcon
                     icon={icons.faChevronDown}

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -13,8 +13,15 @@ import NutritionHistory from './components/nutrition/nutrition-history/Nutrition
 import RecipeList from './components/nutrition/nutrition-recipe/recipe-list/RecipeList'
 import RecipeDetail from './components/nutrition/nutrition-recipe/recipe-detail/RecipeDetail'
 import Signup from './pages/Signup'
+import { useEffect } from 'react'
 
 function App() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   return (
     <div className="App">
       <Routes>

@@ -2,9 +2,9 @@ import "./ExerciseLink.css";
 import { icons } from "../../../../../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ExerciseLink = ({ imgSrc, label }) => {
+const ExerciseLink = ({ imgSrc, label, onClick }) => {
     return (
-        <a className="exercise-link">
+        <a className="exercise-link" onClick={onClick}>
             <div className="img-section">
                 <img src={imgSrc} />
             </div>

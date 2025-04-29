@@ -3,8 +3,11 @@ import exerciseLink1 from "../../../../assets/images/exercise-link-1.png";
 import exerciseLink2 from "../../../../assets/images/exercise-link-2.png";
 import ExerciseLink from "./exercise-link/ExerciseLink";
 import ExerciseReport from "./exercise-report/ExerciseReport";
+import { useNavigate } from "react-router-dom";
 
 const ExerciseOverview = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="exercise-overview">
             <div className="title">
@@ -14,8 +17,16 @@ const ExerciseOverview = () => {
             </div>
             <div className="content">
                 <div className="content-left">
-                    <ExerciseLink imgSrc={exerciseLink1} label={"인바디"} />
-                    <ExerciseLink imgSrc={exerciseLink2} label={"운동 작성하기"}/>
+                    <ExerciseLink
+                        imgSrc={exerciseLink1}
+                        label={"인바디"}
+                        onClick={() => navigate("/exercise/inbody")}
+                    />
+                    <ExerciseLink
+                        imgSrc={exerciseLink2}
+                        label={"운동 기록보기"}
+                        onClick={() => navigate("/exercise/history")}
+                    />
                 </div>
                 <div className="content-right">
                     <ExerciseReport />
