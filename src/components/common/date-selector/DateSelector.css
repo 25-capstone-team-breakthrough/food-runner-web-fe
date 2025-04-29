@@ -12,6 +12,7 @@
 
 .date-selector__date {
     cursor: pointer;
+    text-align: center;
     font-size: 1.25rem;
     font-weight: 500;
     width: 8rem;
