@@ -3,43 +3,43 @@
     top: 0;
     z-index: 9999;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 0.75rem 1rem;
-    background-color: #000000;
+    background-color: #000;
 }
 
-.navbar-left {
+.navbar__left {
     display: flex;
     align-items: center;
     gap: 5rem;
-    flex-grow: 1;
 }
 
-.navbar-left .logo-section {
-    cursor: pointer;
+.navbar__logo-section {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    cursor: pointer;
 }
 
-.navbar-left .logo-section img {
+.navbar__logo-section img {
     width: 2rem;
 }
 
-.navbar-left .logo-section .text-wrapper {
+.navbar__logo-text {
     font-family: "Inter", serif;
-    color: #e1ff01;
-    font-size: 1rem;
     font-weight: 800;
-    white-space: nowrap;
+    font-size: 1rem;
+    color: #e1ff01;
 }
 
-.navbar-left .menu-section {
+.navbar__menu-section {
     display: flex;
     align-items: center;
     gap: 5rem;
 }
 
-.navbar-left .menu-section a {
+.navbar__menu {
     cursor: pointer;
     font-family: "Inter", serif;
     color: #ffffff;
@@ -47,19 +47,74 @@
     font-size: 1rem;
     font-weight: 500;
     white-space: nowrap;
+    position: relative;
 }
 
-.navbar-right {
+.navbar__menu.active {
+    color: #e1ff01;
+}
+
+.navbar__menu.active::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: #e1ff01;
+    border-radius: 2px;
+}
+
+.navbar__right {
     display: flex;
     align-items: center;
 }
 
-.navbar-right a {
+.navbar__right a {
     cursor: pointer;
     color: #ffffff;
     padding: 0.25rem 0.5rem;
     font-size: 1rem;
     font-weight: 500;
+}
+
+.navbar__submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #2d2d35;
+    padding: 0.4rem 0;
+    animation: fadeInDown 0.3s ease forwards;
+}
+
+.navbar__submenu-wrapper {
+    position: relative;
+    display: flex;
+    gap: 3rem;
+}
+
+.navbar__submenu-item {
+    cursor: pointer;
+    font-family: "Inter", serif;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
     white-space: nowrap;
 }
 
+.navbar__submenu-item.active {
+    color: #e1ff01;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
