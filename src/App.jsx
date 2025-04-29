@@ -12,6 +12,7 @@ import NutritionCreate from './components/nutrition/nutrition-create/NutritionCr
 import NutritionHistory from './components/nutrition/nutrition-history/NutritionHistory'
 import RecipeList from './components/nutrition/nutrition-recipe/recipe-list/RecipeList'
 import RecipeDetail from './components/nutrition/nutrition-recipe/recipe-detail/RecipeDetail'
+import Signup from './pages/Signup'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/exercise" element={<Exercise />} >
           <Route index element={<Navigate to="video" />} />

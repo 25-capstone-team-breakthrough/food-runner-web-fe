@@ -5,14 +5,14 @@
     gap: 0.25rem;
 }
 
-.login-footer .footer-brand {
+.login-footer__brand {
     font-family: "Inter", serif;
     font-size: 1.5rem;
     font-weight: 900;
     color: #e1ff01;
 }
 
-.login-footer .footer-credit {
+.login-footer__credit {
     color: #ffffff;
     font-size: 0.75rem;
 }
