@@ -1,3 +1,31 @@
 .home-content {
     background-color: #ffffff;
 }
+
+.guest-home {
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guest-home__banner-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1024px;
+}
+
+.guest-home__banner-wrapper img {
+    width: 100%;
+}
+
+.guest-home__banner-wrapper button {
+    cursor: pointer;
+    position: absolute;
+    left: 8%;
+    top: 67%;
+    width: 10rem;
+    height: 2.8rem;
+    background-color: transparent;
+    border: none;
+}

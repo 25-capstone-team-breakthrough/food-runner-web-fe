@@ -14,21 +14,27 @@ import RecipeList from './components/nutrition/nutrition-recipe/recipe-list/Reci
 import RecipeDetail from './components/nutrition/nutrition-recipe/recipe-detail/RecipeDetail'
 import Signup from './pages/Signup'
 import { useEffect } from 'react'
+import { AuthProvider } from './contexts/AuthContext'
+import ProtectedLayout from './layouts/ProtectedLayout'
 
 function App() {
-  const location = useLocation();
-  
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
+  const ScrollToTop = () => {
+    const location = useLocation();
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [location]);
+    return null;
+  };
 
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<Home />} />
+  const AppRoutes = () => (
+    <Routes>
+      <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/home" element={<Home />} />
+
+      {/* 비로그인 상태에서는 접근 제한 */}
+      <Route element={<ProtectedLayout />}>
         <Route path="/exercise" element={<Exercise />} >
           <Route index element={<Navigate to="video" />} />
           <Route path="video" element={<ExerciseVideo />} />
@@ -40,12 +46,21 @@ function App() {
           <Route path="create" element={<NutritionCreate />} />
           <Route path="diet" element={<NutritionDiet />} />
           <Route path="recipe">
-            <Route index element={<RecipeList />} />
+          <Route index element={<RecipeList />} />
             <Route path=":id" element={<RecipeDetail />} />
           </Route>
           <Route path="history" element={<NutritionHistory />} />
         </Route>
-      </Routes>
+      </Route>
+    </Routes>
+  );
+
+  return (
+    <div className="App">
+      <AuthProvider>
+        <ScrollToTop />
+        <AppRoutes />
+      </AuthProvider>
     </div>
   )
 }

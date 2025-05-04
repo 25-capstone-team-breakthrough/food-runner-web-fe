@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import foodRunnerLogo from "../../assets/images/food-runner-logo.png";
+import { useAuthDispatch, useAuthState } from "../../contexts/AuthContext";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -9,6 +10,9 @@ const Navbar = () => {
     const [activeMain, setActiveMain] = useState(null);
     const [submenuLeft, setSubmenuLeft] = useState(0);
     const menuRefs = useRef({});
+
+    const { isLoggedIn } = useAuthState();
+    const { logout } = useAuthDispatch();
 
     const menus = [
         { name: "HOME", path: "/home" },
@@ -52,10 +56,18 @@ const Navbar = () => {
 
     const getCurrentMainMenu = () => {
         const path = location.pathname;
-        if (path.startsWith("/exercise")) return "EXERCISE";
-        if (path.startsWith("/nutrition")) return "NUTRITION";
-        if (path.startsWith("/mypage")) return "MYPAGE";
-        if (path.startsWith("/home")) return "HOME";
+        if (path.startsWith("/exercise")) {
+            return "EXERCISE";
+        }
+        if (path.startsWith("/nutrition")) {
+            return "NUTRITION";
+        }
+        if (path.startsWith("/mypage")) {
+            return "MYPAGE";
+        }
+        if (path.startsWith("/home")) {
+            return "HOME";
+        }
         return null;
     };
 
@@ -84,7 +96,11 @@ const Navbar = () => {
             </div>
 
             <div className="navbar__right">
-                <a onClick={() => navigate("/login")}>로그인</a>
+                {isLoggedIn ? (
+                    <a onClick={() => { logout(); navigate("/home"); }}>로그아웃</a>
+                ) : (
+                    <a onClick={() => navigate("/login")}>로그인</a>
+                )}
             </div>
 
             {activeMain && subMenus[activeMain] && (
