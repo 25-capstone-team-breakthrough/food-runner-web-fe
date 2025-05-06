@@ -16,6 +16,8 @@ import Signup from './pages/Signup'
 import { useEffect } from 'react'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedLayout from './layouts/ProtectedLayout'
+import UserInfoStep1 from './components/login/UserInfoStep1'
+import UserInfoStep2 from './components/login/UserInfoStep2'
 
 function App() {
   const ScrollToTop = () => {
@@ -31,6 +33,9 @@ function App() {
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/signup/info1" element={<UserInfoStep1 />} />
+      <Route path="/signup/info2" element={<UserInfoStep2 />} />
+
       <Route path="/home" element={<Home />} />
 
       {/* 비로그인 상태에서는 접근 제한 */}

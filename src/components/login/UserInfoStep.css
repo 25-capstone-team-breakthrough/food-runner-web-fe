@@ -1,0 +1,68 @@
+.user-info-step {
+    padding: 6rem;
+    min-height: 100vh;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.user-info-step__heading {
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 1rem 0;
+}
+
+.user-info-step__description {
+    color: #6d6d6d;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.user-info-step__field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 0;
+}
+
+.user-info-step__field-group label {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.user-info-step__radio-group {
+    display: flex;
+    align-items: center;
+}
+
+.user-info-step__radio-group label {
+    margin-right: 1rem;
+}
+
+.user-info-step__back-btn {
+    font-size: 1.5rem;
+    border: none;
+    background: none;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+input[type="number"] {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1px solid #b3b3b3;
+    outline: none;
+}
+
+.user-info-step__btn-wrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.user-info-step__btn-wrapper button {
+    width: 6rem;
+    padding: 0.75rem;
+    letter-spacing: 0.1rem;
+    font-size: 1.125rem;
+}

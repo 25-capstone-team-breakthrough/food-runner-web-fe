@@ -1,4 +1,4 @@
-import  { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faCirclePlus, faCircleXmark, faMagnifyingGlass, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import  { faArrowLeft, faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faCirclePlus, faCircleXmark, faMagnifyingGlass, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import sampleFood1 from "./assets/images/sample-food-1.png";
 import sampleFood2 from "./assets/images/sample-food-2.png";
@@ -41,7 +41,8 @@ export const icons = {
     faCircleXmark,
     faMagnifyingGlass,
     faPlus,
-    faMinus
+    faMinus,
+    faArrowLeft
 };
 
 export const mockFoods = [
