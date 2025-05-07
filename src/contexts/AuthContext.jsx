@@ -1,33 +1,50 @@
 import React, { useContext, useState } from "react";
+import axios from "axios";
 
-// 상태와 액션을 각각의 Context로 분리
 export const AuthStateContext = React.createContext();
 export const AuthDispatchContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
-    const [registeredUsers, setRegisteredUsers] = useState([
-        { id: "hansung", password: "1234", name: "한성유저" }
-    ]);
 
-    const signup = (id, password, name) => {
-        const exists = registeredUsers.some(user => user.id === id);
-        if (exists) return false;
-        setRegisteredUsers(prev => [...prev, { id, password, name }]);
-        setIsLoggedIn(true);
-        setUser({ id, name });
-        return true;
+    const signup = async (account, password, name) => {
+        try {
+            const response = await axios.post("http://ec2-13-125-126-160.ap-northeast-2.compute.amazonaws.com:8080/users/signup", {
+                account,
+                password,
+                name
+            });
+            setIsLoggedIn(true);
+            setUser({
+                account: response.data.account,
+                name: response.data.name,
+                token: response.data.token,
+            });
+            return true;
+        } catch (error) {
+            console.error("회원가입 실패:", error);
+            return false;
+        }
     };
 
-    const login = (id, password) => {
-        const matched = registeredUsers.find(user => user.id === id && user.password === password);
-        if (matched) {
+    const login = async (account, password) => {
+        try {
+            const response = await axios.post("http://ec2-13-125-126-160.ap-northeast-2.compute.amazonaws.com:8080/users/login", {
+                account,
+                password,
+            });
             setIsLoggedIn(true);
-            setUser({ id: matched.id, name: matched.name });
+            setUser({
+                name: response.data.name,
+                role: response.data.role,
+                token: response.data.token,
+            });
             return true;
+        } catch (error) {
+            console.error("로그인 실패:", error);
+            return false;
         }
-        return false;
     };
 
     const logout = () => {
