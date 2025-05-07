@@ -24,6 +24,7 @@
 }
 
 .ingredient-search-section__icon {
+    cursor: pointer;
     color: #333333;
     font-size: 1.125rem;
 }
@@ -38,6 +39,11 @@
 
 .ingredient-search-section__input::placeholder {
     color: #9d9d9d;
+}
+
+.ingredient-search-section__search-clear-icon {
+    cursor: pointer;
+    color: #333333;
 }
 
 .ingredient-search-section__list {

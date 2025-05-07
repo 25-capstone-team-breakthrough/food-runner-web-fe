@@ -88,6 +88,7 @@
 }
 
 .recipe-list__search-icon {
+    cursor: pointer;
     color: #333333;
     font-size: 1.125rem;
 }
@@ -102,6 +103,11 @@
 
 .recipe-list__search-input::placeholder {
     color: #9d9d9d;
+}
+
+.recipe-list__search-clear-icon {
+    cursor: pointer;
+    color: #333333;
 }
 
 .recipe-list__grid {

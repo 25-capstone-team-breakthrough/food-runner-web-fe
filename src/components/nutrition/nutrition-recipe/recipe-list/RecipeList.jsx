@@ -8,12 +8,13 @@ import { icons, mockRecipes } from "../../../../utils";
 
 const RecipeList = () => {
     const [search, setSearch] = useState("");
+    const [query, setQuery] = useState("");
     const [page, setPage] = useState(1);
     const navigate = useNavigate();
 
     const recipesPerPage = 15;
     const filtered = mockRecipes.filter((item) =>
-        item.name.includes(search)
+        item.name.toLowerCase().includes(query.toLowerCase())
     );
     const pageCount = Math.ceil(filtered.length / recipesPerPage);
     const paginated = filtered.slice((page - 1) * recipesPerPage, page * recipesPerPage);
@@ -65,6 +66,7 @@ const RecipeList = () => {
                 <FontAwesomeIcon
                     icon={icons.faMagnifyingGlass}
                     className="recipe-list__search-icon"
+                    onClick={() => setQuery(search)}
                 />
                 <input
                     className="recipe-list__search-input"
@@ -72,7 +74,22 @@ const RecipeList = () => {
                     placeholder="식재료 이름을 입력해주세요"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            setQuery(search);
+                        }
+                    }}
                 />
+                {query && (
+                    <FontAwesomeIcon
+                        icon={icons.faCircleXmark}
+                        className="recipe-list__search-clear-icon"
+                        onClick={() => {
+                            setSearch("");
+                            setQuery("");
+                        }}
+                    />
+                )}
             </div>
 
             <div className="recipe-list__grid">

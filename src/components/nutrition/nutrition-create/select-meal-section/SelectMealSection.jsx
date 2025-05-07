@@ -10,6 +10,7 @@ const SelectMealSection = () => {
     const [selected, setSelected] = useState([]);
     const [mealList, setMealList] = useState(initialMeals);
     const [search, setSearch] = useState("");
+    const [query, setQuery] = useState("");
 
     const toggleFavorite = (id) => {
         setMealList((prev) =>
@@ -32,7 +33,7 @@ const SelectMealSection = () => {
     const handleReset = () => setSelected([]);
 
     const filteredList = mealList.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+        item.name.toLowerCase().includes(query.toLowerCase())
     );
 
     return (
@@ -85,14 +86,33 @@ const SelectMealSection = () => {
                 </div>
                 <div className="select-meal-section__list">
                     <div className="select-meal-section__search-wrapper">
-                        <FontAwesomeIcon icon={icons.faMagnifyingGlass} className="select-meal-section__search-icon" />
+                        <FontAwesomeIcon
+                            icon={icons.faMagnifyingGlass}
+                            className="select-meal-section__search-icon"
+                            onClick={() => setQuery(search)}
+                        />
                         <input
                             className="select-meal-section__search-input"
                             type="text"
                             placeholder="식사나 영양제를 검색해주세요"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    setQuery(search);
+                                }
+                            }}
                         />
+                        {query && (
+                            <FontAwesomeIcon
+                                icon={icons.faCircleXmark}
+                                className="select-meal-section__search-clear-icon"
+                                onClick={() => {
+                                    setSearch("");
+                                    setQuery("");
+                                }}
+                            />
+                        )}
                     </div>
                     <div className="select-meal-section__items">
                         {filteredList.map((item) => (

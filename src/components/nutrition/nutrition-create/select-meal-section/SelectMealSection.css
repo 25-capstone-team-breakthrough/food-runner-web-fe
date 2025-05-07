@@ -68,6 +68,7 @@
 }
 
 .select-meal-section__search-icon {
+    cursor: pointer;
     color: #333333;
     font-size: 0.875rem;
 }
@@ -82,6 +83,11 @@
 
 .select-meal-section__search-input::placeholder {
     color: #9d9d9d;
+}
+
+.select-meal-section__search-clear-icon {
+    cursor: pointer;
+    color: #333333;
 }
 
 .select-meal-section__items {
