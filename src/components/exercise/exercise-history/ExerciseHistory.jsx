@@ -3,39 +3,72 @@ import exerciseHistoryTitle from "../../../assets/images/exercise-history-title.
 import Calendar from "../../common/Calendar";
 import ExerciseCarousel from "./exercise-carousel/ExerciseCarousel";
 import ExerciseDetailTable from "./exercise-detail-table/ExerciseDetailTable";
-import { useState } from "react";
 import CalorieGraph from "../../common/calorie-graph/CalorieGraph";
-import { mockExerciseData } from "../../../utils";
+import { useEffect, useState } from "react";
+import { useExerciseState, useExerciseDispatch } from "../../../contexts/ExerciseContext";
+import { useAuthState } from "../../../contexts/AuthContext";
+import { getWeekDates } from "../../../utils";
 
 const ExerciseHistory = () => {
-    // 캘린더와 칼로리 그래프에 사용할 날짜
     const [selectedDate, setSelectedDate] = useState(new Date());
-
-    // 운동 목록 캐러셀에서 사용할 인덱스
     const [selectedIndex, setSelectedIndex] = useState(0);
 
+    const { user } = useAuthState();
+    const { exerciseLogs = [], calorieLogs = [] } = useExerciseState();
+    const { fetchExerciseLogs, fetchCalorieLogs } = useExerciseDispatch();
+
+    useEffect(() => {
+        if (user?.token) {
+            fetchExerciseLogs(user.token);
+            fetchCalorieLogs(user.token);
+        }
+    }, [user]);
+
+    const selectedExercises = exerciseLogs.filter(
+        (log) =>
+            new Date(log.createdAt).toDateString() === selectedDate.toDateString()
+    );
+
+    const selectedExercise = selectedExercises[selectedIndex] ?? null;
+
+    const totalCalories = calorieLogs
+        .filter((item) =>
+            new Date(item.createdAt).toDateString() === selectedDate.toDateString()
+        )
+        .reduce((sum, item) => sum + item.caloriesBurned, 0);
+
+    // 1주일 간 각 날짜에 소비한 칼로리 합계를 계산
+    const weeklyCalories = getWeekDates(selectedDate).map((date) => {
+        const total = calorieLogs
+            .filter((item) => new Date(item.createdAt).toDateString() === date.toDateString())
+            .reduce((sum, item) => sum + item.caloriesBurned, 0);
+
+        return {
+            date,
+            calorie: total,
+        };
+    });
+        
     return (
         <div className="exercise-history">
-            <div className="history-title">
-                |EXERCISE HISTORY|
-            </div>
+            <div className="history-title">|EXERCISE HISTORY|</div>
             <div className="title-img">
-                <img src={exerciseHistoryTitle} />
+                <img src={exerciseHistoryTitle} alt="exercise-history-title" />
             </div>
             <Calendar
                 selectedDate={selectedDate}
-                onDateChange={setSelectedDate}
+                onDateChange={(date) => {
+                    setSelectedDate(date);
+                    setSelectedIndex(0); // 날짜 바뀌면 인덱스 초기화
+                }}
             />
             <ExerciseCarousel
-                exercises={mockExerciseData}
+                exercises={selectedExercises}
                 selectedIndex={selectedIndex}
                 setSelectedIndex={setSelectedIndex}
             />
-            <ExerciseDetailTable exercise={mockExerciseData[selectedIndex]} />
-            <CalorieGraph
-                referenceDate={selectedDate}
-                calorie={mockExerciseData.reduce((sum, ex) => sum + ex.calorie, 0)}
-            />
+            <ExerciseDetailTable exercise={selectedExercise} />
+            <CalorieGraph referenceDate={selectedDate} weeklyCalories={weeklyCalories} />
             <div>Food Runner</div>
         </div>
     );

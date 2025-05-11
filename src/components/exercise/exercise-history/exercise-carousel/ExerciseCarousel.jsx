@@ -17,7 +17,7 @@ const ExerciseCarousel = ({ exercises, selectedIndex, setSelectedIndex }) => {
 
     const getVisibleItems = () => {
         const items = [];
-        for (let i = 0; i < visibleCount; i++) {
+        for (let i = 0; i < visibleCount && i < exercises.length; i++) {
             items.push(exercises[(startIndex + i) % exercises.length]);
         }
         return items;
@@ -37,15 +37,16 @@ const ExerciseCarousel = ({ exercises, selectedIndex, setSelectedIndex }) => {
                         const isFirst = i === 0;
 
                         return (
-                            <React.Fragment key={i}>
+                            <React.Fragment key={actualIndex}>
                                 {!isFirst && <div className="divider" />}
                                 <div
-                                    key={actualIndex}
                                     className={`exercise-item ${isSelected ? "selected" : ""}`}
                                     onClick={() => setSelectedIndex(actualIndex)}
                                 >
-                                    <div className="exercise-name">{item.name}</div>
-                                    <div className="exercise-part">{item.part}</div>
+                                    <div className="exercise-name">운동 ID: {item.exerciseId}</div>
+                                    <div className="exercise-part">
+                                        {item.distance ? "유산소" : "근력"}
+                                    </div>
                                 </div>
                             </React.Fragment>
                         );
