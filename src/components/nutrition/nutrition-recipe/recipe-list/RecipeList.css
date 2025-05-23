@@ -52,6 +52,13 @@
     flex-direction: column;
     cursor: pointer;
     gap: 0.5rem;
+    padding: 0.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recipe-list__popular-card:hover {
+    transform: scale(1.025);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .recipe-list__image {
@@ -124,7 +131,14 @@
     align-items: center;
     flex-direction: column;
     cursor: pointer;
+    padding-bottom: 0.5rem;
     gap: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recipe-list__card:hover {
+    transform: scale(1.025);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .recipe-list__card img {
@@ -145,7 +159,7 @@
     display: flex;
     justify-content: center;
     gap: 0.75rem;
-    padding: 2rem 0;
+    padding: 4rem 0;
 }
 
 .recipe-list__pagination button {

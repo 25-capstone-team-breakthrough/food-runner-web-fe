@@ -1,22 +1,48 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./UserInfoStep.css";
 import PillButton from "../common/PillButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../utils";
+import { useAuthState } from "../../contexts/AuthContext";
+import { useExerciseDispatch } from "../../contexts/ExerciseContext";
+import Swal from "sweetalert2";
 
 const UserInfoStep2 = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
 
-    const handleFinish = () => {
+    const { gender, age } = location.state || {};
+    const { user } = useAuthState();
+    const { saveBMI } = useExerciseDispatch();
+
+    const handleFinish = async () => {
         if (!height || !weight) {
             alert("키와 몸무게를 입력해주세요.");
             return;
         }
 
-        navigate("/home");
+        const result = await saveBMI({
+            gender,
+            age,
+            height,
+            weight,
+            token: user.token,
+        });
+
+        if (result.success) {
+            localStorage.removeItem("isNewUser");
+            navigate("/home");
+        } else {
+            Swal.fire({
+                title: "저장 실패",
+                text: "BMI 정보를 저장하는 데 실패했습니다.",
+                icon: "error",
+                confirmButtonText: "확인",
+            });
+        }
     };
 
     return (

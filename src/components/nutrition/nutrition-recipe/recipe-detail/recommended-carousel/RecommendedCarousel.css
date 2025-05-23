@@ -12,15 +12,23 @@
 
 .recommended-carousel__card {
     cursor: pointer;
-    width: 8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0.5rem;
     gap: 0.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recommended-carousel__card:hover {
+    transform: scale(1.025);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .recommended-carousel__card img {
-    width: 100%;
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
 }
 
 .recommended-carousel__name {

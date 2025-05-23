@@ -1,9 +1,21 @@
 import "./ExerciseInbody.css";
 import inbodyLogo from "../../../assets/images/inbody-logo.png";
-import sampleInbody from "../../../assets/images/sample-inbody.png"
 import DateSelector from "../../common/date-selector/DateSelector";
+import { useExerciseDispatch, useExerciseState } from "../../../contexts/ExerciseContext";
+import { useAuthState } from "../../../contexts/AuthContext";
+import { useEffect } from "react";
 
 const ExerciseInbody = () => {
+    const { inbodyImages } = useExerciseState();
+    const { fetchInbodyImages } = useExerciseDispatch();
+    const { user } = useAuthState();
+
+    useEffect(() => {
+        if (user?.token) {
+            fetchInbodyImages(user.token);
+        }
+    }, [user]);
+
     return (
         <div className="exercise-inbody">
             <div className="exercise-inbody__header">
@@ -15,7 +27,15 @@ const ExerciseInbody = () => {
                 </div>
                 <DateSelector />
             </div>
-            <img className={"exercise-inbody__data"} src={sampleInbody} alt={"INBODY-DATA"} />
+            {inbodyImages.length === 0 ? (
+                <div>인바디 데이터가 없습니다.</div>
+            ) : (
+                <img
+                    className="exercise-inbody__data"
+                    src={inbodyImages[0].url}
+                    alt="INBODY-DATA"
+                />
+            )}
         </div>
     );
 };

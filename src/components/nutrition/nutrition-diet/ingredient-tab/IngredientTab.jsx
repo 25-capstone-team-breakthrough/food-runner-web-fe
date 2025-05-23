@@ -3,23 +3,17 @@ import "./IngredientTab.css";
 import PreferredIngredientList from "./preferred-ingredient-list/PreferredIngredientList";
 import IngredientSearchSection from "./ingredient-search-section/IngredientSearchSection";
 
-const IngredientTab = ({ preferredIngredients, setPreferredIngredients }) => {
-    // 선택했던 선호 식재료 제거
-    const handleRemove = (name) => {
-        setPreferredIngredients(prev =>
-            prev.filter((ingredient) => ingredient.name !== name)
-        );
-    };
-
+const IngredientTab = ({ ingredientList, preferredIngredients, onAdd, onRemove }) => {
     return (
         <div className="ingredient-tab">
             <PreferredIngredientList
-                ingredients={preferredIngredients}
-                onRemove={handleRemove}
+                preferredIngredients={preferredIngredients}
+                onRemove={onRemove}
             />
             <IngredientSearchSection
+                ingredientList={ingredientList}
                 preferredIngredients={preferredIngredients}
-                setPreferredIngredients={setPreferredIngredients}
+                onAdd={onAdd}
             />
         </div>
     );

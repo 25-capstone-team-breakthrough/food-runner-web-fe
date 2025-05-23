@@ -1,17 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NutritionDiet.css";
 import nutritionDietTitle from "../../../assets/images/nutrition-diet-title.png";
 import IngredientTab from "./ingredient-tab/IngredientTab";
 import DietTab from "./diet-tab/DietTab";
-import { mockIngredients } from "../../../utils";
+import { useNutritionState, useNutritionDispatch } from "../../../contexts/NutritionContext";
+import { useAuthState } from "../../../contexts/AuthContext";
 
 const NutritionDiet = () => {
     const [activeTab, setActiveTab] = useState("ingredient");
-    const [preferredIngredients, setPreferredIngredients] = useState([
-        mockIngredients[0],
-        mockIngredients[3],
-        mockIngredients[5]
-    ]);
+    const {
+        ingredientList,
+        preferredIngredients
+    } = useNutritionState();
+    const {
+        fetchIngredients,
+        fetchPreferredIngredients,
+        savePreferredIngredient,
+        deletePreferredIngredient
+    } = useNutritionDispatch();
+    const { user } = useAuthState();
+
+    useEffect(() => {
+        if (user?.token) {
+            fetchIngredients(user.token);
+            fetchPreferredIngredients(user.token);
+        }
+    }, [user]);
+
+    // 선호 식재료 추가
+    const handleAdd = (ingredient) => {
+        if (!preferredIngredients.find((p) => p.ingredient.ingredientId === ingredient.ingredientId)) {
+            savePreferredIngredient(user.token, ingredient.ingredientId);
+        }
+    };
+
+    // 선호 식재료 삭제
+    const handleRemove = (ingredientId) => {
+        deletePreferredIngredient(user.token, ingredientId);
+    };
+
+    console.log(ingredientList);
+    console.log(preferredIngredients);
 
     return (
         <div className="nutrition-diet">
@@ -38,8 +67,10 @@ const NutritionDiet = () => {
             <div className="nutrition-diet__content">
                 {activeTab === "ingredient" ? (
                     <IngredientTab
+                        ingredientList={ingredientList}
                         preferredIngredients={preferredIngredients}
-                        setPreferredIngredients={setPreferredIngredients}
+                        onAdd={handleAdd}
+                        onRemove={handleRemove}
                     />
                 ) : (
                     <DietTab preferredIngredients={preferredIngredients} />

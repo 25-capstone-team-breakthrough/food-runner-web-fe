@@ -1,14 +1,16 @@
 import "./ExerciseDetailTable.css";
 
 const ExerciseDetailTable = ({ exercise }) => {
-    if (!exercise) return null;
+    if (!exercise) {
+        return null;
+    }
 
     return (
         <div className="exercise-detail-container">
             <div className="exercise-detail-label">DETAIL</div>
             <div className="exercise-detail-content">
                 <div className="exercise-header">
-                    <span className="exercise-title">운동 ID: {exercise.exerciseId}</span>
+                    <span className="exercise-title">{exercise.exerciseId}</span>
                     <span className="exercise-subparts">
                         {exercise.distance ? "유산소 운동" : "근력 운동"}
                     </span>

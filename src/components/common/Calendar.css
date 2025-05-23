@@ -61,6 +61,11 @@
     padding: 0.5rem 0;
     font-size: 1.25rem;
     font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.calendar .calendar-day-wrapper:hover {
+    background-color: #eee;
 }
 
 .calendar .calendar-day-wrapper .day-number {
@@ -79,6 +84,6 @@
 }
 
 .calendar .calendar-day-wrapper.highlight {
-    background-color: #f6f6f6;
+    background-color: #eee;
     z-index: 2;
 }

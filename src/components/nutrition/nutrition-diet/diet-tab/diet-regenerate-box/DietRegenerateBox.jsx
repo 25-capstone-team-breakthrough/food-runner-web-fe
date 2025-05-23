@@ -8,7 +8,7 @@ const DietRegenerateBox = ({ onRegenerateClick, preferredIngredients }) => {
         <div className="diet-regenerate-box">
             <RectButton text={"재생성하기"} type={"default"} onClick={onRegenerateClick} />
             <PreferredIngredientList
-                ingredients={preferredIngredients}
+                preferredIngredients={preferredIngredients}
                 viewOnly={true}
             />
         </div>

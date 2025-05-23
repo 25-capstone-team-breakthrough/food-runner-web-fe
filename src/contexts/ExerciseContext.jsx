@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
+import { useLoadingManager } from "../hooks/useLoadingManager";
 
 export const ExerciseStateContext = React.createContext();
 export const ExerciseDispatchContext = React.createContext();
@@ -8,16 +9,28 @@ export const ExerciseProvider = ({ children }) => {
     const [bmi, setBmi] = useState(null);
     const [exerciseLogs, setExerciseLogs] = useState([]);
     const [calorieLogs, setCalorieLogs] = useState([]);
+    const [inbodyImages, setInbodyImages] = useState([]);
+    const [recommendedVideos, setRecommendedVideos] = useState([]);
+    const [searchedVideos, setSearchedVideos] = useState({}); // { "어깨": [...], "가슴": [...], ... }
+
+    const { loading, startLoading, endLoading } = useLoadingManager([
+        "bmi",
+        "exerciseLogs",
+        "calorieLogs",
+        "inbodyImages",
+        "exerciseVideos"
+    ]);
 
     const saveBMI = async ({ gender, age, height, weight, token }) => {
         try {
-            const response = await axios.post(
-                "http://ec2-54-180-89-105.ap-northeast-2.compute.amazonaws.com:8080/BMI/update",
+            startLoading("bmi");
+            await axios.post(
+                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/BMI/update",
                 {
                     age: parseInt(age),
-                    gender: gender,
+                    gender,
                     height: parseFloat(height),
-                    weight: parseFloat(weight),
+                    weight,
                 },
                 {
                     headers: {
@@ -31,44 +44,111 @@ export const ExerciseProvider = ({ children }) => {
         } catch (error) {
             console.error("BMI 저장 실패:", error);
             return { success: false };
+        } finally {
+            endLoading("bmi");
         }
     };
 
     const fetchExerciseLogs = async (token) => {
         try {
+            startLoading("exerciseLogs");
             const response = await axios.get(
-                "http://ec2-54-180-89-105.ap-northeast-2.compute.amazonaws.com:8080/exercise/logSearch",
+                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/exercise/logSearch",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 }
             );
+            console.log(response.data);
             setExerciseLogs(response.data);
         } catch (error) {
             console.error("운동 기록 조회 실패:", error);
+        } finally {
+            endLoading("exerciseLogs");
         }
     };
 
     const fetchCalorieLogs = async (token) => {
         try {
+            startLoading("calorieLogs");
             const response = await axios.get(
-                "http://ec2-54-180-89-105.ap-northeast-2.compute.amazonaws.com:8080/exercise/calories",
+                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/exercise/calories",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 }
             );
+            console.log(response.data);
             setCalorieLogs(response.data);
         } catch (error) {
             console.error("칼로리 로그 조회 실패:", error);
+        } finally {
+            endLoading("calorieLogs");
+        }
+    };
+
+    const fetchInbodyImages = async (token) => {
+        try {
+            startLoading("inbodyImages");
+            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/inbody/image-info", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(res.data);
+            setInbodyImages(res.data);
+        } catch (error) {
+            console.error("인바디 이미지 조회 실패:", error);
+            setInbodyImages([]);
+        } finally {
+            endLoading("inbodyImages");
+        }
+    };
+
+    const fetchExerciseVideos = async (token) => {
+        try {
+            startLoading("exerciseVideos");
+            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/videos/exercises", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(res.data.recommended);
+            console.log(res.data.searched);
+            setRecommendedVideos(res.data.recommended || []);
+            setSearchedVideos(res.data.searched || {});
+        } catch (error) {
+            console.error("운동 영상 조회 실패:", error);
+            setRecommendedVideos([]);
+            setSearchedVideos({});
+        } finally {
+            endLoading("exerciseVideos");
         }
     };
 
     return (
-        <ExerciseStateContext.Provider value={{ bmi, exerciseLogs, calorieLogs }}>
-            <ExerciseDispatchContext.Provider value={{ saveBMI, fetchExerciseLogs, fetchCalorieLogs }}>
+        <ExerciseStateContext.Provider
+            value={{
+                bmi,
+                exerciseLogs,
+                calorieLogs,
+                inbodyImages,
+                recommendedVideos,
+                searchedVideos,
+                loading
+            }}
+        >
+            <ExerciseDispatchContext.Provider
+                value={{
+                    saveBMI,
+                    fetchExerciseLogs,
+                    fetchCalorieLogs,
+                    fetchInbodyImages,
+                    fetchExerciseVideos
+                }}
+            >
                 {children}
             </ExerciseDispatchContext.Provider>
         </ExerciseStateContext.Provider>

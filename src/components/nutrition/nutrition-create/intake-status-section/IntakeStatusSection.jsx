@@ -2,52 +2,76 @@ import React, { useState, useRef, useEffect } from "react";
 import "./IntakeStatusSection.css";
 import IntakeStatusItem from "./intake-status-item/IntakeStatusItem";
 import NutrientPaginationSlider from "./nutrient-pagination-slider/NutrientPaginationSlider";
-import { nutrientData, icons } from "../../../../utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icons, nutrientNameMap, nutrientUnitMap } from "../../../../utils";
 
-const IntakeStatusSection = () => {
-    const PAGE_SIZE = 7; // 한 번에 표시할 영양소 개수
+const IntakeStatusSection = ({ nutritionLogs, recommendedNutrients, selectedDate }) => {
+    const PAGE_SIZE = 7;
     const [currentPage, setCurrentPage] = useState(0);
-    const totalPages = Math.ceil(nutrientData.length / PAGE_SIZE);
-
     const [isExpanded, setIsExpanded] = useState(false);
     const [contentHeight, setContentHeight] = useState(0);
-
     const contentRef = useRef(null);
 
-    const handlePrev = () => {
-        setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+    const toggleExpand = () => {
+        setIsExpanded((prev) => !prev);
     };
 
-    const handleNext = () => {
-        setCurrentPage((prev) => (prev + 1) % totalPages);
-    };
+    const selectedDateStr = typeof selectedDate === "string"
+    ? selectedDate
+    : selectedDate.toLocaleDateString("sv-SE"); // "2025-05-20"
 
+    // 기준값 분리
+    const minRaw = recommendedNutrients.find((r) => r.type === "MIN") || {};
+    const maxRaw = recommendedNutrients.find((r) => r.type === "MAX") || {};
+
+    const todayLog = nutritionLogs.find(log => log.date.trim() === selectedDateStr.trim()) || {};
+
+    const nutrientKeys = Object.keys(nutrientNameMap);
+
+    const nutrientData = nutrientKeys.map((rawKey) => {
+        const key = rawKey.trim();
+    
+        const value = todayLog[key] ?? 0;
+        const minValue = minRaw[key] ?? 0;
+        const maxValue = maxRaw[key] ?? 0;
+    
+        let status = "적정";
+        if (value < minValue){ 
+            status = "부족";
+        } else if (value > maxValue) {
+            status = "초과";
+        }
+        
+        return {
+            key,
+            name: `${nutrientNameMap[key]} (${nutrientUnitMap[key]})`,
+            value,
+            minValue,
+            maxValue,
+            status,
+        };
+    });
+    
+
+    const totalPages = Math.ceil(nutrientData.length / PAGE_SIZE);
     const visibleData = nutrientData.slice(
         currentPage * PAGE_SIZE,
         currentPage * PAGE_SIZE + PAGE_SIZE
     );
 
-    const toggleExpand = () => {
-        setIsExpanded(!isExpanded);
-    };
+    useEffect(() => {
+        if (contentRef.current) {
+        setContentHeight(contentRef.current.scrollHeight);
+        }
+    }, [nutrientData]);
 
     useEffect(() => {
         if (contentRef.current) {
-            // scrollHeight: 실제 렌더링된 높이 계산(패딩 포함)
-            setContentHeight(contentRef.current.scrollHeight);
+            contentRef.current.style.maxHeight = isExpanded
+                ? `${contentHeight}px`
+                : "0px";
         }
-    }, []);
-
-    useEffect(() => {
-        if (contentRef.current) {
-            if (isExpanded) {
-                contentRef.current.style.maxHeight = `${contentHeight}px`;
-            } else {
-                contentRef.current.style.maxHeight = "0px";
-            }
-        }
-    }, [isExpanded]);
+    }, [isExpanded, contentHeight]);
 
     return (
         <div className="intake-status-section">
@@ -65,21 +89,23 @@ const IntakeStatusSection = () => {
                 className={`intake-status-section__content ${isExpanded ? "expanded" : ""}`}
             >
                 <div className="intake-status-section__list">
-                    {visibleData.map((item, index) => (
-                        <IntakeStatusItem
-                            key={index}
-                            name={item.name}
-                            status={item.status}
-                            value={item.value}
-                        />
-                    ))}
+                {visibleData.map((item) => (
+                    <IntakeStatusItem
+                    key={item.key}
+                    name={item.name}
+                    status={item.status}
+                    value={item.value}
+                    minValue={item.minValue}
+                    maxValue={item.maxValue}
+                    />
+                ))}
                 </div>
 
                 <NutrientPaginationSlider
                     currentPage={currentPage}
                     totalPages={totalPages}
-                    onPrev={handlePrev}
-                    onNext={handleNext}
+                    onPrev={() => setCurrentPage((p) => (p - 1 + totalPages) % totalPages)}
+                    onNext={() => setCurrentPage((p) => (p + 1) % totalPages)}
                 />
             </div>
         </div>

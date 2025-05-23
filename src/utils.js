@@ -1,4 +1,4 @@
-import  { faArrowLeft, faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faCirclePlus, faCircleXmark, faMagnifyingGlass, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import  { faArrowLeft, faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import sampleFood1 from "./assets/images/sample-food-1.png";
 import sampleFood2 from "./assets/images/sample-food-2.png";
@@ -31,18 +31,20 @@ import sampleMeal2 from "./assets/images/sample-meal-2.png";
 import sampleMeal3 from "./assets/images/sample-meal-3.png";
 import sampleSupplement1 from "./assets/images/sample-supplement-1.png";
 import sampleSupplement2 from "./assets/images/sample-supplement-2.png";
+import { faCirclePlus, faCircleXmark, faMagnifyingGlass } from "@fortawesome/pro-light-svg-icons";
 
 export const icons = {
     faChevronLeft,
     faChevronRight,
     faChevronUp,
     faChevronDown,
-    faCirclePlus,
     faCircleXmark,
     faMagnifyingGlass,
     faPlus,
     faMinus,
-    faArrowLeft
+    faArrowLeft,
+    faCirclePlus,
+    faCircleXmark
 };
 
 export const mockFoods = [
@@ -546,3 +548,56 @@ export const isSameDay = (d1, d2) =>
     d1.getFullYear() === d2.getFullYear() &&
     d1.getMonth() === d2.getMonth() &&
     d1.getDate() === d2.getDate();
+
+export const nutrientNameMap = {
+    calories: "열량",
+    sodium: "나트륨",
+    carbohydrate: "탄수화물",
+    sugar: "당류",
+    fat: "지방",
+    transFat: "트랜스지방",
+    saturatedFat: "포화지방",
+    cholesterol: "콜레스테롤",
+    protein: "단백질",
+    dietaryFiber: "식이섬유",
+    vitaminA: "비타민 A",
+    vitaminB1: "비타민 B1",
+    vitaminC: "비타민 C",
+    vitaminD: "비타민 D",
+    vitaminE: "비타민 E",
+    calcium: "칼슘",
+    iron: "철분",
+    magnesium: "마그네슘",
+    potassium: "칼륨",
+    zinc: "아연",
+    omega3: "오메가3",
+    lactium: "락티움",
+    larginine: "아르기닌"
+};
+
+export const nutrientUnitMap = {
+    calories: "kcal",
+    sodium: "mg",
+    carbohydrate: "g",
+    sugar: "g",
+    fat: "g",
+    transFat: "g",
+    saturatedFat: "g",
+    cholesterol: "mg",
+    protein: "g",
+    dietaryFiber: "g",
+    vitaminA: "µg",
+    vitaminB1: "mg",
+    vitaminC: "mg",
+    vitaminD: "µg",
+    vitaminE: "mg",
+    calcium: "mg",
+    iron: "mg",
+    magnesium: "mg",
+    potassium: "mg",
+    zinc: "mg",
+    omega3: "mg",
+    lactium: "mg",
+    larginine: "mg"
+};
+

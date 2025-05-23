@@ -1,51 +1,59 @@
 import React, { useEffect } from "react";
 import "./RecipeDetail.css";
-import { useParams } from "react-router-dom";
-import { mockRecipes } from "../../../../utils";
+import { useNavigate, useParams } from "react-router-dom";
+import { useNutritionState } from "../../../../contexts/NutritionContext";
 import RecommendedCarousel from "./recommended-carousel/RecommendedCarousel";
 
 const RecipeDetail = () => {
     const { id } = useParams();
-    const recipe = mockRecipes.find((r) => r.id === Number(id));
+    const navigate = useNavigate();
+    const { recipeList } = useNutritionState();
 
-    // 목 데이터에서 1~3번 이상 인덱스는 목록 출력만을 위한 것이어서 세부 데이터가 없음
-    if (!recipe.nutrients) {
-        return <div>레시피를 찾을 수 없습니다.</div>;
+    useEffect(() => {
+        if (recipeList.length === 0) {
+            navigate("/nutrition/recipe");
+        }
+    }, [recipeList, navigate]);
+
+    const recipe = recipeList.find((r) => r.recipeId === Number(id));
+    if (!recipe) {
+        return null;
     }
+
+    const relatedIds = [
+        Number(recipe.relatedRecipe1),
+        Number(recipe.relatedRecipe2),
+        Number(recipe.relatedRecipe3),
+    ].filter(Boolean);
+
+    const relatedRecipes = recipeList.filter((r) => relatedIds.includes(r.recipeId));
 
     return (
         <div className="recipe-detail">
             <div className="recipe-detail__title">|RECIPE|</div>
             <div className="recipe-detail__header">
-                <img src={recipe.image} alt={recipe.name} className="recipe-detail__image" />
+                <img src={recipe.recipeImage} alt={recipe.recipeName} className="recipe-detail__image" />
                 <div className="recipe-detail__info">
-                    <div className="recipe-detail__name">{recipe.name}</div>
-                    <div className="recipe-detail__serving">영양 성분 (1인분, 250~300g)</div>
+                    <div className="recipe-detail__name">{recipe.recipeName}</div>
+                    <div className="recipe-detail__serving">{`영양 성분 (${recipe.serving})`}</div>
                     <div className="recipe-detail__nutrients">
-                        {Object.entries(recipe.nutrients).map(([key, value]) => (
-                            <div key={key}>
-                                {`${translateNutrient(key)}: ${value}`}
-                            </div>
-                        ))}
+                        <div>칼로리: {recipe.calories} kcal</div>
+                        <div>단백질: {recipe.protein} g</div>
+                        <div>지방: {recipe.fat} g</div>
+                        <div>탄수화물: {recipe.carbohydrate} g</div>
                     </div>
                 </div>
             </div>
 
             <div className="recipe-detail__ingredients">
-                <div className="recipe-detail__ingredients__left">
-                    재료
-                </div>
-                <div className="recipe-detail__ingredients__right">
-                    {recipe.ingredients.join(", ")}
-                </div>
+                <div className="recipe-detail__ingredients__left">재료</div>
+                <div className="recipe-detail__ingredients__right">{recipe.ingredients}</div>
             </div>
 
             <div className="recipe-detail__step">
-                <div className="recipe-detail__step__left">
-                    만드는 법
-                </div>
+                <div className="recipe-detail__step__left">만드는 법</div>
                 <div className="recipe-detail__step__right">
-                    {recipe.instructions.map((step, idx) => (
+                    {recipe.recipe.split("\n").map((step, idx) => (
                         <div key={idx}>{`${idx + 1}. ${step}`}</div>
                     ))}
                 </div>
@@ -53,28 +61,15 @@ const RecipeDetail = () => {
 
             <div className="recipe-detail__recommend">
                 <div className="recipe-detail__recommend__title">
-                    {recipe.name}
+                    {recipe.recipeName}
                     <p>와 유사한 추천 레시피</p>
                 </div>
                 <div className="recipe-detail__carousel-wrapper">
-                    <RecommendedCarousel recipes={mockRecipes.filter(r => r.id !== Number(id))} />
+                    <RecommendedCarousel recipes={relatedRecipes} />
                 </div>
             </div>
         </div>
     );
-};
-
-const translateNutrient = (key) => {
-    const map = {
-        calories: "칼로리",
-        protein: "단백질",
-        fat: "지방",
-        carbs: "탄수화물",
-        fiber: "식이섬유",
-        salt: "염류",
-        sodium: "나트륨",
-    };
-    return map[key] || key;
 };
 
 export default RecipeDetail;

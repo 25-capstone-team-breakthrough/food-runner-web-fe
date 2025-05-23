@@ -1,0 +1,34 @@
+.search-input__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 17rem;
+    margin: 0 3rem 0.5rem 2rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid #bebebe;
+    font-size: 0.875rem;
+}
+
+.search-input__icon {
+    cursor: pointer;
+    color: #333333;
+    font-size: 0.875rem;
+}
+
+.search-input__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: transparent;
+}
+
+.search-input__input::placeholder {
+    color: #9d9d9d;
+}
+
+.search-input__clear {
+    cursor: pointer;
+    color: #333333;
+}

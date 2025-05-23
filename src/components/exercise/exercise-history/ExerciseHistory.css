@@ -26,3 +26,8 @@
     top: 0;
     width: 100%;
 }
+
+.exercise-empty-message {
+    padding: 4rem;
+    text-align: center;
+}

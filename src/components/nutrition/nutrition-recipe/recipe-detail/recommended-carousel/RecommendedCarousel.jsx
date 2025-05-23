@@ -40,12 +40,12 @@ const RecommendedCarousel = ({ recipes }) => {
             <div className="recommended-carousel__track">
                 {visibleRecipes.map((recipe) => (
                     <div
-                        key={recipe.id}
+                        key={recipe.recipeId}
                         className="recommended-carousel__card"
-                        onClick={() => handleClick(recipe.id)}
+                        onClick={() => handleClick(recipe.recipeId)}
                     >
-                        <img src={recipe.image} alt={recipe.name} />
-                        <div className="recommended-carousel__name">{recipe.name}</div>
+                        <img src={recipe.recipeImage} alt={recipe.recipeName} />
+                        <div className="recommended-carousel__name">{recipe.recipeName}</div>
                     </div>
                 ))}
             </div>

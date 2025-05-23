@@ -8,6 +8,11 @@
     white-space: nowrap;
     width: 5rem;
     border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.exercise-part-button:hover {
+    background-color: #ececec;
 }
 
 .exercise-part-button-selected {

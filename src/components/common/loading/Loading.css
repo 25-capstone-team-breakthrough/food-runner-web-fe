@@ -1,0 +1,28 @@
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 4rem;
+    box-sizing: border-box;
+}
+
+.loading--full {
+    height: calc(100vh - 7rem);
+    background-color: #fff;
+    z-index: 200;
+}
+
+.loading--fit {
+    height: calc(100vh - 23rem);
+}
+
+.loading--small {
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .loading--fit {
+        height: calc(100vh - 19rem);
+    }
+}

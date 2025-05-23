@@ -49,6 +49,11 @@
     padding: 0.5rem 1rem;
     width: 8rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.exercise-carousel-items > .exercise-item:hover {
+    background-color: #f6f6f6;
 }
 
 .exercise-carousel-items > .exercise-item.selected {

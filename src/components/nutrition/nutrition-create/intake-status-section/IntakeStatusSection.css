@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 32rem;
+    margin-right: 35rem;
     padding: 2rem 0 1rem;
     font-size: 1.5rem;
     font-weight: 800;
@@ -24,7 +24,6 @@
 }
 
 .intake-status-section__content.expanded {
-    /* max-height는 JS에서 설정하므로 생략 */
     opacity: 1;
 }
 
@@ -32,7 +31,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 25rem;
-    padding: 2.5rem 12rem;
+    height: 30rem;
+    padding: 1rem 12rem;
     background-color: #fafafa;
 }

@@ -31,13 +31,6 @@ const ExerciseHistory = () => {
 
     const selectedExercise = selectedExercises[selectedIndex] ?? null;
 
-    const totalCalories = calorieLogs
-        .filter((item) =>
-            new Date(item.createdAt).toDateString() === selectedDate.toDateString()
-        )
-        .reduce((sum, item) => sum + item.caloriesBurned, 0);
-
-    // 1주일 간 각 날짜에 소비한 칼로리 합계를 계산
     const weeklyCalories = getWeekDates(selectedDate).map((date) => {
         const total = calorieLogs
             .filter((item) => new Date(item.createdAt).toDateString() === date.toDateString())
@@ -48,7 +41,7 @@ const ExerciseHistory = () => {
             calorie: total,
         };
     });
-        
+
     return (
         <div className="exercise-history">
             <div className="history-title">|EXERCISE HISTORY|</div>
@@ -62,16 +55,22 @@ const ExerciseHistory = () => {
                     setSelectedIndex(0); // 날짜 바뀌면 인덱스 초기화
                 }}
             />
-            <ExerciseCarousel
-                exercises={selectedExercises}
-                selectedIndex={selectedIndex}
-                setSelectedIndex={setSelectedIndex}
-            />
-            <ExerciseDetailTable exercise={selectedExercise} />
+    
+            {selectedExercises.length === 0 ? (
+                <div className="exercise-empty-message">운동 기록이 없습니다.</div>
+            ) : (
+                <>
+                    <ExerciseCarousel
+                        exercises={selectedExercises}
+                        selectedIndex={selectedIndex}
+                        setSelectedIndex={setSelectedIndex}
+                    />
+                    <ExerciseDetailTable exercise={selectedExercise} />
+                </>
+            )}
             <CalorieGraph referenceDate={selectedDate} weeklyCalories={weeklyCalories} />
-            <div>Food Runner</div>
-        </div>
-    );
+        </div>    
+    );    
 };
 
 export default ExerciseHistory;

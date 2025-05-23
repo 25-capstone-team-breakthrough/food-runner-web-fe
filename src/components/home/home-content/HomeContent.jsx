@@ -5,6 +5,8 @@ import ExerciseRecommend from "./exercise-recommend/ExerciseRecommend";
 import { useAuthState } from "../../../contexts/AuthContext";
 import homeGuestBanner from "../../../assets/images/home-guest-banner.png";
 import { useNavigate } from "react-router-dom";
+import { ExerciseProvider } from "../../../contexts/ExerciseContext";
+import { NutritionProvider } from "../../../contexts/NutritionContext";
 
 const HomeContent = () => {
     const { isLoggedIn } = useAuthState();
@@ -27,11 +29,15 @@ const HomeContent = () => {
     }
 
     return (
-        <div className="home-content">
-            <FoodCarousel />
-            <ExerciseOverview />
-            <ExerciseRecommend />
-        </div>
+        <ExerciseProvider>
+            <NutritionProvider>
+                <div className="home-content">
+                    <FoodCarousel />
+                    <ExerciseOverview />
+                    <ExerciseRecommend />
+                </div>
+            </NutritionProvider>
+        </ExerciseProvider>
     );
 };
 

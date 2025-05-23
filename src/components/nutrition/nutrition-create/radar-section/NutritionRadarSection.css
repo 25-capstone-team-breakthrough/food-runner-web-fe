@@ -1,7 +1,43 @@
 .nutrition-radar-section {
-    background-image: url("../../../../assets/images/nutrition-bg.png");
-    background-position: center;
-    background-repeat: no-repeat;
+    position: relative;
     padding: 4rem 0;
     text-align: center;
+    overflow: hidden;
+    z-index: 1;
+}
+  
+.nutrition-radar-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1024px;
+    min-width: 768px;
+    height: 100%;
+  
+    background-image: url(/src/assets/images/nutrition-bg.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.nutrition-radar-section .date-selector {
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    transform: translateX(-145%);
+    z-index: 10;
+}
+
+.nutrition-radar-section__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.25rem;
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
 }

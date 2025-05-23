@@ -1,43 +1,90 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ExerciseReport.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../../../utils";
 import ReportItem from "./report-item/ReportItem";
-import { useNavigate } from "react-router-dom";
+import { useExerciseDispatch, useExerciseState } from "../../../../../contexts/ExerciseContext";
+import { useAuthState } from "../../../../../contexts/AuthContext";
 
 const ExerciseReport = () => {
     const navigate = useNavigate();
+    const { user } = useAuthState();
+    const { exerciseLogs, calorieLogs } = useExerciseState();
+    const { fetchExerciseLogs, fetchCalorieLogs } = useExerciseDispatch();
 
-    const current = 539;
-    const max = 1000;
+    useEffect(() => {
+        if (user?.token) {
+            fetchExerciseLogs(user.token);
+            fetchCalorieLogs(user.token);
+        }
+    }, [user?.token]);
+
+    //const today = new Date().toISOString().split("T")[0];
+    const today = "2025-05-08";
+
+    // 운동 로그
+    const todayLogs = useMemo(() => {
+        return exerciseLogs.filter(log =>
+            log.createdAt?.startsWith(today)
+        );
+    }, [exerciseLogs]);
+
+    // 칼로리 소모 합산
+    const todayCalories = useMemo(() => {
+        return calorieLogs
+            .filter(log => log.createdAt?.startsWith(today))
+            .reduce((sum, log) => sum + (log.caloriesBurned || 0), 0);
+    }, [calorieLogs]);
+
+    const MAX_KCAL = 1000;
+    const todayFormatted = today.replace(/-/g, ".");
 
     return (
-        <div className="exercise-report">
-            <div className="date">2025.03.11</div>
+        <div className="exercise-report" onClick={() => navigate("/exercise/history")}>
+            <div className="date">{todayFormatted}</div>
+
             <div className="calorie-info">
                 <div className="calorie-title">소모한 칼로리</div>
-                <div className="calorie-amount"><span>539</span>kcal</div>
+                <div className="calorie-amount">
+                    <span>{todayCalories}</span>kcal
+                </div>
                 <div className="calorie-progress">
                     <div
                         className="calorie-progress-bar"
-                        style={{ width: `${(current / max) * 100}%` }}
+                        style={{ width: `${Math.min((todayCalories / MAX_KCAL) * 100, 100)}%` }}
                     ></div>
                 </div>
             </div>
+
             <div className="report-container">
                 <div className="report-title">EXERCISE REPORT</div>
-                <ReportItem name={"벤치 프레스"} part={"가슴"} sets={3} />
-                <ReportItem name={"데드 리프트"} part={"대퇴사두, 대퇴이두"} sets={5} />
-                <ReportItem name={"덤벨 프레스"} part={"가슴"} sets={5} />
+
+                {todayLogs.length === 0 ? (
+                    <div className="report-empty">오늘은 운동 기록이 없습니다.</div>
+                ) : (
+                    todayLogs.slice(0, 3).map((log, index) => {
+                        const sets = log.strengthSets?.length || 1;
+                        const name = `운동 ${log.exerciseId}`; // 추후 매핑 가능
+                        const part = "부위 정보 없음";
+                        return (
+                            <ReportItem
+                                key={index}
+                                name={name}
+                                part={part}
+                                sets={sets}
+                            />
+                        );
+                    })
+                )}
             </div>
-            <a className="report-detail-link" onClick={() => navigate("/exercise/history")}>
+
+            <a className="report-detail-link">
                 <div className="report-detail-label">DETAIL</div>
+                <FontAwesomeIcon icon={icons.faChevronDown} style={{ color: "#ccd584" }} />
                 <FontAwesomeIcon
                     icon={icons.faChevronDown}
-                    style={{ color: "#ccd584", position: "relative", top: "0" }}
-                />
-                <FontAwesomeIcon
-                    icon={icons.faChevronDown}
-                    style={{ color: "#75811b", position: "relative", top: "-0.5rem" }}
+                    style={{ color: "#75811b", top: "-0.5rem", position: "relative" }}
                 />
             </a>
         </div>

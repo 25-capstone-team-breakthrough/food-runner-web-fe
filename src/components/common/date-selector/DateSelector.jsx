@@ -3,9 +3,8 @@ import "./DateSelector.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../utils";
 
-const DateSelector = () => {
+const DateSelector = ({ selectedDate, setSelectedDate }) => {
     const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-    const [selectedDate, setSelectedDate] = useState(new Date());
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
 

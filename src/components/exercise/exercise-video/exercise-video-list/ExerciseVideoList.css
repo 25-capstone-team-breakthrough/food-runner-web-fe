@@ -6,6 +6,11 @@
     gap: 1rem;
 }
 
+.video-empty {
+    text-align: center;
+    padding: 4rem;
+}
+
 .exercise-video-list .list-title {
     margin-right: 47.5rem;
     font-size: 1.25rem;
@@ -18,4 +23,5 @@
     gap: 2rem;
     padding-bottom: 2.5rem;
     border-bottom: 1px solid #e8e8e8;
+    min-height: 8rem;
 }

@@ -1,28 +1,37 @@
-import React, { useState } from "react";
 import "./IngredientSearchSection.css";
-import IngredientCard from "./ingredient-card/IngredientCard"
+import { useState, useEffect } from "react";
+import IngredientCard from "./ingredient-card/IngredientCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icons, mockIngredients } from "../../../../../utils";
+import { icons } from "../../../../../utils";
+import { useInView } from "react-intersection-observer";
 
-const IngredientSearchSection = ({ preferredIngredients, setPreferredIngredients }) => {
+const IngredientSearchSection = ({ ingredientList = [], preferredIngredients = [], onAdd }) => {
     const [search, setSearch] = useState("");
     const [query, setQuery] = useState("");
+    const [visibleCount, setVisibleCount] = useState(20);
+    const [ref, inView] = useInView();
 
-    const filtered = mockIngredients.filter((item) =>
-        item.name.toLowerCase().includes(query.toLowerCase())
-    );
+    const filtered = Array.isArray(ingredientList)
+        ? ingredientList
+              .filter((item) => item && item.ingredientName)
+              .filter((item) =>
+                  !query || item.ingredientName.toLowerCase().includes(query.toLowerCase())
+              )
+        : [];
 
-    const handleAdd = (ingredient) => {
-        if (!preferredIngredients.find((i) => i.name === ingredient.name)) {
-            setPreferredIngredients([...preferredIngredients, ingredient]);
+    useEffect(() => {
+        setVisibleCount(20);
+    }, [query]);
+
+    useEffect(() => {
+        if (inView && visibleCount < filtered.length) {
+            setVisibleCount((prev) => Math.min(prev + 20, filtered.length));
         }
-    };
+    }, [inView, filtered.length]);
 
     return (
         <div className="ingredient-search-section">
-            <div className="ingredient-search-section__label">
-                식재료 추가
-            </div>
+            <div className="ingredient-search-section__label">식재료 추가</div>
             <div className="ingredient-search-section__search-wrapper">
                 <FontAwesomeIcon
                     icon={icons.faMagnifyingGlass}
@@ -36,9 +45,7 @@ const IngredientSearchSection = ({ preferredIngredients, setPreferredIngredients
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            setQuery(search);
-                        }
+                        if (e.key === "Enter") setQuery(search);
                     }}
                 />
                 {query && (
@@ -53,13 +60,15 @@ const IngredientSearchSection = ({ preferredIngredients, setPreferredIngredients
                 )}
             </div>
             <div className="ingredient-search-section__list">
-                {filtered.map((item, index) => (
+                {filtered.slice(0, visibleCount).map((item, index) => (
                     <IngredientCard
                         key={index}
                         ingredient={item}
-                        onAdd={() => handleAdd(item)}
+                        isAdded={preferredIngredients.some((p) => p.ingredient.ingredientId === item.ingredientId)}
+                        onAdd={() => onAdd(item)}
                     />
                 ))}
+                {visibleCount < filtered.length && <div ref={ref} style={{ height: "1px" }} />}
             </div>
         </div>
     );

@@ -9,15 +9,20 @@ import { icons } from "../../utils";
 const UserInfoStep1 = () => {
     const navigate = useNavigate();
     const [gender, setGender] = useState("female");
-    const [birthYear, setBirthYear] = useState("");
+    const [age, setAge] = useState("");
 
     const handleNext = () => {
-        if (!birthYear) {
-            alert("출생연도를 입력해주세요.");
+        if (!age) {
+            alert("만나이를 입력해주세요.");
             return;
         }
 
-        navigate("/signup/info2");
+        navigate("/signup/info2", {
+            state: {
+                gender,
+                age
+            }
+        });
     };
 
     return (
@@ -54,13 +59,13 @@ const UserInfoStep1 = () => {
             </div>
 
             <div className="user-info-step__field-group">
-                <label htmlFor="birthYear">출생연도</label>
+                <label htmlFor="age">만나이</label>
                 <input
-                    id="birthYear"
+                    id="age"
                     type="number"
-                    placeholder="2002"
-                    value={birthYear}
-                    onChange={(e) => setBirthYear(e.target.value)}
+                    placeholder="20"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
                 />
             </div>
             <div className="user-info-step__btn-wrapper">

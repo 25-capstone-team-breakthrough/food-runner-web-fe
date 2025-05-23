@@ -7,6 +7,11 @@
     gap: 0.5rem;
     width: 12rem;
     box-shadow: rgba(100, 100, 100, 0.75) 0px 5px 15px 0px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.exercise-link:hover {
+    transform: scale(1.025);
 }
 
 .exercise-link .img-section {

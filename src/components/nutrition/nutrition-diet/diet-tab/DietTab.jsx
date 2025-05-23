@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import "./DietTab.css";
 import WeeklyDietPlan from "./weekly-diet-plan/WeeklyDietPlan";
 import DietRegenerateBox from "./diet-regenerate-box/DietRegenerateBox";
-import { mockMeals } from "../../../../utils";
+import { useNutritionState } from "../../../../contexts/NutritionContext";
 
-const DietTab = ({ preferredIngredients }) => {
+const DietTab = () => {
+    const { preferredIngredients } = useNutritionState();
     const today = new Date();
-    const todayIndex = (today.getDay() + 6) % 7; // 월~일 기준 맞춤
+    const todayIndex = (today.getDay() + 6) % 7;
 
     const [selectedDayIndex, setSelectedDayIndex] = useState(todayIndex);
     const [dietData, setDietData] = useState(
-        Array.from({ length: 7 }, () => ({
-            meals: JSON.parse(JSON.stringify(mockMeals))
-        }))
+        Array.from({ length: 7 }, () => ({ meals: [] }))
     );
 
     const handleCheckToggle = (dayIndex, mealIndex) => {
@@ -26,8 +25,8 @@ const DietTab = ({ preferredIngredients }) => {
         const allChecked = currentDayMeals.every((meal) => meal.checked);
         const newData = [...dietData];
         newData[selectedDayIndex].meals = currentDayMeals.map((meal) => ({
-            ...meal,
-            checked: !allChecked
+        ...meal,
+        checked: !allChecked,
         }));
         setDietData(newData);
     };
@@ -38,17 +37,17 @@ const DietTab = ({ preferredIngredients }) => {
 
     return (
         <div className="diet-tab">
-            <WeeklyDietPlan
-                selectedDayIndex={selectedDayIndex}
-                setSelectedDayIndex={setSelectedDayIndex}
-                meals={dietData[selectedDayIndex].meals}
-                onCheckToggle={handleCheckToggle}
-                onCheckAllToggle={handleCheckAllToggle}
-            />
-            <DietRegenerateBox
-                onRegenerateClick={handleRegenerateClick}
-                preferredIngredients={preferredIngredients}
-            />
+        <WeeklyDietPlan
+            selectedDayIndex={selectedDayIndex}
+            setSelectedDayIndex={setSelectedDayIndex}
+            meals={dietData[selectedDayIndex].meals}
+            onCheckToggle={handleCheckToggle}
+            onCheckAllToggle={handleCheckAllToggle}
+        />
+        <DietRegenerateBox
+            onRegenerateClick={handleRegenerateClick}
+            preferredIngredients={preferredIngredients}
+        />
         </div>
     );
 };

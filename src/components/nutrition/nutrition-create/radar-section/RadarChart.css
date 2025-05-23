@@ -1,7 +1,8 @@
 .radar-chart-container {
-    width: 20rem;
-    height: 20rem;
+    width: 24rem;
+    height: 24rem;
     margin: 0 auto;
+    margin-top: 2rem;
     position: relative;
     z-index: 1;
 }

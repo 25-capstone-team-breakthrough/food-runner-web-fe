@@ -48,6 +48,11 @@
     font-weight: 500;
     white-space: nowrap;
     position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar__menu:hover {
+    color: #777;
 }
 
 .navbar__menu.active {
@@ -77,6 +82,11 @@
     padding: 0.25rem 0.5rem;
     font-size: 1rem;
     font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar__right a:hover {
+    color: #777;
 }
 
 .navbar__submenu {
@@ -102,6 +112,11 @@
     font-size: 1rem;
     font-weight: 500;
     white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.navbar__submenu-item:hover {
+    color: #777;
 }
 
 .navbar__submenu-item.active {

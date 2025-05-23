@@ -6,23 +6,46 @@ import LoginFooter from "./LoginFooter";
 import LoginHeader from "./LoginHeader";
 import { useState } from "react";
 import { useAuthDispatch } from "../../contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const LoginContent = () => {
     const navigate = useNavigate();
-    const { login } = useAuthDispatch();
+    const { login, testLogin } = useAuthDispatch();
 
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
 
-    const handleLogin = () => {
-        const success = login(id, password);
-        if (success) {
-            navigate("/home");
-        } else {
-            setError("아이디 또는 비밀번호가 올바르지 않습니다.");
+    const handleLogin = async () => {
+        if (id === "test" && password === "1234") {
+            const testSuccess = testLogin();
+            if (testSuccess) {
+                navigate("/home"); // 테스트 로그인도 홈으로 이동
+            }
+            return;
         }
-    };
+    
+        const success = await login(id, password);
+        if (!success) {
+            Swal.fire({
+                title: "로그인 실패",
+                text: "아이디 또는 비밀번호가 올바르지 않습니다.",
+                icon: "error",
+                confirmButtonText: "확인",
+                customClass: {
+                    confirmButton: 'no-focus-outline'
+                },
+            });
+            return;
+        }
+    
+        // 로그인 성공 시 리디렉션
+        const isNewUser = localStorage.getItem("isNewUser") === "true";
+        if (isNewUser) {
+            navigate("/signup/info1");
+        } else {
+            navigate("/home");
+        }
+    };    
 
     return (
         <div className="login-content">
@@ -40,7 +63,6 @@ const LoginContent = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                {error && <p className="login-content__error">{error}</p>}
                 <PillButton text={"로그인"} type={"default"} onClick={handleLogin} />
                 <p className="login-content__prompt">
                     아직 회원이 아니신가요?

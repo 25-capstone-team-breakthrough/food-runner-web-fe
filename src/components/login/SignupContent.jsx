@@ -6,6 +6,7 @@ import LoginHeader from "./LoginHeader";
 import "./SignupContent.css";
 import { useState } from "react";
 import { useAuthDispatch } from "../../contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const SignupContent = () => {
     const navigate = useNavigate();
@@ -15,28 +16,68 @@ const SignupContent = () => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
-    const [isAvailable, setIsAvailable] = useState(false);
-
-    const checkDuplicate = () => {
-        if (id === "hansung") {
-            alert("이미 사용 중인 아이디입니다.");
-        } else {
-            alert("사용 가능한 아이디입니다.");
-            setIsAvailable(true);
-        }
-    };
-
-    const handleSignup = () => {
-        if (!isAvailable) {
-            alert("아이디 중복 검사를 먼저 진행해주세요.");
+    const handleSignup = async () => {
+        if (name.trim() === "") {
+            Swal.fire({
+                title: "입력 오류",
+                text: "이름을 입력해주세요.",
+                icon: "warning",
+                confirmButtonText: "확인",
+                customClass: {
+                    confirmButton: 'no-focus-outline'
+                },
+            });
             return;
         }
 
-        const success = signup(id, password, name);
-        if (success) {
-            navigate("/signup/info1");
+        if (id.trim().length < 4) {
+            Swal.fire({
+                title: "입력 오류",
+                text: "아이디는 최소 4자 이상 입력해야 합니다.",
+                icon: "warning",
+                confirmButtonText: "확인",
+                customClass: {
+                    confirmButton: 'no-focus-outline'
+                },
+            });
+            return;
+        }
+
+        if (password.length < 6 || !/\W/.test(password)) {
+            Swal.fire({
+                title: "비밀번호 오류",
+                text: "비밀번호는 6자 이상, 특수문자를 포함해야 합니다.",
+                icon: "warning",
+                confirmButtonText: "확인",
+                customClass: {
+                    confirmButton: 'no-focus-outline'
+                },
+            });
+            return;
+        }
+
+        const result = await signup(id, password, name);
+        if (result) {
+            Swal.fire({
+                title: "회원가입 완료",
+                text: `${name}님 가입을 환영합니다!`,
+                icon: "success",
+                confirmButtonText: "확인",
+                customClass: {
+                    confirmButton: 'no-focus-outline'
+                },
+            });
+            navigate("/login");
         } else {
-            alert("회원가입 실패 (아이디 중복)");
+            Swal.fire({
+                title: "회원가입 실패",
+                text: "아이디 중복이거나 서버 오류가 발생했습니다.",
+                icon: "error",
+                confirmButtonText: "확인",
+                customClass: {
+                    confirmButton: 'no-focus-outline'
+                },
+            });
         }
     };
 
@@ -50,19 +91,12 @@ const SignupContent = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <div className="signup-content__id">
-                    <InputField
-                        type="text"
-                        placeholder="아이디"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                    />
-                    <PillButton
-                        text="중복"
-                        type="default"
-                        onClick={checkDuplicate}
-                    />
-                </div>
+                <InputField
+                    type="text"
+                    placeholder="아이디"
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
+                />
                 <InputField
                     type="password"
                     placeholder="비밀번호"
