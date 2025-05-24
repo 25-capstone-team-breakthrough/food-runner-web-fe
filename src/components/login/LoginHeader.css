@@ -6,11 +6,11 @@
 }
 
 .login-header img {
-    width: 35%;
+    width: 12rem;
 }
 
 .login-header .logo-text {
-    font-family: "Inter", serif;
+    font-family: 'Inter', sans-serif;
     color: #e1ff01;
     font-size: 3rem;
     font-weight: 800;
