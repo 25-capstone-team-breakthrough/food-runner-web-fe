@@ -1,19 +1,23 @@
 .calendar {
-    font-family: "Inter", serif;
+    font-family: 'Inter', sans-serif;
     width: 54rem;
     margin: 0 auto;
     user-select: none;
-    position: relative;
+    position: sticky;
+    top: 3.8rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 10;
 }
 
 .calendar > .calendar-bar {
     height: 0.5rem;
-    background-color: #000000;
+    background-color: #000;
     position: relative;
     z-index: 1;
 }
 
 .calendar > .calendar-row {
+    background-color: #fff;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;

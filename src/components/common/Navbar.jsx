@@ -15,23 +15,23 @@ const Navbar = () => {
     const { logout } = useAuthDispatch();
 
     const menus = [
-        { name: "HOME", path: "/home" },
-        { name: "EXERCISE", path: "/exercise" },
-        { name: "NUTRITION", path: "/nutrition" },
-        { name: "MYPAGE", path: "/mypage" },
+        { id: "HOME", name: "홈", path: "/home" },
+        { id: "EXERCISE", name: "운동", path: "/exercise" },
+        { id: "NUTRITION", name: "영양", path: "/nutrition" },
+        { id: "MYPAGE", name: "마이페이지", path: "/mypage" },
     ];
 
     const subMenus = {
         EXERCISE: [
-            { name: "VIDEO", path: "/exercise/video" },
-            { name: "HISTORY", path: "/exercise/history" },
-            { name: "INBODY", path: "/exercise/inbody" },
+            { name: "운동 영상", path: "/exercise/video" },
+            { name: "운동 내역", path: "/exercise/history" },
+            { name: "인바디", path: "/exercise/inbody" },
         ],
         NUTRITION: [
-            { name: "CREATE", path: "/nutrition/create" },
-            { name: "DIET", path: "/nutrition/diet" },
-            { name: "RECIPE", path: "/nutrition/recipe" },
-            { name: "HISTORY", path: "/nutrition/history" },
+            { name: "영양 관리", path: "/nutrition/create" },
+            { name: "추천 식단", path: "/nutrition/diet" },
+            { name: "레시피", path: "/nutrition/recipe" },
+            { name: "섭취 내역", path: "/nutrition/history" },
         ],
     };
 
@@ -41,9 +41,9 @@ const Navbar = () => {
     };
 
     const handleMouseEnter = (menu) => {
-        if (subMenus[menu.name]) {
-            setActiveMain(menu.name);
-            const rect = menuRefs.current[menu.name].getBoundingClientRect();
+        if (subMenus[menu.id]) {
+            setActiveMain(menu.id);
+            const rect = menuRefs.current[menu.id].getBoundingClientRect();
             setSubmenuLeft(rect.left);
         } else {
             setActiveMain(null);
@@ -56,18 +56,10 @@ const Navbar = () => {
 
     const getCurrentMainMenu = () => {
         const path = location.pathname;
-        if (path.startsWith("/exercise")) {
-            return "EXERCISE";
-        }
-        if (path.startsWith("/nutrition")) {
-            return "NUTRITION";
-        }
-        if (path.startsWith("/mypage")) {
-            return "MYPAGE";
-        }
-        if (path.startsWith("/home")) {
-            return "HOME";
-        }
+        if (path.startsWith("/exercise")) return "EXERCISE";
+        if (path.startsWith("/nutrition")) return "NUTRITION";
+        if (path.startsWith("/mypage")) return "MYPAGE";
+        if (path.startsWith("/home")) return "HOME";
         return null;
     };
 
@@ -83,11 +75,11 @@ const Navbar = () => {
                 <div className="navbar__menu-section">
                     {menus.map((menu) => (
                         <a
-                            key={menu.name}
-                            ref={(el) => (menuRefs.current[menu.name] = el)}
+                            key={menu.id}
+                            ref={(el) => (menuRefs.current[menu.id] = el)}
                             onMouseEnter={() => handleMouseEnter(menu)}
                             onClick={() => handleMainClick(menu)}
-                            className={`navbar__menu ${currentMainMenu === menu.name ? "active" : ""}`}
+                            className={`navbar__menu ${currentMainMenu === menu.id ? "active" : ""}`}
                         >
                             {menu.name}
                         </a>
@@ -107,7 +99,7 @@ const Navbar = () => {
                 <div className="navbar__submenu">
                     <div
                         className="navbar__submenu-wrapper"
-                        style={{ transform: `translateX(${submenuLeft + 20}px)` }}
+                        style={{ transform: `translateX(${submenuLeft - 10}px)` }}
                     >
                         {subMenus[activeMain].map((sub) => (
                             <a

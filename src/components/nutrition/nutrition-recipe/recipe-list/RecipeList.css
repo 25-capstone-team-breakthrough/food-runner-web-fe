@@ -2,31 +2,6 @@
     background-color: #ffffff;
 }
 
-.recipe-list__title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3rem;
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 0.25rem;
-}
-
-.recipe-list__title-img {
-    position: relative;
-    width: 54rem;
-    margin: 0 auto;
-    padding-top: 16.8rem;
-    cursor: pointer;
-}
-
-.recipe-list__title-img img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-
 .recipe-list__popular__title {
     width: 54rem;
     margin: 4rem auto 0 auto;

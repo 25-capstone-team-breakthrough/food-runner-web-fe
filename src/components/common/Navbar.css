@@ -27,7 +27,7 @@
 }
 
 .navbar__logo-text {
-    font-family: "Inter", serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 800;
     font-size: 1rem;
     color: #e1ff01;
@@ -41,7 +41,6 @@
 
 .navbar__menu {
     cursor: pointer;
-    font-family: "Inter", serif;
     color: #ffffff;
     padding: 0.25rem 0.5rem;
     font-size: 1rem;
@@ -49,6 +48,7 @@
     white-space: nowrap;
     position: relative;
     transition: color 0.3s ease;
+    letter-spacing: 0.1rem;
 }
 
 .navbar__menu:hover {
@@ -107,12 +107,12 @@
 
 .navbar__submenu-item {
     cursor: pointer;
-    font-family: "Inter", serif;
     color: #ffffff;
     font-size: 1rem;
     font-weight: 500;
     white-space: nowrap;
     transition: color 0.3s ease;
+    letter-spacing: 0.1rem;
 }
 
 .navbar__submenu-item:hover {

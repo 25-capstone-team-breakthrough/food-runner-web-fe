@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../../utils";
 import { useNutritionDispatch, useNutritionState } from "../../../../contexts/NutritionContext";
+import PageHeader from "../../../common/page-header/PageHeader";
 
 const RecipeList = () => {
     const [search, setSearch] = useState("");
@@ -47,11 +48,7 @@ const RecipeList = () => {
 
     return (
         <div className="recipe-list">
-            <div className="recipe-list__title">|RECIPE|</div>
-            <div className="recipe-list__title-img">
-                <img src={nutritionRecipeTitle} alt="RECIPE title" />
-            </div>
-
+            <PageHeader text={"레시피"} image={nutritionRecipeTitle} />
             <div className="recipe-list__popular__title">인기 레시피</div>
             <div className="recipe-list__popular-cards">
                 {popularRecipes.map((recipe, index) => (

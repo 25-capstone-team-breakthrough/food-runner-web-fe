@@ -3,6 +3,7 @@ import "./NutritionRadarSection.css";
 import DateSelector from "../../../common/date-selector/DateSelector";
 import CalorieBar from "./CalorieBar";
 import RadarChart from "./RadarChart";
+import PageHeader from "../../../common/page-header/PageHeader";
 
 const NutritionRadarSection = ({
     nutritionLogs,
@@ -53,7 +54,7 @@ const NutritionRadarSection = ({
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
             />
-            <div className="nutrition-radar-section__title">|영양섭취량|</div>
+            <PageHeader text={"영양 분석"} />
             <RadarChart data={radarData} minValues={minValues} maxValues={maxValues} />
             <CalorieBar
                 calorieIntake={todayLog.calories}

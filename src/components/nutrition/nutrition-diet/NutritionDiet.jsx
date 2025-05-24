@@ -5,6 +5,7 @@ import IngredientTab from "./ingredient-tab/IngredientTab";
 import DietTab from "./diet-tab/DietTab";
 import { useNutritionState, useNutritionDispatch } from "../../../contexts/NutritionContext";
 import { useAuthState } from "../../../contexts/AuthContext";
+import PageHeader from "../../common/page-header/PageHeader";
 
 const NutritionDiet = () => {
     const [activeTab, setActiveTab] = useState("ingredient");
@@ -44,11 +45,7 @@ const NutritionDiet = () => {
 
     return (
         <div className="nutrition-diet">
-            <div className="nutrition-diet__title">|DIET|</div>
-            <div className="nutrition-diet__title-img">
-                <img src={nutritionDietTitle} alt="DIET title" />
-            </div>
-
+            <PageHeader text={"식단 추천"} image={nutritionDietTitle} />
             <div className="nutrition-diet__tabs">
                 <div
                     className={`nutrition-diet__tab ${activeTab === "diet" ? "active" : ""}`}

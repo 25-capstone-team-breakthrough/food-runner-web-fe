@@ -7,6 +7,7 @@ import CalorieGraph from "../../common/calorie-graph/CalorieGraph";
 import { useNutritionDispatch, useNutritionState } from "../../../contexts/NutritionContext";
 import { useAuthState } from "../../../contexts/AuthContext";
 import { getWeekDates } from "../../../utils";
+import PageHeader from "../../common/page-header/PageHeader";
 
 const NutritionHistory = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -76,10 +77,7 @@ const NutritionHistory = () => {
 
     return (
         <div className="nutrition-history">
-            <div className="nutrition-history__title">|DIET HISTORY|</div>
-            <div className="nutrition-history__title-img">
-                <img src={nutritionHistoryTitle} alt="HISTORY title" />
-            </div>
+            <PageHeader text={"섭취 내역"} image={nutritionHistoryTitle} />
             <Calendar
                 selectedDate={selectedDate}
                 onDateChange={setSelectedDate}

@@ -32,6 +32,7 @@ import sampleMeal3 from "./assets/images/sample-meal-3.png";
 import sampleSupplement1 from "./assets/images/sample-supplement-1.png";
 import sampleSupplement2 from "./assets/images/sample-supplement-2.png";
 import { faCirclePlus, faCircleXmark, faMagnifyingGlass } from "@fortawesome/pro-light-svg-icons";
+import { faPipe } from "@fortawesome/sharp-regular-svg-icons";
 
 export const icons = {
     faChevronLeft,
@@ -44,7 +45,8 @@ export const icons = {
     faMinus,
     faArrowLeft,
     faCirclePlus,
-    faCircleXmark
+    faCircleXmark,
+    faPipe
 };
 
 export const mockFoods = [

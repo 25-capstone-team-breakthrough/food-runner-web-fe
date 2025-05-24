@@ -26,18 +26,16 @@
 
 .nutrition-radar-section .date-selector {
     position: absolute;
-    top: 3rem;
+    top: 3.5rem;
     left: 50%;
     transform: translateX(-145%);
     z-index: 10;
 }
 
-.nutrition-radar-section__title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 0.25rem;
+.nutrition-radar-section .page-header {
     position: absolute;
-    top: 3rem;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
+    padding: 0;
 }

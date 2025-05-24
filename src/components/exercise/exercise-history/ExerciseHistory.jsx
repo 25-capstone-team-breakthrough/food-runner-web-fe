@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useExerciseState, useExerciseDispatch } from "../../../contexts/ExerciseContext";
 import { useAuthState } from "../../../contexts/AuthContext";
 import { getWeekDates } from "../../../utils";
+import PageHeader from "../../common/page-header/PageHeader";
 
 const ExerciseHistory = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -44,10 +45,7 @@ const ExerciseHistory = () => {
 
     return (
         <div className="exercise-history">
-            <div className="history-title">|EXERCISE HISTORY|</div>
-            <div className="title-img">
-                <img src={exerciseHistoryTitle} alt="exercise-history-title" />
-            </div>
+            <PageHeader text={"운동 내역"} image={exerciseHistoryTitle} />
             <Calendar
                 selectedDate={selectedDate}
                 onDateChange={(date) => {

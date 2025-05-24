@@ -1,0 +1,35 @@
+.page-header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.page-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.25rem;
+}
+  
+.page-title svg {
+    margin: 0.25rem 1rem 0;
+}
+
+.page-header__image-wrapper {
+    position: relative;
+    width: 54rem;
+    margin: 0 auto;
+    padding-top: 8.4rem;
+    cursor: pointer;
+}
+  
+.page-header__image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}  
