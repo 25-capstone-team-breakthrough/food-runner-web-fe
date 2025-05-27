@@ -1,12 +1,14 @@
 import "./InputField.css";
 
-const InputField = ({ type, placeholder, onChange }) => {
+const InputField = ({ type, placeholder, value, onChange, onKeyDown }) => {
     return (
         <input
-            className={"input-field"}
+            className="input-field"
             type={type}
             placeholder={placeholder}
+            value={value}
             onChange={onChange}
+            onKeyDown={onKeyDown}
         />
     );
 };

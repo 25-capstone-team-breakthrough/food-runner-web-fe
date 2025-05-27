@@ -42,6 +42,12 @@ const LoginContent = () => {
         } else {
             navigate("/home");
         }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleLogin();
+        }
     };    
 
     return (
@@ -53,12 +59,14 @@ const LoginContent = () => {
                     placeholder={"아이디 또는 이메일"}
                     value={id}
                     onChange={(e) => setId(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <InputField
                     type={"password"}
                     placeholder={"비밀번호"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <PillButton text={"로그인"} type={"default"} onClick={handleLogin} />
                 <p className="login-content__prompt">

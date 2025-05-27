@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useLoadingManager } from "../hooks/useLoadingManager";
+import { API_BASE_URL } from "../apiConfig";
 
 export const ExerciseStateContext = React.createContext();
 export const ExerciseDispatchContext = React.createContext();
@@ -25,7 +26,7 @@ export const ExerciseProvider = ({ children }) => {
         try {
             startLoading("bmi");
             await axios.post(
-                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/BMI/update",
+                `${API_BASE_URL}/BMI/update`,
                 {
                     age: parseInt(age),
                     gender,
@@ -53,7 +54,7 @@ export const ExerciseProvider = ({ children }) => {
         try {
             startLoading("exerciseLogs");
             const response = await axios.get(
-                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/exercise/logSearch",
+                `${API_BASE_URL}/exercise/logSearch`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -73,7 +74,7 @@ export const ExerciseProvider = ({ children }) => {
         try {
             startLoading("calorieLogs");
             const response = await axios.get(
-                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/exercise/calories",
+                `${API_BASE_URL}/exercise/calories`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -92,7 +93,7 @@ export const ExerciseProvider = ({ children }) => {
     const fetchInbodyImages = async (token) => {
         try {
             startLoading("inbodyImages");
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/inbody/image-info", {
+            const res = await axios.get(`${API_BASE_URL}/inbody/image-info`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -110,7 +111,7 @@ export const ExerciseProvider = ({ children }) => {
     const fetchExerciseVideos = async (token) => {
         try {
             startLoading("exerciseVideos");
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/videos/exercises", {
+            const res = await axios.get(`${API_BASE_URL}/videos/exercises`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

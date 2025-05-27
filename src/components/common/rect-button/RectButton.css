@@ -10,6 +10,10 @@
     transition: 0.2s ease;
 }
 
+.rect-button:hover {
+    opacity: 0.8;
+}
+
 .rect-button-outline {
     background-color: #fff;
     color: #000;
@@ -17,10 +21,24 @@
     transition: 0.2s ease;
 }
 
-.rect-button:hover {
-    opacity: 0.8;
-}
-
 .rect-button-outline:hover {
     background-color: #f5f5f5;
+}
+
+.rect-button:disabled,
+.rect-button-disabled {
+    background-color: #e0e0e0 !important;
+    color: #aaa !important;
+    border: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.rect-button-outline:disabled,
+.rect-button-outline.rect-button-disabled {
+    background-color: #f5f5f5 !important;
+    color: #bbb !important;
+    border: 1px solid #ccc !important;
+    cursor: not-allowed;
+    opacity: 0.6;
 }

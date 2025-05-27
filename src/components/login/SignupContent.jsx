@@ -17,32 +17,39 @@ const SignupContent = () => {
     const [name, setName] = useState("");
 
     const handleSignup = async () => {
+        console.log("sign up");
         if (name.trim() === "") {
-            showCustomAlert({
-                title: "이름 입력",
-                text: "이름을 입력해주세요",
-                icon: "warning",
-                theme: "dark"
-            });
+            requestAnimationFrame(() => {
+                showCustomAlert({
+                    title: "이름 입력",
+                    text: "이름을 입력해주세요",
+                    icon: "warning",
+                    theme: "dark"
+                });
+            })
             return;
         }
 
         if (id.trim().length < 4) {
-            showCustomAlert({
-                title: "아이디",
-                text: "아이디는 최소 4자 이상 입력해야 합니다",
-                icon: "warning",
-                theme: "dark"
+            requestAnimationFrame(() => {
+                showCustomAlert({
+                    title: "아이디",
+                    text: "아이디는 최소 4자 이상 입력해야 합니다",
+                    icon: "warning",
+                    theme: "dark"
+                });
             });
             return;
         }
 
         if (password.length < 6 || !/\W/.test(password)) {
-            showCustomAlert({
-                title: "비밀번호",
-                text: "비밀번호는 6자 이상, 특수문자를 포함해야 합니다",
-                icon: "warning",
-                theme: "dark"
+            requestAnimationFrame(() => {
+                showCustomAlert({
+                    title: "비밀번호",
+                    text: "비밀번호는 6자 이상, 특수문자를 포함해야 합니다",
+                    icon: "warning",
+                    theme: "dark"
+                });
             });
             return;
         }
@@ -66,6 +73,12 @@ const SignupContent = () => {
         }
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleSignup();
+        }
+    };   
+
     return (
         <div className="signup-content">
             <LoginHeader title={"SIGN UP"} />
@@ -75,18 +88,21 @@ const SignupContent = () => {
                     placeholder="이름"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <InputField
                     type="text"
                     placeholder="아이디"
                     value={id}
                     onChange={(e) => setId(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <InputField
                     type="password"
                     placeholder="비밀번호"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <PillButton
                     text="회원가입"

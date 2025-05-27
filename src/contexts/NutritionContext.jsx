@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useLoadingManager } from "../hooks/useLoadingManager";
+import { API_BASE_URL } from "../apiConfig";
 
 export const NutritionStateContext = React.createContext();
 export const NutritionDispatchContext = React.createContext();
@@ -37,7 +38,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchMeals = async (token) => {
         startLoading("meals");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/food/data/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/food/data/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setMealList(Array.isArray(res.data) ? res.data : []);
@@ -53,7 +54,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchSupplements = async (token) => {
         startLoading("supplements");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/data/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/sup/data/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             console.log(res.data);
@@ -70,7 +71,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchIngredients = async (token) => {
         startLoading("ingredients");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/ingredient/data/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/ingredient/data/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setIngredientList(Array.isArray(res.data) ? res.data : []);
@@ -86,7 +87,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchFavoriteMeals = async (token) => {
         startLoading("favoriteMeals");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/food/pref/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/food/pref/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setFavoriteMeals(Array.isArray(res.data) ? res.data : []);
@@ -102,7 +103,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchFavoriteSupplements = async (token) => {
         startLoading("favoriteSupplements");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/pref/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/sup/pref/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setFavoriteSupplements(Array.isArray(res.data) ? res.data : []);
@@ -121,7 +122,7 @@ export const NutritionProvider = ({ children }) => {
             if (existing) {
                 // 이미 등록되어 있는 경우 삭제
                 await axios.post(
-                    `http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/food/pref/delete?pref_id=${existing.id}`,
+                    `${API_BASE_URL}/diet/food/pref/delete?pref_id=${existing.id}`,
                     null,
                     {
                         headers: { Authorization: `Bearer ${token}` },
@@ -130,7 +131,7 @@ export const NutritionProvider = ({ children }) => {
             } else {
                 // 없으면 등록
                 await axios.post(
-                    `http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/food/pref/save?food_id=${id}`,
+                    `${API_BASE_URL}/diet/food/pref/save?food_id=${id}`,
                     null,
                     {
                         headers: { Authorization: `Bearer ${token}` },
@@ -150,7 +151,7 @@ export const NutritionProvider = ({ children }) => {
             const existing = favoriteSupplements.find(f => f?.supplementData?.supplementId === id);
             if (existing) {
                 await axios.post(
-                    `http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/pref/delete?pref_id=${existing.presupplementId}`,
+                    `${API_BASE_URL}/diet/sup/pref/delete?pref_id=${existing.presupplementId}`,
                     null,
                     {
                         headers: { Authorization: `Bearer ${token}` },
@@ -158,7 +159,7 @@ export const NutritionProvider = ({ children }) => {
                 );
             } else {
                 await axios.post(
-                    `http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/pref/save?sup_id=${id}`,
+                    `${API_BASE_URL}/diet/sup/pref/save?sup_id=${id}`,
                     null,
                     {
                         headers: { Authorization: `Bearer ${token}` },
@@ -177,7 +178,7 @@ export const NutritionProvider = ({ children }) => {
         for (const meal of meals) {
         try {
             await axios.post(
-            "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/meal/log/save",
+            `${API_BASE_URL}/diet/meal/log/save`,
             {
                 type: "search",
                 foodId: meal.id,
@@ -199,7 +200,7 @@ export const NutritionProvider = ({ children }) => {
         for (const sup of supplements) {
         try {
             await axios.post(
-            "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/log/save",
+            `${API_BASE_URL}/diet/sup/log/save`,
             {
                 id: sup.id,
                 dateTime: date,
@@ -218,7 +219,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchPreferredIngredients = async (token) => {
         startLoading("preferredIngredients");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/ingredient/pref/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/ingredient/pref/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setPreferredIngredients(Array.isArray(res.data) ? res.data : []);
@@ -234,7 +235,7 @@ export const NutritionProvider = ({ children }) => {
     const savePreferredIngredient = async (token, id) => {
         try {
             console.log(`token: ${token}, id: ${id}`);
-        await axios.post(`http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/ingredient/pref/save?id=${id}`, null, {
+        await axios.post(`${API_BASE_URL}/diet/ingredient/pref/save?id=${id}`, null, {
             headers: { Authorization: `Bearer ${token}` },
         });
         await fetchPreferredIngredients(token);
@@ -247,7 +248,7 @@ export const NutritionProvider = ({ children }) => {
     const deletePreferredIngredient = async (token, prefId) => {
         console.log("[삭제 요청] prefId:", prefId);
         try {
-        const res = await axios.post(`http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/ingredient/pref/delete?pref_id=${prefId}`, null, {
+        const res = await axios.post(`${API_BASE_URL}/diet/ingredient/pref/delete?pref_id=${prefId}`, null, {
             headers: { Authorization: `Bearer ${token}` },
         });
         console.log("[삭제 응답]", res.data);
@@ -262,7 +263,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchRecommendedIngredients = async (token) => {
         startLoading("recommendedIngredients");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/ingredient/rec/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/ingredient/rec/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = res.data || [];
@@ -279,7 +280,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchMealLogs = async (token) => {
         startLoading("mealLogs");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/meal/log/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/meal/log/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             console.log(res.data);
@@ -296,7 +297,7 @@ export const NutritionProvider = ({ children }) => {
     const deleteMealLog = async (token, logId) => {
         try {
             await axios.post(
-                `http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/meal/log/delete?log_id=${logId}`,
+                `${API_BASE_URL}/diet/meal/log/delete?log_id=${logId}`,
                 null,
                 {
                     headers: { Authorization: `Bearer ${token}` },
@@ -313,7 +314,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchSupplementLogs = async (token) => {
         startLoading("supplementLogs");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/log/load", {
+            const res = await axios.get(`${API_BASE_URL}/diet/sup/log/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             console.log(res.data);
@@ -329,7 +330,7 @@ export const NutritionProvider = ({ children }) => {
     // 영양제 기록 삭제
     const deleteSupplementLog = async (token, logId) => {
         try {
-            await axios.post(`http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/log/delete?log_id=${logId}`, null, {
+            await axios.post(`${API_BASE_URL}/diet/sup/log/delete?log_id=${logId}`, null, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             await fetchSupplementLogs(token);
@@ -343,7 +344,7 @@ export const NutritionProvider = ({ children }) => {
         startLoading("nutritionLogs");
         try {
             const res = await axios.get(
-                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/nutrition/log/load",
+                `${API_BASE_URL}/diet/nutrition/log/load`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             console.log("섭취 영양소");
@@ -362,7 +363,7 @@ export const NutritionProvider = ({ children }) => {
         startLoading("recommendedNutrients");
         try {
             const res = await axios.get(
-                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/nutrition/rec/load",
+                `${API_BASE_URL}/diet/nutrition/rec/load`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             console.log("추천 영양소");
@@ -380,7 +381,7 @@ export const NutritionProvider = ({ children }) => {
     const fetchRecipes = async () => {
         startLoading("recipes");
         try {
-            const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/data/load");
+            const res = await axios.get(`${API_BASE_URL}/diet/recipe/data/load`);
             setRecipeList(Array.isArray(res.data) ? res.data : []);
         } catch (e) {
             console.error("레시피 데이터 로드 실패:", e);
@@ -395,24 +396,26 @@ export const NutritionProvider = ({ children }) => {
         startLoading("recommendedMeals");
         try {
             let res = await axios.get(
-                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/rec/load",
+                `${API_BASE_URL}/diet/recipe/rec/load`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            console.log("추천 식단 load")
+
             let data = res.data;    
+            console.log("추천 식단 load")
+            console.log(data);
 
             // 추천 식단이 없을 경우 생성
             if (!Array.isArray(data) || data.length === 0) {
                 console.log("추천 식단 set");
                 await axios.post(
-                    "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/rec/set",
+                    `${API_BASE_URL}/diet/recipe/rec/set`,
                     {},
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
     
                 // 다시 fetch
                 res = await axios.get(
-                    "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/rec/load",
+                    `${API_BASE_URL}/diet/recipe/rec/load`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
     
@@ -452,7 +455,7 @@ export const NutritionProvider = ({ children }) => {
         startLoading("recommendedMeals");
         try {
             await axios.post(
-                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/rec/set",
+                `${API_BASE_URL}/diet/recipe/rec/set`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -463,7 +466,29 @@ export const NutritionProvider = ({ children }) => {
         } finally {
             endLoading("recommendedMeals");
         }
-    };    
+    };
+
+    // 추천 식단 특정 항목만 부분 재생성(다시 fetch는 호출부에서 함)
+    const regenerateOneRecommendedMeal = async (token, dayOfWeek, dietType) => {
+        console.log(dayOfWeek);
+        console.log(dietType);
+        startLoading("recommendedMeals");
+        try {
+            await axios.post(
+                `${API_BASE_URL}/diet/recipe/rec/set-one`,
+                {},
+                {
+                    params: { dayOfWeek, dietType },
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+        } catch (e) {
+            console.error(`${dayOfWeek} ${dietType} 재생성 실패:`, e);
+            throw e;
+        } finally {
+            endLoading("recommendedMeals");
+        }
+    };
 
     return (
         <NutritionStateContext.Provider
@@ -507,7 +532,8 @@ export const NutritionProvider = ({ children }) => {
                     fetchRecommendedNutrients,
                     fetchRecipes,
                     fetchRecommendedMeals,
-                    regenerateRecommendedMeals
+                    regenerateRecommendedMeals,
+                    regenerateOneRecommendedMeal
                 }}
             >
                 {children}

@@ -6,6 +6,7 @@ import DietTab from "./diet-tab/DietTab";
 import { useNutritionState, useNutritionDispatch } from "../../../contexts/NutritionContext";
 import { useAuthState } from "../../../contexts/AuthContext";
 import PageHeader from "../../common/page-header/PageHeader";
+import { showCustomAlert } from "../../../custom-alert/customAlert";
 
 const NutritionDiet = () => {
     const [activeTab, setActiveTab] = useState("diet");
@@ -13,7 +14,8 @@ const NutritionDiet = () => {
     const {
         ingredientList,
         preferredIngredients,
-        recommendedMeals
+        recommendedMeals,
+        loading
     } = useNutritionState();
 
     const {
@@ -21,7 +23,8 @@ const NutritionDiet = () => {
         fetchPreferredIngredients,
         fetchRecommendedMeals,
         savePreferredIngredient,
-        deletePreferredIngredient
+        deletePreferredIngredient,
+        regenerateOneRecommendedMeal
     } = useNutritionDispatch();
 
     const { user } = useAuthState();
@@ -46,9 +49,57 @@ const NutritionDiet = () => {
         deletePreferredIngredient(user.token, ingredientId);
     }, [deletePreferredIngredient, user]);
 
-    console.log(ingredientList);
-    console.log(preferredIngredients);
-    console.log(recommendedMeals);
+    // 선택 식단 재추천
+    const handlePartialRegenerate = async (selectedMeals) => {
+        const dayMap = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+        const typeMap = ["breakfast", "lunch", "dinner"];
+    
+        const targets = [];
+    
+        selectedMeals.forEach((dayData, dayIndex) => {
+            dayData.meals.forEach((meal, mealIndex) => {
+                if (meal.checked) {
+                    targets.push({
+                        dayOfWeek: dayMap[dayIndex],
+                        dietType: typeMap[mealIndex]
+                    });
+                }
+            });
+        });
+    
+        if (targets.length === 0) {
+            await showCustomAlert({
+                title: "알림",
+                text: "재생성할 식단을 선택해주세요.",
+                icon: "warning"
+            });
+            return;
+        }
+    
+        try {
+            // 병렬 요청
+            await Promise.all(
+                targets.map(({ dayOfWeek, dietType }) =>
+                    regenerateOneRecommendedMeal(user.token, dayOfWeek, dietType)
+                )
+            );
+    
+            await showCustomAlert({
+                title: "성공",
+                text: "선택한 식단을 재추천 하였습니다",
+                icon: "success"
+            });
+    
+            await fetchRecommendedMeals(user.token);
+        } catch (e) {
+            console.error("부분 재생성 실패:", e);
+            await showCustomAlert({
+                title: "오류",
+                text: "재추천 중 일부 항목에서 문제가 발생했습니다",
+                icon: "error"
+            });
+        }
+    };
 
     return (
         <div className="nutrition-diet">
@@ -71,9 +122,11 @@ const NutritionDiet = () => {
             <div className="nutrition-diet__content">
                 {activeTab === "diet" ? (
                     <DietTab
-                    preferredIngredients={preferredIngredients}
-                    recommendedMeals={recommendedMeals}
-                />
+                        preferredIngredients={preferredIngredients}
+                        recommendedMeals={recommendedMeals}
+                        onPartialRegenerate={handlePartialRegenerate}
+                        isLoading={loading.recommendedMeals}
+                    />
                 ) : (
                     <IngredientTab
                         ingredientList={ingredientList}

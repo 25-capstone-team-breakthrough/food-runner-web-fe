@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { API_BASE_URL } from "../apiConfig";
 
 export const AuthStateContext = React.createContext();
 export const AuthDispatchContext = React.createContext();
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (account, password) => {
         try {
-            const response = await axios.post("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/users/login", {
+            const response = await axios.post(`${API_BASE_URL}/users/login`, {
                 account,
                 password,
             });
@@ -82,7 +83,7 @@ export const AuthProvider = ({ children }) => {
 
     const signup = async (account, password, name) => {
         try {
-            const response = await axios.post("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/users/signup", {
+            const response = await axios.post(`${API_BASE_URL}/users/signup`, {
                 account,
                 password,
                 name
