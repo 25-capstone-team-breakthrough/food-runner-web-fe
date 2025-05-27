@@ -9,8 +9,8 @@
 }
 
 .preferred-ingredients__label {
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .preferred-ingredients__scroll {
@@ -50,14 +50,19 @@
     right: 1rem;
     font-size: 1.25rem;
     color: #878787;
-    background-color: white;
-    border-radius: 50%;
     cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
+
+.preferred-ingredients__remove-icon:hover {
+    transform: scale(1.125);
+    color: #ff4646;
+  }
 
 .preferred-ingredients__name {
     font-size: 0.875rem;
-    color: #555555;
+    font-weight: 500;
+    color: #000;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

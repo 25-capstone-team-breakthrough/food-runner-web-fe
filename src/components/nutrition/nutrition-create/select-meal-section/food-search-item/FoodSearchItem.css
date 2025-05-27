@@ -1,10 +1,26 @@
 .food-search-item {
+    cursor: pointer;
     display: flex;
     align-items: center;
     padding: 1rem 2rem;
     border-bottom: 1px solid #eee;
     gap: 1rem;
     position: relative;
+    transition: box-shadow 0.2s ease;
+}
+
+.food-search-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.food-search-item--selected {
+    cursor: default;
+    background-color: #f6f6f6;
+    box-shadow: inset 0.25rem 0 0 #e1ff01;
+}
+
+.food-search-item--selected:hover {
+    box-shadow: inset 0.25rem 0 0 #e1ff01;
 }
 
 .food-search-item__image {
@@ -24,15 +40,26 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
 }
 
 .food-search-item__name {
-    font-size: 1.125rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 8rem;
 }
 
-.food-search-item__kcal {
+.food-search-item__nutrition {
+    font-family: "Outfit", "Noto Sans KR";
     font-size: 0.875rem;
     color: #929090;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 8rem;
 }
 
 .food-search-item__brand {
@@ -44,9 +71,15 @@
     font-size: 1.25rem;
     color: #878787;
     cursor: pointer;
-    transition: color 0.2s ease-in-out;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .food-search-item__add:hover {
+    transform: scale(1.125);
     color: #000;
+}
+
+.food-search-item__add--selected:hover {
+    transform: scale(1.125);
+    color: #ff4646;
 }

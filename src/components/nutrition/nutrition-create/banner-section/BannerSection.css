@@ -8,11 +8,11 @@
 
 .banner-section__title__text {
     width: 32rem;
-    margin-right: 12rem;
+    margin-right: 16rem;
 }
 
 .banner-section__title__text span {
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .banner-section__img {
@@ -28,4 +28,9 @@
     position: absolute;
     top: 0;
     width: 100%;
+    transition: opacity 0.2s ease;
+}
+
+.banner-section__img img:hover {
+    opacity: 0.75;
 }

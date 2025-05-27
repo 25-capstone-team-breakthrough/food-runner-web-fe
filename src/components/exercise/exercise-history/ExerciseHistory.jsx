@@ -1,14 +1,15 @@
 import "./ExerciseHistory.css";
 import exerciseHistoryTitle from "../../../assets/images/exercise-history-title.png";
-import Calendar from "../../common/Calendar";
+import Calendar from "../../common/calendar/Calendar";
 import ExerciseCarousel from "./exercise-carousel/ExerciseCarousel";
 import ExerciseDetailTable from "./exercise-detail-table/ExerciseDetailTable";
 import CalorieGraph from "../../common/calorie-graph/CalorieGraph";
 import { useEffect, useState } from "react";
 import { useExerciseState, useExerciseDispatch } from "../../../contexts/ExerciseContext";
 import { useAuthState } from "../../../contexts/AuthContext";
-import { getWeekDates } from "../../../utils";
+import { getWeekDates, icons } from "../../../utils";
 import PageHeader from "../../common/page-header/PageHeader";
+import EmptyState from "../../common/empty-state/EmptyState";
 
 const ExerciseHistory = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -55,7 +56,7 @@ const ExerciseHistory = () => {
             />
     
             {selectedExercises.length === 0 ? (
-                <div className="exercise-empty-message">운동 기록이 없습니다.</div>
+                <EmptyState icon={icons.faDumbbell} message={"운동 영상이 없어요"} />
             ) : (
                 <>
                     <ExerciseCarousel

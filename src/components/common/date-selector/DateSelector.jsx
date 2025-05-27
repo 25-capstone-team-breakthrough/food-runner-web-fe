@@ -3,7 +3,7 @@ import "./DateSelector.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../utils";
 
-const DateSelector = ({ selectedDate, setSelectedDate }) => {
+const DateSelector = ({ selectedDate, setSelectedDate, highlightedDates = [] }) => {
     const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
@@ -33,6 +33,13 @@ const DateSelector = ({ selectedDate, setSelectedDate }) => {
 
     const getDaysInMonth = (year, month) => {
         return new Date(year, month + 1, 0).getDate();
+    };
+
+    const isHighlighted = (day) => {
+        const date = new Date(selectedDate);
+        date.setDate(day);
+        const dateStr = date.toISOString().split("T")[0];
+        return highlightedDates.includes(dateStr);
     };
 
     const daysInMonth = getDaysInMonth(selectedDate.getFullYear(), selectedDate.getMonth());
@@ -91,15 +98,20 @@ const DateSelector = ({ selectedDate, setSelectedDate }) => {
                     </div>
 
                     <div className="date-selector__days">
-                        {[...Array(daysInMonth)].map((_, i) => (
-                            <div
-                                key={i}
-                                className={`date-selector__day ${today === i + 1 ? "selected" : ""}`}
-                                onClick={() => handleDateClick(i + 1)}
-                            >
-                                {i + 1}
-                            </div>
-                        ))}
+                        {[...Array(daysInMonth)].map((_, i) => {
+                            const day = i + 1;
+                            const isToday = today === day;
+                            const isMarked = isHighlighted(day);
+                            return (
+                                <div
+                                    key={i}
+                                    className={`date-selector__day ${isToday ? "selected" : ""} ${isMarked ? "highlighted" : ""}`}
+                                    onClick={() => handleDateClick(day)}
+                                >
+                                    {day}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             )}

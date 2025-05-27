@@ -1,4 +1,5 @@
 .exercise-report {
+    font-family: "Outfit", "Noto Sans KR";
     cursor: pointer;
     background-color: #ffffff;
     display: flex;
@@ -6,8 +7,8 @@
     align-items: center;
     width: 24rem;
     border-radius: 0.5rem;
-    box-shadow: rgba(100, 100, 100, 0.75) 0px 5px 15px 0px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: rgba(100, 100, 100, 0.5) 0px 2px 10px 0px;
+    transition: box-shadow 0.2s ease;
 }
 
 .report-empty {
@@ -18,13 +19,12 @@
 }
 
 .exercise-report:hover {
-    transform: scale(1.0075);
+    box-shadow: rgba(100, 100, 100, 0.75) 0px 4px 12px 0px;
 }
 
 .exercise-report .date {
-    font-family: "Inter", serif;
-    font-size: 1rem;
-    font-weight: 800;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: #4e4e4e;
     padding: 2rem 0;
 }
@@ -39,14 +39,13 @@
 
 .exercise-report .calorie-info .calorie-title {
     font-size: 1rem;
-    font-weight: 800;
+    font-weight: 600;
     color: #6a6a6a;
 }
 
 .exercise-report .calorie-info .calorie-amount {
-    font-family: "Inter", serif;
     font-size: 1rem;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .exercise-report .calorie-info .calorie-amount span {
@@ -79,10 +78,13 @@
 }
 
 .exercise-report .report-container .report-title {
-    font-family: "Inter", serif;
     font-size: 1rem;
-    font-weight: 800;
+    font-weight: 600;
     padding-bottom: 0.5rem;
+}
+
+.exercise-report .report-container .empty-state {
+    padding: 2rem 0;
 }
 
 .exercise-report .report-detail-link {
@@ -94,8 +96,7 @@
 }
 
 .exercise-report .report-detail-link .report-detail-label {
-    font-family: "Inter", serif;
     font-size: 1rem;
-    font-weight: 800;
+    font-weight: 600;
 }
 

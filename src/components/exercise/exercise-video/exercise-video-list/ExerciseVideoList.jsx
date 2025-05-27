@@ -1,5 +1,7 @@
 import "./ExerciseVideoList.css";
 import VideoLink from "./video-link/VideoLink";
+import EmptyState from "../../../common/empty-state/EmptyState";
+import { icons } from "../../../../utils";
 
 const ExerciseVideoList = ({ listTitle, videoList }) => {
     return (
@@ -7,7 +9,7 @@ const ExerciseVideoList = ({ listTitle, videoList }) => {
             <div className="list-title">{listTitle}</div>
 
             {videoList.length === 0 ? (
-                <div className="video-empty">영상이 없습니다.</div>
+                <EmptyState icon={icons.faDumbbell} message={"운동 영상이 없어요"} />
             ) : (
                 <div className="video-list">
                     {videoList.map((it, idx) => (

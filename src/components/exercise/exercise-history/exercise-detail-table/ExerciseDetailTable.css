@@ -1,5 +1,5 @@
 .exercise-detail-container {
-    font-family: "Inter", sans-serif;
+    font-family: "Outfit", "Noto Sans KR";
     display: flex;
     width: 54rem;
     margin: 0 auto;
@@ -24,7 +24,7 @@
     align-items: baseline;
     gap: 1rem;
     font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: 600;
     margin-bottom: 2rem;
 }
 

@@ -6,6 +6,8 @@ import { icons } from "../../../../../utils";
 import ReportItem from "./report-item/ReportItem";
 import { useExerciseDispatch, useExerciseState } from "../../../../../contexts/ExerciseContext";
 import { useAuthState } from "../../../../../contexts/AuthContext";
+import EmptyState from "../../../../common/empty-state/EmptyState";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 
 const ExerciseReport = () => {
     const navigate = useNavigate();
@@ -20,8 +22,7 @@ const ExerciseReport = () => {
         }
     }, [user?.token]);
 
-    //const today = new Date().toISOString().split("T")[0];
-    const today = "2025-05-08";
+    const today = new Date().toISOString().split("T")[0];
 
     // 운동 로그
     const todayLogs = useMemo(() => {
@@ -61,7 +62,8 @@ const ExerciseReport = () => {
                 <div className="report-title">EXERCISE REPORT</div>
 
                 {todayLogs.length === 0 ? (
-                    <div className="report-empty">오늘은 운동 기록이 없습니다.</div>
+                    <EmptyState icon={icons.faDumbbell} message={"오늘은 운동 기록이 없어요"} />
+                    
                 ) : (
                     todayLogs.slice(0, 3).map((log, index) => {
                         const sets = log.strengthSets?.length || 1;

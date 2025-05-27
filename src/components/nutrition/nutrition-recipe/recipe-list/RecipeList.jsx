@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import "./RecipeList.css";
 import nutritionRecipeTitle from "../../../../assets/images/nutrition-recipe-title.png";
 import crownIcon from "../../../../assets/images/crown-icon.png";
@@ -7,9 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../../utils";
 import { useNutritionDispatch, useNutritionState } from "../../../../contexts/NutritionContext";
 import PageHeader from "../../../common/page-header/PageHeader";
+import SearchInput from "../../../common/search-input/SearchInput";
+import EmptyState from "../../../common/empty-state/EmptyState";
 
 const RecipeList = () => {
-    const [search, setSearch] = useState("");
+    const [input, setInput] = useState("");
     const [query, setQuery] = useState("");
     const [page, setPage] = useState(1);
     const navigate = useNavigate();
@@ -21,6 +23,10 @@ const RecipeList = () => {
         if (recipeList.length === 0) {
             fetchRecipes();
         }
+    }, []);
+
+    const handleQuerySearch = useCallback((value) => {
+        setQuery(value);
     }, []);
 
     const filtered = useMemo(() => {
@@ -73,78 +79,58 @@ const RecipeList = () => {
                     </div>
                 ))}
             </div>
-
-            <div className="recipe-list__search-wrapper">
-                <FontAwesomeIcon
-                    icon={icons.faMagnifyingGlass}
-                    className="recipe-list__search-icon"
-                    onClick={() => setQuery(search)}
+            <SearchInput
+                value={input}
+                onChange={setInput}
+                onSearch={handleQuerySearch}
+                placeholder="레시피 이름을 입력해주세요"
+            />
+            {filtered.length === 0 ? (
+                <EmptyState
+                    icon={icons.faBoxOpen}
+                    message="검색 결과가 없어요"
                 />
-                <input
-                    className="recipe-list__search-input"
-                    type="text"
-                    placeholder="레시피 이름을 입력해주세요"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            setQuery(search);
-                        }
-                    }}
-                />
-                {query && (
-                    <FontAwesomeIcon
-                        icon={icons.faCircleXmark}
-                        className="recipe-list__search-clear-icon"
-                        onClick={() => {
-                            setSearch("");
-                            setQuery("");
-                        }}
-                    />
-                )}
-            </div>
-
-            <div className="recipe-list__grid">
-                {paginated.map((recipe) => (
-                    <div
-                        key={recipe.recipeId}
-                        className="recipe-list__card"
-                        onClick={() => handleClick(recipe.recipeId)}
-                    >
-                        <img src={recipe.recipeImage} alt={recipe.recipeName} />
-                        <div className="recipe-list__card-name">{recipe.recipeName}</div>
-                    </div>
-                ))}
-            </div>
-
-            <div className="recipe-list__pagination">
-                <button
-                    onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                    disabled={page === 1}
-                >
-                    &lt;
-                </button>
-
-                {Array.from({ length: endPage - startPage + 1 }, (_, i) => {
-                    const p = startPage + i;
-                    return (
-                        <button
-                            key={p}
-                            className={page === p ? "active" : ""}
-                            onClick={() => setPage(p)}
+                ) : (
+                <>
+                    <div className="recipe-list__grid">
+                    {paginated.map((recipe) => (
+                        <div
+                            key={recipe.recipeId}
+                            className="recipe-list__card"
+                            onClick={() => handleClick(recipe.recipeId)}
                         >
-                            {p}
-                        </button>
-                    );
-                })}
+                            <img src={recipe.recipeImage} alt={recipe.recipeName} />
+                            <div className="recipe-list__card-name">{recipe.recipeName}</div>
+                        </div>
+                    ))}
+                    </div>
 
-                <button
-                    onClick={() => setPage((prev) => Math.min(prev + 1, pageCount))}
-                    disabled={page === pageCount}
-                >
-                    &gt;
-                </button>
-            </div>
+                    <div className="recipe-list__pagination">
+                        <FontAwesomeIcon
+                            icon={icons.faChevronLeft}
+                            className={`pagination-icon ${page === 1 ? "pagination__icon--disabled" : ""}`}
+                            onClick={() => page > 1 && setPage(page - 1)}
+                        />
+                        {Array.from({ length: endPage - startPage + 1 }, (_, i) => {
+                            const p = startPage + i;
+                            return (
+                                <button
+                                    key={p}
+                                    className={page === p ? "active" : ""}
+                                    onClick={() => setPage(p)}
+                                >
+                                    {p}
+                                </button>
+                            );
+                        })}
+                        <FontAwesomeIcon
+                            icon={icons.faChevronRight}
+                            className={`pagination-icon ${page === pageCount ? "pagination__icon--disabled" : ""}`}
+                            onClick={() => page < pageCount && setPage(page + 1)}
+                        />
+                    </div>
+                </>
+            )}
         </div>
     );
 };

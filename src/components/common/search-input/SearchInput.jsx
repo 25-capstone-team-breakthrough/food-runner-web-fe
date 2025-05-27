@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import "./SearchInput.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icons } from "../../../../../utils";
+import { icons } from "../../../utils";
 
-const SearchInput = ({ onSearch }) => {
-    const [localInput, setLocalInput] = useState("");
+const SearchInput = ({ value, onChange, onSearch, placeholder = "검색어를 입력하세요" }) => {
+    const handleSearch = useCallback(() => {
+        onSearch(value.trim());
+    }, [onSearch, value]);
 
-    const handleSearch = () => {
-        onSearch(localInput.trim());
-    };
+    const handleClear = useCallback(() => {
+        onChange("");
+        onSearch("");
+    }, [onChange, onSearch]);
 
     return (
         <div className="search-input__wrapper">
@@ -20,21 +23,18 @@ const SearchInput = ({ onSearch }) => {
             <input
                 className="search-input__input"
                 type="text"
-                placeholder="식사나 영양제를 검색해주세요"
-                value={localInput}
-                onChange={(e) => setLocalInput(e.target.value)}
+                placeholder={placeholder}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
                 onKeyDown={(e) => {
                     if (e.key === "Enter") handleSearch();
                 }}
             />
-            {localInput && (
+            {value && (
                 <FontAwesomeIcon
                     icon={icons.faCircleXmark}
                     className="search-input__clear"
-                    onClick={() => {
-                        setLocalInput("");
-                        onSearch("");
-                    }}
+                    onClick={handleClear}
                 />
             )}
         </div>

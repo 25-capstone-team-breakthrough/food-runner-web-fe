@@ -17,10 +17,15 @@
     cursor: pointer;
     padding: 0.5rem;
     border-top: 0.35rem solid #b3b3b3;
+    transition: color 0.2s ease;
 }
-  
+
+.nutrition-diet__tab:hover {
+    color: #000;
+}
+
 .nutrition-diet__tab.active {
     border-top: 0.35rem solid #ddfb21;
-    color: #000000;
-    font-weight: 800;
+    color: #000;
+    font-weight: 600;
 }

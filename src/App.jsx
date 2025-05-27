@@ -20,6 +20,7 @@ import UserInfoStep1 from './components/login/UserInfoStep1';
 import UserInfoStep2 from './components/login/UserInfoStep2';
 import { ExerciseProvider } from './contexts/ExerciseContext';
 import { NutritionProvider } from './contexts/NutritionContext';
+import { Tooltip } from 'react-tooltip';
 
 const AppRoutes = () => {
   const { isLoggedIn, isNewUser } = useAuthState();
@@ -72,10 +73,10 @@ const AppRoutes = () => {
             </ExerciseProvider>
           }
         >
-          <Route index element={<Navigate to="video" />} />
-          <Route path="video" element={<ExerciseVideo />} />
+          <Route index element={<Navigate to="history" />} />
           <Route path="history" element={<ExerciseHistory />} />
           <Route path="inbody" element={<ExerciseInbody />} />
+          <Route path="video" element={<ExerciseVideo />} />
         </Route>
   
         {/* 영양 기능 영역 */}
@@ -114,6 +115,8 @@ function App() {
     <div className="App">
       <AuthProvider>
         <ScrollToTop />
+        {/* 전역 툴팁 */}
+        <Tooltip id="global-tooltip" className="my-tooltip" place="top" effect="solid" />
         <AppRoutes />
       </AuthProvider>
     </div>

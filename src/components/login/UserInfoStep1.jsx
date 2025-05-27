@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserInfoStep.css";
-import PillButton from "../common/PillButton";
+import PillButton from "../common/pill-button/PillButton";
 import CustomRadio from "../common/custom-radio/CustomRadio";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../utils";

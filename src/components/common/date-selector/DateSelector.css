@@ -1,6 +1,6 @@
 .date-selector {
     width: 19rem;
-    font-family: "Inter", sans-serif;
+    font-family: "Outfit", sans-serif;
 }
 
 .date-selector__header {
@@ -48,6 +48,7 @@
 .date-selector__month-arrow {
     cursor: pointer;
     font-size: 1.25rem;
+    color: #6e7781;
 }
 
 .date-selector__month-text {
@@ -83,6 +84,11 @@
     border-radius: 50%;
     transition: background-color 0.2s;
     color: #262d33;
+}
+
+.date-selector__day.highlighted {
+    background-color: #e6f7ff; /* 연한 파랑 */
+    border-radius: 50%;
 }
 
 .date-selector__day.selected {

@@ -1,23 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import "./RecipeDetail.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useNutritionState } from "../../../../contexts/NutritionContext";
+import { useNutritionDispatch, useNutritionState } from "../../../../contexts/NutritionContext";
 import RecommendedCarousel from "./recommended-carousel/RecommendedCarousel";
+import PageHeader from "../../../common/page-header/PageHeader";
+import Loading from "../../../common/loading/Loading";
 
 const RecipeDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { recipeList } = useNutritionState();
+    const { fetchRecipes } = useNutritionDispatch();
 
+
+    // 레시피 리스트가 없으면 불러옴
     useEffect(() => {
         if (recipeList.length === 0) {
+            fetchRecipes();
+        }
+    }, []);
+
+    const recipe = useMemo(() => {
+        return recipeList.find((r) => r.recipeId === Number(id));
+    }, [recipeList, id]);
+
+    useEffect(() => {
+        if (recipeList.length > 0 && !recipe) {
             navigate("/nutrition/recipe");
         }
-    }, [recipeList, navigate]);
+    }, [recipeList, recipe, navigate]);
 
-    const recipe = recipeList.find((r) => r.recipeId === Number(id));
-    if (!recipe) {
-        return null;
+    if (recipeList.length === 0 || !recipe) {
+        return <Loading />
     }
 
     const relatedIds = [
@@ -30,7 +44,7 @@ const RecipeDetail = () => {
 
     return (
         <div className="recipe-detail">
-            <div className="recipe-detail__title">|RECIPE|</div>
+            <PageHeader text={"레시피"} />
             <div className="recipe-detail__header">
                 <img src={recipe.recipeImage} alt={recipe.recipeName} className="recipe-detail__image" />
                 <div className="recipe-detail__info">
@@ -54,7 +68,7 @@ const RecipeDetail = () => {
                 <div className="recipe-detail__step__left">만드는 법</div>
                 <div className="recipe-detail__step__right">
                     {recipe.recipe.split("\n").map((step, idx) => (
-                        <div key={idx}>{`${idx + 1}. ${step}`}</div>
+                        <div key={idx}>{`${step}`}</div>
                     ))}
                 </div>
             </div>

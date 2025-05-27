@@ -3,11 +3,6 @@
     margin: 2rem auto;
 }
 
-.diet-history-panel__empty {
-    padding: 4rem;
-    text-align: center;
-}
-
 .diet-history-panel__tabs {
     display: flex;
     justify-content: space-between;
@@ -37,7 +32,7 @@
 
 .diet-history-panel__section-label {
     font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: 600;
     margin-bottom: 1.5rem;
 }
 
@@ -45,5 +40,4 @@
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    padding-left: 2rem;
 }

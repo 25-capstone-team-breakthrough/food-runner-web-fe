@@ -1,10 +1,12 @@
 import React from "react";
 import "./DietHistoryPanel.css";
 import MealLogItem from "./meal-log-item/MealLogItem";
+import EmptyState from "../../../common/empty-state/EmptyState";
+import { icons } from "../../../../utils";
 
 const DietHistoryPanel = ({ dietData }) => {
     if (!dietData || dietData.length === 0) {
-        return <div className="diet-history-panel__empty">식사 기록이 없습니다.</div>;
+        return <EmptyState icon={icons.faPlateUtensils} message={"식사 기록이 없어요"} />;
     }
 
     const meals = dietData.filter(item => item.type === "meal");

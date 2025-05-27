@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./UserInfoStep.css";
-import PillButton from "../common/PillButton";
+import PillButton from "../common/pill-button/PillButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../utils";
 import { useAuthState } from "../../contexts/AuthContext";

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./NutritionHistory.css";
 import nutritionHistoryTitle from "../../../assets/images/nutrition-diet-title.png";
 import DietHistoryPanel from "./diet-history-panel/DietHistoryPanel";
-import Calendar from "../../common/Calendar";
+import Calendar from "../../common/calendar/Calendar";
 import CalorieGraph from "../../common/calorie-graph/CalorieGraph";
 import { useNutritionDispatch, useNutritionState } from "../../../contexts/NutritionContext";
 import { useAuthState } from "../../../contexts/AuthContext";
@@ -47,17 +47,17 @@ const NutritionHistory = () => {
     const combinedLogs = [
         ...filteredMeals.map(log => ({
             type: "meal",
-            name: log.foodName || log.mealName || "이름 없음",
-            image: log.foodImage || "https://via.placeholder.com/80",
+            name: log.foodName || log.mealName || "음식",
+            image: log.foodImage,
             calories: log.mealLog?.calories || 0,
-            nutrients: `${log.mealLog?.carbohydrate || 0}g 탄수화물 / ${log.mealLog?.protein || 0}g 단백질 / ${log.mealLog?.fat || 0}g 지방`
+            nutrients: `${log.mealLog?.carbohydrate || 0}g 탄수화물 | ${log.mealLog?.protein || 0}g 단백질 | ${log.mealLog?.fat || 0}g 지방`
         })),
         ...filteredSupplements.map(log => ({
             type: "supplement",
             name: log.supplementData?.supplementName || "영양제",
-            image: log.supplementData?.supplementImage || "https://via.placeholder.com/80",
+            image: log.supplementData?.supplementImage,
             calories: 0,
-            nutrients: ""
+            nutrients: log.supplementData?.mainNutrition
         }))
     ];
 

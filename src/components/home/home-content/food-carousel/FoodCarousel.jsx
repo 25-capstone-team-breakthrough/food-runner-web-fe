@@ -4,6 +4,7 @@ import { useAuthState } from "../../../../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../../utils";
 import "./FoodCarousel.css";
+import fallbackFood from "../../../../assets/images/fallback-food.png";
 
 const FoodCarousel = () => {
     const { user } = useAuthState();
@@ -34,8 +35,8 @@ const FoodCarousel = () => {
         ].map((log) => ({
             type: "meal",
             date: log?.mealLog?.date || log?.date,
-            name: log.foodName || log.mealName || "이름 없음",
-            image: log.foodImage || "https://via.placeholder.com/80",
+            name: log.foodName || log.mealName || "음식",
+            image: log.foodImage,
             calories: log.mealLog?.calories || 0,
         }));
 
@@ -43,7 +44,7 @@ const FoodCarousel = () => {
             type: "supplement",
             date: log?.date,
             name: log.supplementData?.supplementName || "영양제",
-            image: log.supplementData?.supplementImage || "https://via.placeholder.com/80",
+            image: log.supplementData?.supplementImage,
             calories: 0,
         }));
 
@@ -105,7 +106,7 @@ const FoodCarousel = () => {
         <div className="food-carousel">
             <div className="food-carousel__title">
                 <div className="food-carousel__title-wrapper">
-                    내가 섭취한 <span>음식을 한눈에!</span>
+                    내가 섭취한 <span>음식을 한번에!</span>
                 </div>
             </div>
 
@@ -125,7 +126,7 @@ const FoodCarousel = () => {
                             style={{ width: `${itemWidth}rem` }}
                         >
                             <img
-                                src={item.image}
+                                src={item.image || fallbackFood}
                                 alt={item.name}
                                 className="nutrition-item__image"
                             />

@@ -3,8 +3,6 @@ import "./WeeklyDietPlan.css";
 import DailyMeal from "./daily-meal/DailyMeal";
 import CustomCheckbox from "../../../../common/custom-checkbox/CustomCheckbox";
 
-const days = ["월", "화", "수", "목", "금", "토", "일"];
-
 const WeeklyDietPlan = ({
     meals,
     selectedDayIndex,
@@ -12,7 +10,8 @@ const WeeklyDietPlan = ({
     onCheckToggle,
     onCheckAllToggle
 }) => {
-    const isAllChecked = meals?.every(meal => meal.checked);
+    const days = ["월", "화", "수", "목", "금", "토", "일"];
+    const isAllChecked = meals?.length > 0 && meals.every(meal => meal.checked);
 
     return (
         <div className="weekly-diet-plan">

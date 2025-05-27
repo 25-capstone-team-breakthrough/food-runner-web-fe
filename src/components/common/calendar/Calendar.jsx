@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./Calendar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getWeekDates, icons, isSameDay } from "../../utils";
+import { getWeekDates, icons, isSameDay } from "../../../utils";
 
 const Calendar = ({ selectedDate, onDateChange }) => {
     const containerRef = useRef(null);

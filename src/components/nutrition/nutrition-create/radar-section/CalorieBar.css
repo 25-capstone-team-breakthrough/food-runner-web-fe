@@ -10,7 +10,7 @@
 }
 
 .calorie-bar__info {
-    font-family: "Outfit", sans-serif;
+    font-family: "Outfit", "Noto Sans KR";
     font-weight: 600;
     display: flex;
     align-items: baseline;
@@ -28,6 +28,10 @@
 
 .calorie-bar__recommend {
     font-size: 1.25rem;
+}
+
+.calorie-bar__recommend span {
+    font-weight: 500;
 }
 
 .calorie-bar__track {

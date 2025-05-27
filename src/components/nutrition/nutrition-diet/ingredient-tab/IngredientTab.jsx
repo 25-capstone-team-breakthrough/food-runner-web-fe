@@ -14,6 +14,7 @@ const IngredientTab = ({ ingredientList, preferredIngredients, onAdd, onRemove }
                 ingredientList={ingredientList}
                 preferredIngredients={preferredIngredients}
                 onAdd={onAdd}
+                onRemove={onRemove}
             />
         </div>
     );

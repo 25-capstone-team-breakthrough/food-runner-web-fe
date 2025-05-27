@@ -2,6 +2,8 @@ import React from "react";
 import "./DailyMeal.css";
 import MealItem from "./meal-item/MealItem";
 import CustomCheckbox from "../../../../../common/custom-checkbox/CustomCheckbox";
+import EmptyState from "../../../../../common/empty-state/EmptyState";
+import { icons } from "../../../../../../utils";
 
 const DailyMeal = ({ meal, dayIndex, mealIndex, onCheckToggle }) => {
     const handleChange = () => {
@@ -18,16 +20,20 @@ const DailyMeal = ({ meal, dayIndex, mealIndex, onCheckToggle }) => {
                 />
             </div>
             <div className="daily-meal__items">
-                {meal.foods.map((food, idx) => (
-                    <MealItem
-                        key={idx}
-                        food={food}
-                        checked={meal.checked}
-                        dayIndex={dayIndex}
-                        mealIndex={mealIndex}
-                        isLast={idx === meal.foods.length - 1}
-                    />
-                ))}
+                {meal?.foods?.length > 0 ? (
+                    meal.foods.map((food, idx) => (
+                        <MealItem
+                            key={idx}
+                            food={food}
+                            checked={meal.checked}
+                            dayIndex={dayIndex}
+                            mealIndex={mealIndex}
+                            isLast={idx === meal.foods.length - 1}
+                        />
+                    ))
+                ) : (
+                    <EmptyState icon={icons.faPlateUtensils} />
+                )}
             </div>
         </div>
     );

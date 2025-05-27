@@ -2,11 +2,14 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import "./SelectMealSection.css";
 import SelectedItem from "./selected-item/SelectedItem";
 import FoodSearchItem from "./food-search-item/FoodSearchItem";
-import SearchInput from "./search-input/SearchInput";
-import RectButton from "../../../common/RectButton";
+import RectButton from "../../../common/rect-button/RectButton";
 import { useAuthState } from "../../../../contexts/AuthContext";
 import { useInView } from "react-intersection-observer";
-import Swal from "sweetalert2";
+import { icons } from "../../../../utils";
+import EmptyState from "../../../common/empty-state/EmptyState";
+import FavoriteItem from "./selected-item/FavoriteItem";
+import SearchInput from "../../../common/search-input/SearchInput";
+import { showCustomAlert } from "../../../../custom-alert/customAlert";
 
 const SelectMealSection = ({
     mealList,
@@ -17,9 +20,12 @@ const SelectMealSection = ({
     toggleFavoriteSupplement,
     registerMeals,
     registerSupplements,
+    fetchNutritionLogs,
+    fetchRecommendedNutrients
 }) => {
     const [selected, setSelected] = useState([]);
     const [query, setQuery] = useState("");
+    const [input, setInput] = useState("");
     const [visibleCount, setVisibleCount] = useState(20);
     const { user } = useAuthState();
     const [ref, inView] = useInView();
@@ -30,7 +36,7 @@ const SelectMealSection = ({
 
     const allItems = useMemo(() => {
         const favMealIds = new Set((favoriteMeals || []).map((f) => f?.food?.foodId));
-        const favSupIds = new Set((favoriteSupplements || []).map((f) => f?.supplement?.supplementId));
+        const favSupIds = new Set((favoriteSupplements || []).map((f) => f?.supplementData?.supplementId));
 
         const meals = (mealList || []).map((m) => ({
             id: m.foodId,
@@ -48,6 +54,7 @@ const SelectMealSection = ({
             image: s.supplementImage,
             kcal: s.calories,
             brand: s.company,
+            mainNutrition: s.mainNutrition,
             isFavorite: favSupIds.has(s.supplementId),
             type: "supplement",
         }));
@@ -73,7 +80,7 @@ const SelectMealSection = ({
             }));
 
         const supplements = (favoriteSupplements || [])
-            .map((item) => item?.supplement)
+            .map((item) => item?.supplementData)
             .filter(Boolean)
             .map((supp) => ({
                 id: supp.supplementId,
@@ -87,6 +94,19 @@ const SelectMealSection = ({
         );
     }, [favoriteMeals, favoriteSupplements]);
 
+    console.log("필터된 즐겨찾기");
+    console.log(flattenedFavorites);
+
+    const selectedMealItems = useMemo(
+        () => selected.filter((item) => item.type === "meal"),
+        [selected]
+    );
+
+    const selectedSupplementItems = useMemo(
+        () => selected.filter((item) => item.type === "supplement"),
+        [selected]
+    );
+
     useEffect(() => {
         setVisibleCount(20);
     }, [query]);
@@ -97,6 +117,7 @@ const SelectMealSection = ({
         }
     }, [inView, filteredList.length]);
 
+    // 선택
     const addToSelected = useCallback((item) => {
         setSelected((prev) => {
             if (prev.find((i) => i.id === item.id && i.type === item.type)) return prev;
@@ -104,57 +125,73 @@ const SelectMealSection = ({
         });
     }, []);
 
+    // 선택 해제
     const removeFromSelected = useCallback((id) => {
         setSelected((prev) => prev.filter((item) => item.id !== id));
     }, []);
 
-    const handleFavoriteToggle = useCallback(
-        (item) => {
-            if (!user?.token) return;
-            const isMeal = item.type === "meal";
-            if (isMeal) {
-                toggleFavoriteMeal(user.token, item.id);
-            } else {
-                toggleFavoriteSupplement(user.token, item.id);
-            }
-        },
-        [user, toggleFavoriteMeal, toggleFavoriteSupplement]
-    );
+    // 즐겨찾기 등록, 해제 
+    const handleFavoriteToggle = useCallback((item) => {
+        if (!user?.token) return;
+        const isMeal = item.type === "meal";
+        if (isMeal) {
+            toggleFavoriteMeal(user.token, item.id);
+        } else {
+            toggleFavoriteSupplement(user.token, item.id);
+        }
+    }, [user, toggleFavoriteMeal, toggleFavoriteSupplement]);
 
-    const handleAdd = useCallback(
-        (item) => () => {
-            addToSelected(item);
-        },
-        [addToSelected]
-    );
+    // 초기화
+    const handleReset = useCallback(async () => {
+        const result = await showCustomAlert({
+            title: "초기화",
+            text: "선택한 음식과 영양제가 모두 제거됩니다",
+            icon: "warning",
+            showCancelButton: true,
+        });
+    
+        if (result.isConfirmed) {
+            setSelected([]);
+            setInput("");
+            setQuery("");
+        }
+    }, []);
 
-    const handleToggle = useCallback(
-        (item) => () => {
-            handleFavoriteToggle(item);
-        },
-        [handleFavoriteToggle]
-    );
-
-    const handleReset = () => setSelected([]);
-
+    // 등록
     const handleSubmit = async () => {
         const now = new Date().toISOString();
-        const meals = selected.filter((item) => item.type === "meal");
-        const supplements = selected.filter((item) => item.type === "supplement");
+        const meals = selectedMealItems;
+        const supplements = selectedSupplementItems;
+
+        if (meals.length <= 0 && supplements.length <= 0) {
+            showCustomAlert({
+                title: "등록 실패",
+                text: "음식이나 영양제를 하나 이상 선택해주세요",
+                icon: "warning",
+            });
+            return;
+        }
 
         if (user?.token) {
+            // 식사, 영양제 등록
             await registerMeals(user.token, meals, now);
             await registerSupplements(user.token, supplements, now);
-            Swal.fire({
-                title: "식사 등록 완료",
+
+            // Radar, Intake UI 리렌더 유도
+            await fetchNutritionLogs(user.token);
+            await fetchRecommendedNutrients(user.token);
+
+            await showCustomAlert({
+                title: "등록 완료",
                 text: "성공적으로 등록되었습니다!",
                 icon: "success",
-                confirmButtonText: "확인",
-                customClass: {
-                    confirmButton: 'no-focus-outline'
-                },
             });
+              
+            window.scrollTo({ top: 0, behavior: "auto" });                
+            
             setSelected([]);
+            setInput("");
+            setQuery("");
         }
     };
 
@@ -167,68 +204,92 @@ const SelectMealSection = ({
             <div className="select-meal-section__container">
                 <div className="select-meal-section__selected">
                     <div className="select-meal-section__label">식사</div>
-                    <div className="select-meal-section__thumb-list">
-                        {selected
-                            .filter((item) => item.type === "meal")
-                            .map((item) => (
+                    {selectedMealItems.length === 0 ? (
+                        <EmptyState icon={icons.faPlateUtensils} />
+                    ) : (
+                        <div className="select-meal-section__thumb-list">
+                            {selectedMealItems.map((item) => (
                                 <SelectedItem
                                     key={`sel-meal-${item.id}`}
                                     item={item}
                                     onRemove={removeFromSelected}
                                 />
                             ))}
-                    </div>
+                        </div>
+                    )}
 
                     <div className="select-meal-section__label">영양제</div>
-                    <div className="select-meal-section__thumb-list">
-                        {selected
-                            .filter((item) => item.type === "supplement")
-                            .map((item) => (
+                    {selectedSupplementItems.length === 0 ? (
+                        <EmptyState icon={icons.faPills} />
+                    ) : (
+                        <div className="select-meal-section__thumb-list">
+                            {selectedSupplementItems.map((item) => (
                                 <SelectedItem
                                     key={`sel-sup-${item.id}`}
                                     item={item}
                                     onRemove={removeFromSelected}
                                 />
                             ))}
-                    </div>
+                        </div>
+                    )}
 
                     <div className="select-meal-section__label">즐겨찾기</div>
-                    <div className="select-meal-section__thumb-list">
-                        {flattenedFavorites.map((item) => (
-                            <SelectedItem
-                                key={`fav-${item.type}-${item.id}`}
-                                item={item}
-                                onRemove={() => handleFavoriteToggle(item)}
-                            />
-                        ))}
-                    </div>
+                    {flattenedFavorites.length === 0 ? (
+                        <EmptyState icon={icons.faStar} />
+                    ) : (
+                        <div className="select-meal-section__thumb-list">
+                            {flattenedFavorites.map((item) => (
+                                <FavoriteItem
+                                    key={`fav-${item.type}-${item.id}`}
+                                    item={item}
+                                    onAdd={addToSelected}
+                                    onUnfavorite={handleFavoriteToggle}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 <div className="select-meal-section__list">
-                    <SearchInput onSearch={handleQuerySearch} />
+                    <SearchInput
+                        value={input}
+                        onChange={setInput}
+                        onSearch={handleQuerySearch}
+                        placeholder="음식이나 영양제를 검색해주세요"
+                    />
 
-                    <div className="select-meal-section__items">
-                        {filteredList.slice(0, visibleCount).map((item) => (
-                            <FoodSearchItem
-                                key={`food-${item.type}-${item.id}`}
-                                item={item}
-                                onAdd={handleAdd(item)}
-                                onFavoriteToggle={handleToggle(item)}
-                            />
-                        ))}
-                        {visibleCount < filteredList.length && (
-                            <div ref={ref} style={{ height: "1px" }} />
-                        )}
-                    </div>
+                    {filteredList.length === 0 ? (
+                        <EmptyState
+                        icon={icons.faBoxOpen}
+                        message="검색 결과가 없어요"
+                        />
+                    ) : (
+                        <div className="select-meal-section__items">
+                            {filteredList.slice(0, visibleCount).map((item) => (
+                                <FoodSearchItem
+                                    key={`food-${item.type}-${item.id}`}
+                                    item={item}
+                                    isSelected={selected.some(
+                                        (s) => s.id === item.id && s.type === item.type
+                                    )}
+                                    onAdd={() => addToSelected(item)}
+                                    onRemove={removeFromSelected}
+                                    onFavoriteToggle={() => handleFavoriteToggle(item)}
+                                />
+                            ))}
+                            {visibleCount < filteredList.length && (
+                                <div ref={ref} style={{ height: "1px" }} />
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
-
             <div className="select-meal-section__actions">
-                <RectButton type="outline" text="취소" onClick={handleReset} />
+                <RectButton type="outline" text="초기화" onClick={handleReset} />
                 <RectButton type="default" text="등록" onClick={handleSubmit} />
             </div>
         </div>
     );
 };
 
-export default SelectMealSection;
+export default React.memo(SelectMealSection);

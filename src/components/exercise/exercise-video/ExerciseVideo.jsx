@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "../../../contexts/AuthContext";
 import { useExerciseState, useExerciseDispatch } from "../../../contexts/ExerciseContext";
-
 import ExercisePartButton from "./exercise-part-button/ExercisePartButton";
 import ExerciseVideoList from "./exercise-video-list/ExerciseVideoList";
 import "./ExerciseVideo.css";
@@ -20,15 +19,33 @@ const ExerciseVideo = () => {
         }
     }, [user?.token]);
 
-    const partList = ["어깨", "가슴", "팔", "복근", "허벅지", "종아리", "엉덩이"];
+    const partList = ["어깨", "가슴", "팔", "등", "배", "허벅지", "종아리", "엉덩이"];
 
-    // 전체 운동 영상 (선택된 부위 기준)
+    // 선택된 부위의 일반 영상
     const partVideos = searchedVideos[selectedPart] || [];
+
+    // 추천 영상
+    const filteredRecommendedVideos = recommendedVideos
+        .filter((video) => video.category === selectedPart)
+        .map((video) => ({
+            img: `https://img.youtube.com/vi/${video.videoId}/0.jpg`,
+            title: video.title,
+            url: video.url,
+        }));
+
+    // 일반 영상
+    const mappedPartVideos = partVideos.map((video) => ({
+        img: `https://img.youtube.com/vi/${video.videoId}/0.jpg`,
+        title: video.title,
+        url: video.url,
+    }));
+
+    // 전체 영상
+    const combinedVideos = [...filteredRecommendedVideos, ...mappedPartVideos];
 
     return (
         <div className="exercise-video">
-            <div className="exercise-guide">|EXERCISE GUIDE|</div>
-
+            <div className="exercise-guide">|EXERCISE VIDEO|</div>
             <div className="part-select">
                 {partList.map((part) => (
                     <ExercisePartButton
@@ -45,21 +62,13 @@ const ExerciseVideo = () => {
             ) : (
                 <>
                     <ExerciseVideoList
-                        listTitle="추천 운동"
-                        videoList={recommendedVideos.map((video) => ({
-                            img: `https://img.youtube.com/vi/${video.videoId}/0.jpg`,
-                            title: video.title,
-                            url: video.url,
-                        }))}
+                        listTitle={"추천 운동"}
+                        videoList={filteredRecommendedVideos}
                     />
 
                     <ExerciseVideoList
-                        listTitle={`${selectedPart} 운동`}
-                        videoList={partVideos.map((video) => ({
-                            img: `https://img.youtube.com/vi/${video.videoId}/0.jpg`,
-                            title: video.title,
-                            url: video.url,
-                        }))}
+                        listTitle={"전체 운동"}
+                        videoList={combinedVideos}
                     />
                 </>
             )}

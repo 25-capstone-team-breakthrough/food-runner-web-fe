@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import PillButton from "../common/PillButton";
+import PillButton from "../common/pill-button/PillButton";
 import InputField from "./InputField";
 import LoginFooter from "./LoginFooter";
 import LoginHeader from "./LoginHeader";
 import "./SignupContent.css";
 import { useState } from "react";
 import { useAuthDispatch } from "../../contexts/AuthContext";
-import Swal from "sweetalert2";
+import { showCustomAlert } from "../../custom-alert/customAlert";
 
 const SignupContent = () => {
     const navigate = useNavigate();
@@ -18,65 +18,50 @@ const SignupContent = () => {
 
     const handleSignup = async () => {
         if (name.trim() === "") {
-            Swal.fire({
-                title: "입력 오류",
-                text: "이름을 입력해주세요.",
+            showCustomAlert({
+                title: "이름 입력",
+                text: "이름을 입력해주세요",
                 icon: "warning",
-                confirmButtonText: "확인",
-                customClass: {
-                    confirmButton: 'no-focus-outline'
-                },
+                theme: "dark"
             });
             return;
         }
 
         if (id.trim().length < 4) {
-            Swal.fire({
-                title: "입력 오류",
-                text: "아이디는 최소 4자 이상 입력해야 합니다.",
+            showCustomAlert({
+                title: "아이디",
+                text: "아이디는 최소 4자 이상 입력해야 합니다",
                 icon: "warning",
-                confirmButtonText: "확인",
-                customClass: {
-                    confirmButton: 'no-focus-outline'
-                },
+                theme: "dark"
             });
             return;
         }
 
         if (password.length < 6 || !/\W/.test(password)) {
-            Swal.fire({
-                title: "비밀번호 오류",
-                text: "비밀번호는 6자 이상, 특수문자를 포함해야 합니다.",
+            showCustomAlert({
+                title: "비밀번호",
+                text: "비밀번호는 6자 이상, 특수문자를 포함해야 합니다",
                 icon: "warning",
-                confirmButtonText: "확인",
-                customClass: {
-                    confirmButton: 'no-focus-outline'
-                },
+                theme: "dark"
             });
             return;
         }
 
         const result = await signup(id, password, name);
         if (result) {
-            Swal.fire({
-                title: "회원가입 완료",
+            showCustomAlert({
+                title: "회원가입 성공",
                 text: `${name}님 가입을 환영합니다!`,
                 icon: "success",
-                confirmButtonText: "확인",
-                customClass: {
-                    confirmButton: 'no-focus-outline'
-                },
+                theme: "dark"
             });
             navigate("/login");
         } else {
-            Swal.fire({
+            showCustomAlert({
                 title: "회원가입 실패",
-                text: "아이디 중복이거나 서버 오류가 발생했습니다.",
+                text: "아이디 중복이거나 서버 오류가 발생했습니다",
                 icon: "error",
-                confirmButtonText: "확인",
-                customClass: {
-                    confirmButton: 'no-focus-outline'
-                },
+                theme: "dark"
             });
         }
     };

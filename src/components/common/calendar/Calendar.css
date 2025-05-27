@@ -1,10 +1,10 @@
 .calendar {
-    font-family: 'Inter', sans-serif;
+    font-family: "Outfit", sans-serif;
     width: 54rem;
     margin: 0 auto;
     user-select: none;
     position: sticky;
-    top: 3.8rem;
+    top: 3.4rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     z-index: 10;
 }

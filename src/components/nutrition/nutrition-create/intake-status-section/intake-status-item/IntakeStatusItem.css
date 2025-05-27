@@ -1,13 +1,15 @@
 .intake-status__item {
     display: flex;
+    align-items: center;
     padding: 1.25rem 0;
     font-size: 1rem;
     width: 40rem;
 }
 
 .intake-status__nutrient {
+    font-family: "Outfit", "Noto Sans KR";
     width: 8rem;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .intake-status__level {
@@ -29,12 +31,14 @@
 }
 
 .intake-status__bar-container {
+    font-family: "Outfit", "Noto Sans KR";
     flex: 1;
     margin-left: 2rem;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
     position: relative;
+    top: 0.6rem;
 }
 
 .intake-status__bar-track {
@@ -72,7 +76,6 @@
     margin-left: 0.25rem;
     font-size: 0.75rem;
     color: #333;
-    font-weight: 600;
     white-space: nowrap;
 }
 

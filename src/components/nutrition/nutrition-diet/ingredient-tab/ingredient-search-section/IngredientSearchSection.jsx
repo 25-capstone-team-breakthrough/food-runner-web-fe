@@ -1,15 +1,20 @@
 import "./IngredientSearchSection.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import IngredientCard from "./ingredient-card/IngredientCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icons } from "../../../../../utils";
 import { useInView } from "react-intersection-observer";
+import SearchInput from "../../../../common/search-input/SearchInput";
+import EmptyState from "../../../../common/empty-state/EmptyState";
+import { icons } from "../../../../../utils";
 
-const IngredientSearchSection = ({ ingredientList = [], preferredIngredients = [], onAdd }) => {
-    const [search, setSearch] = useState("");
+const IngredientSearchSection = ({ ingredientList = [], preferredIngredients = [], onAdd, onRemove }) => {
+    const [input, setInput] = useState("");
     const [query, setQuery] = useState("");
     const [visibleCount, setVisibleCount] = useState(20);
     const [ref, inView] = useInView();
+
+    const handleQuerySearch = useCallback((value) => {
+        setQuery(value);
+    }, []);
 
     const filtered = Array.isArray(ingredientList)
         ? ingredientList
@@ -29,47 +34,53 @@ const IngredientSearchSection = ({ ingredientList = [], preferredIngredients = [
         }
     }, [inView, filtered.length]);
 
+    const preferredSet = useMemo(() => 
+        new Set(preferredIngredients.map(p => p.ingredient.ingredientId)), 
+        [preferredIngredients]
+    );
+
+    // 카드에 삭제를 위한 id 전달
+    const preferredIdMap = useMemo(() => {
+        const map = new Map();
+        preferredIngredients.forEach(p => {
+            map.set(p.ingredient.ingredientId, p.id);
+        });
+        return map;
+    }, [preferredIngredients]);
+      
     return (
         <div className="ingredient-search-section">
             <div className="ingredient-search-section__label">식재료 추가</div>
-            <div className="ingredient-search-section__search-wrapper">
-                <FontAwesomeIcon
-                    icon={icons.faMagnifyingGlass}
-                    className="ingredient-search-section__icon"
-                    onClick={() => setQuery(search)}
+            <SearchInput
+                value={input}
+                onChange={setInput}
+                onSearch={handleQuerySearch}
+                placeholder="식재료 이름을 입력해주세요"
+            />
+            {filtered.length === 0 ? (
+                <EmptyState
+                    icon={icons.faBoxOpen}
+                    message="검색 결과가 없어요"
                 />
-                <input
-                    className="ingredient-search-section__input"
-                    type="text"
-                    placeholder="식재료 이름을 입력해주세요"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") setQuery(search);
-                    }}
-                />
-                {query && (
-                    <FontAwesomeIcon
-                        icon={icons.faCircleXmark}
-                        className="ingredient-search-section__search-clear-icon"
-                        onClick={() => {
-                            setSearch("");
-                            setQuery("");
+                ) : (
+                <div className="ingredient-search-section__list">
+                    {filtered.slice(0, visibleCount).map((item) => (
+                    <IngredientCard
+                        key={item.ingredientId}
+                        ingredient={item}
+                        isAdded={preferredSet.has(item.ingredientId)}
+                        onAdd={() => onAdd(item)}
+                        onRemove={() => {
+                            const preferredId = preferredIdMap.get(item.ingredientId);
+                            if (preferredId) onRemove(preferredId);
                         }}
                     />
-                )}
-            </div>
-            <div className="ingredient-search-section__list">
-                {filtered.slice(0, visibleCount).map((item, index) => (
-                    <IngredientCard
-                        key={index}
-                        ingredient={item}
-                        isAdded={preferredIngredients.some((p) => p.ingredient.ingredientId === item.ingredientId)}
-                        onAdd={() => onAdd(item)}
-                    />
-                ))}
-                {visibleCount < filtered.length && <div ref={ref} style={{ height: "1px" }} />}
-            </div>
+                    ))}
+                    {visibleCount < filtered.length && (
+                    <div ref={ref} style={{ height: "1px" }} />
+                    )}
+                </div>
+            )}
         </div>
     );
 };

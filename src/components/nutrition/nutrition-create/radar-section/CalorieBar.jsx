@@ -12,7 +12,8 @@ const CalorieBar = ({ calorieIntake = 0, recommendedCalorie = 2000 }) => {
                 </span>
                 <span className="calorie-bar__divider">kcal /</span>
                 <span className="calorie-bar__recommend">
-                    권장 {Math.round(recommendedCalorie).toLocaleString()} kcal
+                    <span>권장 </span>
+                    {Math.round(recommendedCalorie).toLocaleString()} kcal
                 </span>
             </div>
             <div className="calorie-bar__track">

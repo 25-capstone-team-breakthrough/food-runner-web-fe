@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import foodRunnerLogo from "../../assets/images/food-runner-logo.png";
-import { useAuthDispatch, useAuthState } from "../../contexts/AuthContext";
+import foodRunnerLogo from "../../../assets/images/food-runner-logo.png";
+import { useAuthDispatch, useAuthState } from "../../../contexts/AuthContext";
 
 const Navbar = () => {
     const navigate = useNavigate();

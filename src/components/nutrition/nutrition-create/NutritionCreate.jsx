@@ -73,6 +73,8 @@ const NutritionCreate = () => {
                 toggleFavoriteSupplement={toggleFavoriteSupplement}
                 registerMeals={registerMeals}
                 registerSupplements={registerSupplements}
+                fetchNutritionLogs={fetchNutritionLogs}
+                fetchRecommendedNutrients={fetchRecommendedNutrients}
             />
         </div>
     );

@@ -12,7 +12,7 @@
 }
 
 .exercise-recommend .title span {
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .exercise-recommend .banner-img {
@@ -28,6 +28,11 @@
     position: absolute;
     top: 0;
     width: 100%;
+    transition: opacity 0.2s ease;
+}
+
+.exercise-recommend .banner-img img:hover {
+    opacity: 0.75;
 }
 
 .exercise-recommend .content {

@@ -1,0 +1,26 @@
+.rect-button {
+    background-color: #000;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem 5rem;
+    letter-spacing: 0.1rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.rect-button-outline {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    transition: 0.2s ease;
+}
+
+.rect-button:hover {
+    opacity: 0.8;
+}
+
+.rect-button-outline:hover {
+    background-color: #f5f5f5;
+}

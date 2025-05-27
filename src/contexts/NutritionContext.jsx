@@ -23,12 +23,14 @@ export const NutritionProvider = ({ children }) => {
 
     const [recipeList, setRecipeList] = useState([]);
 
+    const [recommendedMeals, setRecommendedMeals] = useState([]);
+
     const { loading, startLoading, endLoading, } = useLoadingManager([
         "meals", "supplements", "ingredients",
         "favoriteMeals", "favoriteSupplements",
         "preferredIngredients", "recommendedIngredients",
         "mealLogs", "supplementLogs", "nutritionLogs",
-        "recommendedNutrients", "recipes"
+        "recommendedNutrients", "recipes", "recommendedMeals"
     ]);
 
     // 음식 전체 불러오기
@@ -54,6 +56,7 @@ export const NutritionProvider = ({ children }) => {
             const res = await axios.get("http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/data/load", {
                 headers: { Authorization: `Bearer ${token}` },
             });
+            console.log(res.data);
             setSupplementList(Array.isArray(res.data) ? res.data : []);
         } catch (e) {
             console.error("영양제 데이터 로드 실패:", e);
@@ -116,7 +119,7 @@ export const NutritionProvider = ({ children }) => {
         try {
             const existing = favoriteMeals.find(f => f?.food?.foodId === id);
             if (existing) {
-                // 이미 등록되어 있는 경우 → 삭제
+                // 이미 등록되어 있는 경우 삭제
                 await axios.post(
                     `http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/food/pref/delete?pref_id=${existing.id}`,
                     null,
@@ -144,10 +147,10 @@ export const NutritionProvider = ({ children }) => {
     // 즐겨찾기 등록/삭제 - 영양제
     const toggleFavoriteSupplement = async (token, id) => {
         try {
-            const existing = favoriteSupplements.find(f => f?.supplement?.supplementId === id);
+            const existing = favoriteSupplements.find(f => f?.supplementData?.supplementId === id);
             if (existing) {
                 await axios.post(
-                    `http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/pref/delete?pref_id=${existing.id}`,
+                    `http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/sup/pref/delete?pref_id=${existing.presupplementId}`,
                     null,
                     {
                         headers: { Authorization: `Bearer ${token}` },
@@ -387,6 +390,81 @@ export const NutritionProvider = ({ children }) => {
         }
     };
 
+    // 추천 식단 불러오기
+    const fetchRecommendedMeals = async (token) => {
+        startLoading("recommendedMeals");
+        try {
+            let res = await axios.get(
+                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/rec/load",
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            console.log("추천 식단 load")
+            let data = res.data;    
+
+            // 추천 식단이 없을 경우 생성
+            if (!Array.isArray(data) || data.length === 0) {
+                console.log("추천 식단 set");
+                await axios.post(
+                    "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/rec/set",
+                    {},
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+    
+                // 다시 fetch
+                res = await axios.get(
+                    "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/rec/load",
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+    
+                data = res.data;
+            }
+        
+            const weeklyData = Array.from({ length: 7 }, () => ({
+                meals: [
+                    { type: "아침", foods: [], checked: false },
+                    { type: "점심", foods: [], checked: false },
+                    { type: "저녁", foods: [], checked: false },
+                ],
+            }));
+    
+            const dayMap = { mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6 };
+            const mealMap = { breakfast: 0, lunch: 1, dinner: 2 };
+    
+            data.forEach((item) => {
+                const i = dayMap[item.date];
+                const j = mealMap[item.dietType];
+                if (i !== undefined && j !== undefined) {
+                    weeklyData[i].meals[j].foods.push(item.recipeData);
+                }
+            });
+    
+            setRecommendedMeals(weeklyData);
+        } catch (e) {
+            console.error("추천 식단 로드 실패:", e);
+            setRecommendedMeals([]);
+        } finally {
+            endLoading("recommendedMeals");
+        }
+    };    
+
+    // 추천 식단 재생성
+    const regenerateRecommendedMeals = async (token) => {
+        startLoading("recommendedMeals");
+        try {
+            await axios.post(
+                "http://ec2-13-209-199-97.ap-northeast-2.compute.amazonaws.com:8080/diet/recipe/rec/set",
+                {},
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+    
+            await fetchRecommendedMeals(token);
+        } catch (e) {
+            console.error("추천 식단 재생성 실패:", e);
+        } finally {
+            endLoading("recommendedMeals");
+        }
+    };    
+
     return (
         <NutritionStateContext.Provider
             value={{
@@ -402,6 +480,7 @@ export const NutritionProvider = ({ children }) => {
                 nutritionLogs,
                 recommendedNutrients,
                 recipeList,
+                recommendedMeals,
                 loading
             }}
         >
@@ -426,7 +505,9 @@ export const NutritionProvider = ({ children }) => {
                     deleteSupplementLog,
                     fetchNutritionLogs,
                     fetchRecommendedNutrients,
-                    fetchRecipes
+                    fetchRecipes,
+                    fetchRecommendedMeals,
+                    regenerateRecommendedMeals
                 }}
             >
                 {children}

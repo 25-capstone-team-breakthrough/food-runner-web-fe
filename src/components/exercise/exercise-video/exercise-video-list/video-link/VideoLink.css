@@ -6,11 +6,10 @@
     width: 16rem;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease;
 }
   
 .video-link:hover {
-    transform: scale(1.025);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
   
@@ -46,7 +45,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     text-align: center;
     line-height: 1.4;
     height: 2.8rem;
