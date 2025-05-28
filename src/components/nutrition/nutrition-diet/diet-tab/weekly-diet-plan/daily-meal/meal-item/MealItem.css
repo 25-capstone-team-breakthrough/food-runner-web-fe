@@ -1,8 +1,9 @@
 .meal-item {
     cursor: pointer;
     display: flex;
-    gap: 4rem;
+    gap: 5rem;
     padding: 1rem;
+    margin-left: 2rem;
     transition: box-shadow 0.2s ease;
 }
 

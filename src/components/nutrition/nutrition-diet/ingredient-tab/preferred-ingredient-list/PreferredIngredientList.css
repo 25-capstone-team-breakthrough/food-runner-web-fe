@@ -4,7 +4,6 @@
     width: 54rem;
     margin: 0 auto;
     padding-top: 2rem;
-    gap: 2rem;
     border-bottom: 1px solid #b3b3b3;
 }
 
@@ -16,7 +15,7 @@
 .preferred-ingredients__scroll {
     display: flex;
     overflow-x: auto;
-    padding-bottom: 2.5rem; 
+    padding-bottom: 1rem; 
 }
 
 .preferred-ingredients__item {
@@ -24,15 +23,15 @@
     flex-direction: column;
     align-items: center;
     min-width: 6rem;
-    padding: 2rem 3rem 0rem;
+    padding: 2rem 2rem 0rem;
     border-right: 1px solid #d9d9d9;
     gap: 1rem;
     position: relative;
 }
 
 .preferred-ingredients__image {
-    width: 6rem;
-    height: 6rem;
+    width: 5rem;
+    height: 5rem;
     border-radius: 0.25rem;
     overflow: hidden;
     position: relative;
@@ -46,9 +45,9 @@
 
 .preferred-ingredients__remove-icon {
     position: absolute;
-    top: 0.4rem;
-    right: 1rem;
-    font-size: 1.25rem;
+    top: 0.6rem;
+    right: 0.8rem;
+    font-size: 1rem;
     color: #878787;
     cursor: pointer;
     transition: transform 0.2s ease, color 0.2s ease;

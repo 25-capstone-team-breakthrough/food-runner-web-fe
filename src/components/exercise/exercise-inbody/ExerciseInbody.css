@@ -37,6 +37,9 @@
 
 .exercise-inbody__empty {
     height: calc(100vh - 17rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .exercise-inbody__data {

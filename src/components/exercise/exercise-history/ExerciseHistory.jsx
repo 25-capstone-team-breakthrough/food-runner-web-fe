@@ -46,7 +46,7 @@ const ExerciseHistory = () => {
 
     return (
         <div className="exercise-history">
-            <PageHeader text={"운동 내역"} image={exerciseHistoryTitle} />
+            <PageHeader text={"EXERCISE HISTORY"} image={exerciseHistoryTitle} />
             <Calendar
                 selectedDate={selectedDate}
                 onDateChange={(date) => {
@@ -56,7 +56,7 @@ const ExerciseHistory = () => {
             />
     
             {selectedExercises.length === 0 ? (
-                <EmptyState icon={icons.faDumbbell} message={"운동 영상이 없어요"} />
+                <EmptyState icon={icons.faDumbbell} message={"운동 내역이 없어요"} />
             ) : (
                 <>
                     <ExerciseCarousel

@@ -41,6 +41,7 @@ export const NutritionProvider = ({ children }) => {
             const res = await axios.get(`${API_BASE_URL}/diet/food/data/load`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
+            console.log(res.data);
             setMealList(Array.isArray(res.data) ? res.data : []);
         } catch (e) {
             console.error("식사 데이터 로드 실패:", e);

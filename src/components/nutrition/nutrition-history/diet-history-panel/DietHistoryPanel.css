@@ -1,6 +1,6 @@
 .diet-history-panel {
     width: 54rem;
-    margin: 2rem auto;
+    margin: 0 auto;
 }
 
 .diet-history-panel__tabs {
@@ -33,7 +33,7 @@
 .diet-history-panel__section-label {
     font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .diet-history-panel__list {

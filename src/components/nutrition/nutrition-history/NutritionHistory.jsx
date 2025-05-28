@@ -77,7 +77,7 @@ const NutritionHistory = () => {
 
     return (
         <div className="nutrition-history">
-            <PageHeader text={"섭취 내역"} image={nutritionHistoryTitle} />
+            <PageHeader text={"INTAKE HISTORY"} image={nutritionHistoryTitle} />
             <Calendar
                 selectedDate={selectedDate}
                 onDateChange={setSelectedDate}

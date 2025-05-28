@@ -1,7 +1,8 @@
 .meal-log-item {
     display: flex;
-    gap: 4rem;
+    gap: 5rem;
     padding: 1rem;
+    margin-left: 2rem;
 }
 
 .meal-log-item__img {

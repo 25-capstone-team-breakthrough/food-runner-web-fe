@@ -54,7 +54,7 @@ const RecipeList = () => {
 
     return (
         <div className="recipe-list">
-            <PageHeader text={"레시피"} image={nutritionRecipeTitle} />
+            <PageHeader text={"RECIPE"} image={nutritionRecipeTitle} />
             <div className="recipe-list__popular__title">인기 레시피</div>
             <div className="recipe-list__popular-cards">
                 {popularRecipes.map((recipe, index) => (

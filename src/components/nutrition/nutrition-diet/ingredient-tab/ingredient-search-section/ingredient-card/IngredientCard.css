@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     padding: 0.5rem;
-    gap: 1rem;
+    gap: 2rem;
     transition: box-shadow 0.2s ease;
     background-color: #fff;
 }
@@ -49,6 +49,14 @@
     justify-content: space-between;
     font-size: 1rem;
     font-weight: 500;
+}
+
+
+.ingredient-card__name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 6rem;
 }
 
 .ingredient-card__icon {

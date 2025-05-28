@@ -4,9 +4,9 @@ import "./UserInfoStep.css";
 import PillButton from "../common/pill-button/PillButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../utils";
-import { useAuthState } from "../../contexts/AuthContext";
+import { useAuthState, useAuthDispatch } from "../../contexts/AuthContext";
 import { useExerciseDispatch } from "../../contexts/ExerciseContext";
-import Swal from "sweetalert2";
+import { showCustomAlert } from "../../custom-alert/customAlert";
 
 const UserInfoStep2 = () => {
     const navigate = useNavigate();
@@ -17,10 +17,15 @@ const UserInfoStep2 = () => {
     const { gender, age } = location.state || {};
     const { user } = useAuthState();
     const { saveBMI } = useExerciseDispatch();
+    const { markBmiCompleted } = useAuthDispatch();
 
     const handleFinish = async () => {
-        if (!height || !weight) {
-            alert("키와 몸무게를 입력해주세요.");
+        if (!height || !weight || parseFloat(height) <= 0 || parseFloat(weight) <= 0) {
+            await showCustomAlert({
+                title: "키, 몸무게",
+                text: "키와 몸무게를 정확히 입력해주세요",
+                icon: "warning",
+            });
             return;
         }
 
@@ -33,14 +38,13 @@ const UserInfoStep2 = () => {
         });
 
         if (result.success) {
-            localStorage.removeItem("isNewUser");
+            markBmiCompleted();
             navigate("/home");
         } else {
-            Swal.fire({
+            await showCustomAlert({
                 title: "저장 실패",
-                text: "BMI 정보를 저장하는 데 실패했습니다.",
+                text: "BMI 정보를 저장하는 데 실패했습니다",
                 icon: "error",
-                confirmButtonText: "확인",
             });
         }
     };
@@ -80,6 +84,7 @@ const UserInfoStep2 = () => {
                     onChange={(e) => setWeight(e.target.value)}
                 />
             </div>
+
             <div className="user-info-step__btn-wrapper">
                 <PillButton text="완료" onClick={handleFinish} type="default" />
             </div>

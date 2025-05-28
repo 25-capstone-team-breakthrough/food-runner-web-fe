@@ -6,13 +6,13 @@
     width: 17rem;
     margin: 0 3rem 0.5rem 2rem;
     padding: 0.25rem 0.75rem;
-    border: 1px solid #bebebe;
+    border: 1px solid #b3b3b3;
     font-size: 0.875rem;
 }
 
 .search-input__icon {
     cursor: pointer;
-    color: #333333;
+    color: #333;
     font-size: 0.875rem;
 }
 
@@ -25,10 +25,10 @@
 }
 
 .search-input__input::placeholder {
-    color: #9d9d9d;
+    color: #b3b3b3;
 }
 
 .search-input__clear {
     cursor: pointer;
-    color: #333333;
+    color: #333;
 }

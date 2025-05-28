@@ -43,7 +43,13 @@ const ExerciseCarousel = ({ exercises, selectedIndex, setSelectedIndex }) => {
                                     className={`exercise-item ${isSelected ? "selected" : ""}`}
                                     onClick={() => setSelectedIndex(actualIndex)}
                                 >
-                                    <div className="exercise-name">운동 ID: {item.exerciseId}</div>
+                                    <div
+                                        className="exercise-name"
+                                        data-tooltip-id="global-tooltip"
+                                        data-tooltip-content={item.exerciseName}
+                                    >
+                                        {item.exerciseName}
+                                    </div>
                                     <div className="exercise-part">
                                         {item.distance ? "유산소" : "근력"}
                                     </div>

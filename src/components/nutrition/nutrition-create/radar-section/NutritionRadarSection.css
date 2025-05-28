@@ -26,7 +26,7 @@
 
 .nutrition-radar-section .date-selector {
     position: absolute;
-    top: 3.5rem;
+    top: 4.25rem;
     left: 50%;
     transform: translateX(-155%);
     z-index: 10;

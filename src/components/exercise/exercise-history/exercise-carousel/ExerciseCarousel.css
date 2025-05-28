@@ -5,7 +5,7 @@
     justify-content: center;
     width: 54rem;
     margin: 0 auto;
-    padding: 2.5rem;
+    padding: 1.5rem 2.5rem;
 }
 
 .exercise-carousel > .carousel-bar {
@@ -73,6 +73,10 @@
 
 .exercise-item > .exercise-name {
     font-size: 1.125rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 8rem;
 }
 
 .exercise-item > .exercise-part {

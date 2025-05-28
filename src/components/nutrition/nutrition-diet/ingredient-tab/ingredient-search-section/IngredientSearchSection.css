@@ -26,7 +26,7 @@
 .ingredient-search-section__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4.5rem;
+    gap: 4rem;
     max-height: 42rem;
     padding: 2rem 1rem;
     overflow-y: auto;

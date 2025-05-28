@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./IngredientCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icons } from "../../../../../../utils";
 import fallbackFood from "../../../../../../assets/images/fallback-food.png"
 
 const IngredientCard = ({ ingredient, isAdded, onAdd, onRemove }) => {
+    const [imgSrc, setImgSrc] = useState(ingredient.ingredientImage);
     const mainNutrients = [
         { label: "단백질", value: ingredient.protein },
         { label: "탄수화물", value: ingredient.carbohydrate },
@@ -20,7 +21,11 @@ const IngredientCard = ({ ingredient, isAdded, onAdd, onRemove }) => {
             onClick={isAdded ? undefined : onAdd}
         >
         <div className="ingredient-card__image">
-            <img src={ingredient.ingredientImage || fallbackFood} alt={ingredient.ingredientName} />
+            <img
+                src={imgSrc || fallbackFood}
+                alt={ingredient.ingredientName}
+                onError={() => setImgSrc(fallbackFood)}
+            />
         </div>
         <div className="ingredient-card__info">
             <div className="ingredient-card__info-upper">

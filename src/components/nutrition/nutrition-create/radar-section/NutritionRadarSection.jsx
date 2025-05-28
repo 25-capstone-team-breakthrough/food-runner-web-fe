@@ -54,7 +54,7 @@ const NutritionRadarSection = ({
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
             />
-            <PageHeader text={"영양 분석"} />
+            <PageHeader text={"NUTRITION ANALYSIS"} />
             <RadarChart data={radarData} minValues={minValues} maxValues={maxValues} />
             <CalorieBar
                 calorieIntake={todayLog.calories}

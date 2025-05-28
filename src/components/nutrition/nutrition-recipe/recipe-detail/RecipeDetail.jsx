@@ -44,7 +44,7 @@ const RecipeDetail = () => {
 
     return (
         <div className="recipe-detail">
-            <PageHeader text={"레시피"} />
+            <PageHeader text={"RECIPE"} />
             <div className="recipe-detail__header">
                 <img src={recipe.recipeImage} alt={recipe.recipeName} className="recipe-detail__image" />
                 <div className="recipe-detail__info">

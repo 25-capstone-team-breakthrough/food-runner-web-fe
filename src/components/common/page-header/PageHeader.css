@@ -6,10 +6,11 @@
 }
   
 .page-title {
+    font-family: "Outfit", "Noto Sans KR";
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 3rem;
+    padding: 4rem 0 1.25rem;
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.25rem;

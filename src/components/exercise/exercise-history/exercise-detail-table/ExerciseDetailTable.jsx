@@ -10,7 +10,7 @@ const ExerciseDetailTable = ({ exercise }) => {
             <div className="exercise-detail-label">DETAIL</div>
             <div className="exercise-detail-content">
                 <div className="exercise-header">
-                    <span className="exercise-title">{exercise.exerciseId}</span>
+                    <span className="exercise-title">{exercise.exerciseName}</span>
                     <span className="exercise-subparts">
                         {exercise.distance ? "유산소 운동" : "근력 운동"}
                     </span>

@@ -19,12 +19,13 @@ const LoginContent = () => {
         if (id === "test" && password === "1234") {
             const testSuccess = testLogin();
             if (testSuccess) {
-                navigate("/home"); // 테스트 로그인도 홈으로 이동
+                navigate("/home");
             }
             return;
         }
-    
-        const success = await login(id, password);
+
+        const { success, existBmi } = await login(id, password);
+
         if (!success) {
             showCustomAlert({
                 title: "로그인 실패",
@@ -34,10 +35,8 @@ const LoginContent = () => {
             });
             return;
         }
-    
-        // 로그인 성공 시 리디렉션
-        const isNewUser = localStorage.getItem("isNewUser") === "true";
-        if (isNewUser) {
+
+        if (!existBmi) {
             navigate("/signup/info1");
         } else {
             navigate("/home");
@@ -48,27 +47,27 @@ const LoginContent = () => {
         if (e.key === "Enter") {
             handleLogin();
         }
-    };    
+    };
 
     return (
         <div className="login-content">
             <LoginHeader title={"LOGIN"} />
             <div className="login-content__form">
                 <InputField
-                    type={"text"}
-                    placeholder={"아이디 또는 이메일"}
+                    type="text"
+                    placeholder="아이디 또는 이메일"
                     value={id}
                     onChange={(e) => setId(e.target.value)}
                     onKeyDown={handleKeyDown}
                 />
                 <InputField
-                    type={"password"}
-                    placeholder={"비밀번호"}
+                    type="password"
+                    placeholder="비밀번호"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     onKeyDown={handleKeyDown}
                 />
-                <PillButton text={"로그인"} type={"default"} onClick={handleLogin} />
+                <PillButton text="로그인" type="default" onClick={handleLogin} />
                 <p className="login-content__prompt">
                     아직 회원이 아니신가요?
                     <a

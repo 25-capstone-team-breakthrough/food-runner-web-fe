@@ -3,7 +3,7 @@
     display: flex;
     width: 54rem;
     margin: 0 auto;
-    padding: 2.5rem;
+    padding: 0 2.5rem;
 }
 
 .exercise-detail-container > .exercise-detail-label {

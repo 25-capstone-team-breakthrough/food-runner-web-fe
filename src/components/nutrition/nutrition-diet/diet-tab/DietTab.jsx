@@ -53,6 +53,7 @@ const DietTab = ({ preferredIngredients, recommendedMeals, onPartialRegenerate, 
                 meals={localRecommendedMeals[selectedDayIndex]?.meals ?? []}
                 onCheckToggle={handleCheckToggle}
                 onCheckAllToggle={handleCheckAllToggle}
+                isLoading={isLoading}
             />
             <DietRegenerateBox
                 onRegenerateClick={() => onPartialRegenerate(localRecommendedMeals)}

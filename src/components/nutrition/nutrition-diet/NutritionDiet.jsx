@@ -103,7 +103,7 @@ const NutritionDiet = () => {
 
     return (
         <div className="nutrition-diet">
-            <PageHeader text={"식단 추천"} image={nutritionDietTitle} />
+            <PageHeader text={"RECOMMENDED MEALS"} image={nutritionDietTitle} />
             <div className="nutrition-diet__tabs">
                 <div
                     className={`nutrition-diet__tab ${activeTab === "diet" ? "active" : ""}`}

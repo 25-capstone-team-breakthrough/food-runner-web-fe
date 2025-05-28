@@ -2,13 +2,15 @@ import React from "react";
 import "./WeeklyDietPlan.css";
 import DailyMeal from "./daily-meal/DailyMeal";
 import CustomCheckbox from "../../../../common/custom-checkbox/CustomCheckbox";
+import Loading from "../../../../common/loading/Loading";
 
 const WeeklyDietPlan = ({
     meals,
     selectedDayIndex,
     setSelectedDayIndex,
     onCheckToggle,
-    onCheckAllToggle
+    onCheckAllToggle,
+    isLoading
 }) => {
     const days = ["월", "화", "수", "목", "금", "토", "일"];
     const isAllChecked = meals?.length > 0 && meals.every(meal => meal.checked);
@@ -35,18 +37,21 @@ const WeeklyDietPlan = ({
                     />
                 </div>
             </div>
-
-            <div className="weekly-diet-plan__meals">
-                {meals?.map((meal, idx) => (
-                    <DailyMeal
-                        key={idx}
-                        meal={meal}
-                        dayIndex={selectedDayIndex}
-                        mealIndex={idx}
-                        onCheckToggle={onCheckToggle}
-                    />
-                ))}
-            </div>
+            {isLoading ? (
+                <Loading size={"fit"} />
+            ) : (
+                <div className="weekly-diet-plan__meals">
+                    {meals?.map((meal, idx) => (
+                        <DailyMeal
+                            key={idx}
+                            meal={meal}
+                            dayIndex={selectedDayIndex}
+                            mealIndex={idx}
+                            onCheckToggle={onCheckToggle}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

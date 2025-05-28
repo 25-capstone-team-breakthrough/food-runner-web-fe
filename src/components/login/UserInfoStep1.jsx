@@ -3,17 +3,20 @@ import { useNavigate } from "react-router-dom";
 import "./UserInfoStep.css";
 import PillButton from "../common/pill-button/PillButton";
 import CustomRadio from "../common/custom-radio/CustomRadio";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icons } from "../../utils";
+import { showCustomAlert } from "../../custom-alert/customAlert";
 
 const UserInfoStep1 = () => {
     const navigate = useNavigate();
     const [gender, setGender] = useState("female");
     const [age, setAge] = useState("");
 
-    const handleNext = () => {
-        if (!age) {
-            alert("만나이를 입력해주세요.");
+    const handleNext = async () => {
+        if (!age || parseInt(age) <= 0) {
+            await showCustomAlert({
+                title: "만나이",
+                text: "만나이를 정확히 입력해주세요",
+                icon: "warning",
+            });
             return;
         }
 
@@ -27,11 +30,6 @@ const UserInfoStep1 = () => {
 
     return (
         <div className="user-info-step">
-            <FontAwesomeIcon
-                className="user-info-step__back-btn"
-                icon={icons.faArrowLeft}
-                onClick={() => navigate(-1)}
-            />
             <div className="user-info-step__heading">
                 성별과 나이를 알려주세요
             </div>
