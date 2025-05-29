@@ -1,55 +1,142 @@
 .food-carousel {
     width: 100%;
 }
-  
+
 .food-carousel__title {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2.5rem 0;
+    padding: 4rem 0 1.25rem;
     font-size: 1.5rem;
 }
-  
+
 .food-carousel__title-wrapper {
     width: 32rem;
     margin-right: 12rem;
 }
-  
+
 .food-carousel__title span {
     font-weight: 600;
 }
-  
-.food-carousel__list-wrapper {
+
+.food-carousel__group-wrapper {
+    position: relative;
     width: 100%;
+    height: 20rem;
     overflow: hidden;
-    position: relative;
-    margin: 0 auto;
 }
-  
-.food-carousel__list {
+
+.food-carousel__group {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
-    transition: transform 0.3s ease-in-out;
+    justify-content: center;
+    gap: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(0%);
+    transition: all 0.5s ease-in-out;
 }
-  
+
+.food-carousel__group.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+.food-carousel__group.prev {
+    z-index: 1;
+}
+
+.food-carousel__group.slide-in-right {
+    transform: translateX(100%);
+    animation: slideInFromRight 1s forwards;
+}
+
+.food-carousel__group.slide-out-right {
+    transform: translateX(0%);
+    animation: slideOutToLeft 1s forwards;
+}
+
+.food-carousel__group.slide-in-left {
+    transform: translateX(-100%);
+    animation: slideInFromLeft 1s forwards;
+}
+
+.food-carousel__group.slide-out-left {
+    transform: translateX(0%);
+    animation: slideOutToRight 1s forwards;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0.9;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToLeft {
+    from {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0.9;
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0.9;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutToRight {
+    from {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0.9;
+    }
+}
+
 .food-carousel__item.nutrition-item {
+    cursor: pointer;
     position: relative;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    margin: 0 1rem;
     width: 16rem;
     height: 18rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.2s ease;
 }
-  
+
+.food-carousel__item.nutrition-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 .nutrition-item__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
     border-radius: 1rem;
 }
-  
+
 .nutrition-item__overlay {
     position: absolute;
     bottom: 0;
@@ -57,15 +144,14 @@
     padding: 3rem 2rem;
     background: linear-gradient(to bottom,
         rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.7) 10%,
+        rgba(255, 255, 255, 0.7) 20%,
         rgba(255, 255, 255, 0.9) 50%,
-        rgba(255, 255, 255, 0.7) 90%,
-        rgba(255, 255, 255, 0) 100%
-    );
+        rgba(255, 255, 255, 1) 100%);
     text-align: left;
     box-sizing: border-box;
 }
-  
+
+
 .nutrition-item__name {
     font-size: 1.125rem;
     font-weight: 600;
@@ -74,7 +160,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-  
+
 .nutrition-item__kcal {
     font-family: "Outfit", "Noto Sans KR";
     font-size: 0.85rem;
@@ -82,15 +168,15 @@
     font-weight: 600;
     margin-top: 0.5rem;
 }
-  
+
 .food-carousel__controls {
     display: flex;
     justify-content: center;
-    gap: 1rem;
     align-items: center;
-    padding: 2.5rem 7rem;
+    padding: 2rem;
+    gap: 1rem;
 }
-  
+
 .food-carousel__slider {
     width: 36rem;
     height: 0.25rem;
@@ -98,46 +184,34 @@
     position: relative;
     overflow: hidden;
 }
-  
+
 .food-carousel__slider-bar {
-    width: 25%;
     height: 100%;
     background-color: #000000;
     position: absolute;
-    left: 0;
     transition: left 0.3s ease-in-out;
 }
-  
+
 .food-carousel__indicator {
     font-size: 0.75rem;
 }
-  
+
 .food-carousel__btn-wrapper {
     display: flex;
     align-items: center;
     border: 1px solid #d9d9d9;
     border-radius: 9999px;
 }
-  
+
 .food-carousel__btn {
     cursor: pointer;
     font-size: 0.75rem;
     margin: 0.5rem;
 }
-  
-.food-carousel__btn:hover {
-    opacity: 1;
-}
-  
-.food-carousel__btn:disabled {
-    opacity: 0.2;
-    cursor: default;
-}
-  
+
 .food-carousel__empty {
-    width: 100%;
     text-align: center;
     padding: 4rem 0;
     color: #666;
     font-size: 1.1rem;
-}  
+}

@@ -74,7 +74,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1.2rem;
+    gap: 1rem;
 }
 
 .exercise-recommend__video-card {

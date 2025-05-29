@@ -12,7 +12,6 @@
 .guest-home__banner-wrapper {
     position: relative;
     width: 100%;
-    max-width: 1024px;
 }
 
 .guest-home__banner-wrapper img {

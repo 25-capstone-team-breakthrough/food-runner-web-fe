@@ -7,7 +7,6 @@ import ReportItem from "./report-item/ReportItem";
 import { useExerciseDispatch, useExerciseState } from "../../../../../contexts/ExerciseContext";
 import { useAuthState } from "../../../../../contexts/AuthContext";
 import EmptyState from "../../../../common/empty-state/EmptyState";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 
 const ExerciseReport = () => {
     const navigate = useNavigate();
@@ -22,7 +21,8 @@ const ExerciseReport = () => {
         }
     }, [user?.token]);
 
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toLocaleDateString("sv-SE");
+    console.log(today);
 
     // 운동 로그
     const todayLogs = useMemo(() => {
@@ -40,6 +40,8 @@ const ExerciseReport = () => {
 
     const MAX_KCAL = 1000;
     const todayFormatted = today.replace(/-/g, ".");
+
+    console.log(todayLogs);
 
     return (
         <div className="exercise-report" onClick={() => navigate("/exercise/history")}>
@@ -67,8 +69,8 @@ const ExerciseReport = () => {
                 ) : (
                     todayLogs.slice(0, 3).map((log, index) => {
                         const sets = log.strengthSets?.length || 1;
-                        const name = `운동 ${log.exerciseId}`; // 추후 매핑 가능
-                        const part = "부위 정보 없음";
+                        const name = log.exerciseName;
+                        const part = log.strengthSets ? "근력" : "유산소";
                         return (
                             <ReportItem
                                 key={index}
