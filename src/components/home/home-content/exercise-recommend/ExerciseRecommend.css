@@ -1,44 +1,130 @@
-.exercise-recommend .title {
+.exercise-recommend {
+    padding-bottom: 4rem;
+}
+
+.exercise-recommend__title {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2.5rem 0 2rem 0;
+    padding: 2.5rem 0 2rem;
     font-size: 1.5rem;
 }
 
-.exercise-recommend .title .text-wrapper {
+.exercise-recommend__text-wrapper {
     width: 32rem;
     margin-right: 12rem;
 }
 
-.exercise-recommend .title span {
+.exercise-recommend__text-wrapper span {
     font-weight: 600;
 }
 
-.exercise-recommend .banner-img {
+.exercise-recommend__banner {
     cursor: pointer;
     padding-top: 6.5rem;
     position: relative;
     width: 48rem;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 2rem;
 }
 
-.exercise-recommend .banner-img img {
-    left: 0;
+.exercise-recommend__banner img {
     position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
     transition: opacity 0.2s ease;
 }
 
-.exercise-recommend .banner-img img:hover {
+.exercise-recommend__banner img:hover {
     opacity: 0.75;
 }
 
-.exercise-recommend .content {
+.exercise-recommend__content {
     display: flex;
     flex-direction: column;
     background-color: #f3f3f3;
     padding: 2.5rem 7rem;
     gap: 6rem;
+}
+
+.exercise-recommend__part {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.exercise-recommend__part__label {
+    display: flex;
+    justify-content: center;
+}
+
+.exercise-recommend__part-name {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.2rem;
+    width: 4rem;
+    margin-right: 46rem;
+}
+
+.exercise-recommend__video-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+}
+
+.exercise-recommend__video-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 16rem;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s ease;
+}
+
+.exercise-recommend__video-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-recommend__thumbnail {
+    padding-top: 56.25%;
+    position: relative;
+    width: 100%;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.exercise-recommend__thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.75rem;
+}
+
+.exercise-recommend__label {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.4;
+    height: 2.8rem;
+}
+
+.exercise-recommend__empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
 }

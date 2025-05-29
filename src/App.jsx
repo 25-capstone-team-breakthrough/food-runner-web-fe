@@ -21,6 +21,7 @@ import UserInfoStep2 from './components/login/UserInfoStep2';
 import { ExerciseProvider } from './contexts/ExerciseContext';
 import { NutritionProvider } from './contexts/NutritionContext';
 import { Tooltip } from 'react-tooltip';
+import Mypage from './pages/MyPage';
 
 const AppRoutes = () => {
   const { isLoggedIn, isNewUser } = useAuthState();
@@ -97,6 +98,16 @@ const AppRoutes = () => {
           </Route>
           <Route path="history" element={<NutritionHistory />} />
         </Route>
+
+        {/* 마이페이지 영역 */}
+        <Route
+          path="/mypage"
+          element={
+            <ExerciseProvider>
+              <Mypage />
+            </ExerciseProvider>
+          }
+        />
       </Route>
     </Routes>
   );

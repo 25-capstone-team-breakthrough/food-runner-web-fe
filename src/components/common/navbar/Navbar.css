@@ -71,9 +71,17 @@
     border-radius: 2px;
 }
 
+.navbar__center {
+    display: flex;
+    gap: 5rem;
+    margin-left: 10rem;
+    flex: 1;
+}
+
 .navbar__right {
     display: flex;
     align-items: center;
+    gap: 2rem;
 }
 
 .navbar__right a {

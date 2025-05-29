@@ -1,0 +1,58 @@
+.mypage-content {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+}
+  
+.mypage-content__box {
+    background-color: #fff;
+    width: 30rem;
+    height: calc(100vh - 6.65rem);
+}
+  
+.mypage-content__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 4rem 0 1.25rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.25rem;
+    border-bottom: 1px solid #ccc;
+}
+  
+.mypage-content__group {
+    margin-bottom: 1.5rem;
+}
+  
+.mypage-content__group label {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+  
+.mypage-content__radio-group {
+    display: flex;
+    gap: 1.5rem;
+}
+  
+.mypage-content__input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background-color: transparent;
+    outline: none;
+    transition: border-color 0.2s ease;
+    font-family: inherit;
+}
+  
+.mypage-content__input:focus {
+    border-color: #000;
+}
+  
+.mypage-content__btn-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 0 4rem;
+}  

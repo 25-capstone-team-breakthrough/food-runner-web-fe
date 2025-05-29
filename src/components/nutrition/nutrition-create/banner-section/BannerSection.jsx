@@ -13,7 +13,7 @@ const BannerSection = () => {
                 </div>
             </div>
             <div className="banner-section__img" onClick={() => navigate("/nutrition/diet")}>
-                <img src={nutritionDietBanner} />
+                <img src={nutritionDietBanner} alt={"nutritionDietBanner"} />
             </div>
         </div>
     );

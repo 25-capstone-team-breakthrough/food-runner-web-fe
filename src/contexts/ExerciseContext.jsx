@@ -50,6 +50,17 @@ export const ExerciseProvider = ({ children }) => {
         }
     };
 
+    const fetchBMI = async (token) => {
+        try {
+          const response = await axios.get(`${API_BASE_URL}/BMI/info`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setBmi(response.data);
+        } catch (error) {
+          console.error("BMI 정보 불러오기 실패:", error);
+        }
+    };      
+
     const fetchExerciseLogs = async (token) => {
         try {
             startLoading("exerciseLogs");
@@ -144,6 +155,7 @@ export const ExerciseProvider = ({ children }) => {
             <ExerciseDispatchContext.Provider
                 value={{
                     saveBMI,
+                    fetchBMI,
                     fetchExerciseLogs,
                     fetchCalorieLogs,
                     fetchInbodyImages,

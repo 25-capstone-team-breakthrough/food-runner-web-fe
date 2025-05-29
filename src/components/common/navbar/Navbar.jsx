@@ -4,6 +4,7 @@ import "./Navbar.css";
 import foodRunnerLogo from "../../../assets/images/food-runner-logo.png";
 import { useAuthDispatch, useAuthState } from "../../../contexts/AuthContext";
 
+// 변경된 구조: 마이페이지는 오른쪽으로 이동
 const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -14,17 +15,20 @@ const Navbar = () => {
     const { isLoggedIn } = useAuthState();
     const { logout } = useAuthDispatch();
 
-    const menus = [
+    const centerMenus = [
         { id: "HOME", name: "홈", path: "/home" },
         { id: "EXERCISE", name: "운동", path: "/exercise" },
-        { id: "NUTRITION", name: "영양", path: "/nutrition" },
-        { id: "MYPAGE", name: "마이페이지", path: "/mypage" },
+        { id: "NUTRITION", name: "영양", path: "/nutrition" }
+    ];
+
+    const rightMenus = [
+        { id: "MYPAGE", name: "마이페이지", path: "/mypage" }
     ];
 
     const subMenus = {
         EXERCISE: [
-            { name: "운동 영상", path: "/exercise/video" },
             { name: "운동 내역", path: "/exercise/history" },
+            { name: "운동 영상", path: "/exercise/video" },
             { name: "인바디", path: "/exercise/inbody" },
         ],
         NUTRITION: [
@@ -72,22 +76,34 @@ const Navbar = () => {
                     <img src={foodRunnerLogo} alt="Logo" />
                     <div className="navbar__logo-text">Food Runner</div>
                 </div>
-                <div className="navbar__menu-section">
-                    {menus.map((menu) => (
-                        <a
-                            key={menu.id}
-                            ref={(el) => (menuRefs.current[menu.id] = el)}
-                            onMouseEnter={() => handleMouseEnter(menu)}
-                            onClick={() => handleMainClick(menu)}
-                            className={`navbar__menu ${currentMainMenu === menu.id ? "active" : ""}`}
-                        >
-                            {menu.name}
-                        </a>
-                    ))}
-                </div>
+            </div>
+
+            <div className="navbar__center">
+                {centerMenus.map((menu) => (
+                    <a
+                        key={menu.id}
+                        ref={(el) => (menuRefs.current[menu.id] = el)}
+                        onMouseEnter={() => handleMouseEnter(menu)}
+                        onClick={() => handleMainClick(menu)}
+                        className={`navbar__menu ${currentMainMenu === menu.id ? "active" : ""}`}
+                    >
+                        {menu.name}
+                    </a>
+                ))}
             </div>
 
             <div className="navbar__right">
+                {rightMenus.map((menu) => (
+                    <a
+                        key={menu.id}
+                        ref={(el) => (menuRefs.current[menu.id] = el)}
+                        onMouseEnter={() => handleMouseEnter(menu)}
+                        onClick={() => handleMainClick(menu)}
+                        className={`navbar__menu ${currentMainMenu === menu.id ? "active" : ""}`}
+                    >
+                        {menu.name}
+                    </a>
+                ))}
                 {isLoggedIn ? (
                     <a onClick={() => { logout(); navigate("/home"); }}>로그아웃</a>
                 ) : (

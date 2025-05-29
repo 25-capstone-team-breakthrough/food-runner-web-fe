@@ -5,6 +5,7 @@ import ExercisePartButton from "./exercise-part-button/ExercisePartButton";
 import ExerciseVideoList from "./exercise-video-list/ExerciseVideoList";
 import "./ExerciseVideo.css";
 import Loading from "../../common/loading/Loading";
+import PageHeader from "../../common/page-header/PageHeader";
 
 const ExerciseVideo = () => {
     const { user } = useAuthState();
@@ -45,7 +46,7 @@ const ExerciseVideo = () => {
 
     return (
         <div className="exercise-video">
-            <div className="exercise-guide">|EXERCISE VIDEO|</div>
+            <PageHeader text={"EXERCISE VIDEO"} />
             <div className="part-select">
                 {partList.map((part) => (
                     <ExercisePartButton

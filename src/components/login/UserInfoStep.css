@@ -1,14 +1,32 @@
-.user-info-step {
-    padding: 6rem;
+.user-info-step-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     min-height: 100vh;
     background-color: #fff;
+    padding: 2rem 1.5rem;
     box-sizing: border-box;
 }
 
+.user-info-step-box {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+}
+
+.user-info-step__logo {
+    width: 4.5rem;
+    margin-bottom: 1.25rem;
+    align-self: flex-start;
+    opacity: 0.9;
+}
+
 .user-info-step__heading {
-    font-size: 2rem;
-    font-weight: 500;
-    margin: 1rem 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 .user-info-step__description {
@@ -18,32 +36,19 @@
 }
 
 .user-info-step__field-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1.25rem 0;
+    margin-bottom: 2rem;
 }
 
 .user-info-step__field-group label {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 500;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
 .user-info-step__radio-group {
     display: flex;
-    align-items: center;
-}
-
-.user-info-step__radio-group label {
-    margin-right: 1rem;
-}
-
-.user-info-step__back-btn {
-    font-size: 1.5rem;
-    border: none;
-    background: none;
-    margin-bottom: 1rem;
-    cursor: pointer;
+    gap: 1.5rem;
 }
 
 input[type="number"] {
@@ -51,18 +56,55 @@ input[type="number"] {
     font-size: 1.25rem;
     padding: 0.5rem;
     border: none;
-    border-bottom: 1px solid #b3b3b3;
+    border-bottom: 1px solid #ccc;
     outline: none;
+    background: transparent;
+    transition: border-color 0.2s ease;
+}
+
+input[type="number"]:focus {
+    border-color: #000;
 }
 
 .user-info-step__btn-wrapper {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .user-info-step__btn-wrapper button {
-    width: 6rem;
-    padding: 0.75rem;
-    letter-spacing: 0.1rem;
-    font-size: 1.125rem;
+    padding: 0.5rem 3rem;
+}
+
+.user-info-step-container .login-footer__credit {
+    color: #777;
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in {
+    animation: slideInFromRight 0.3s ease-out;
+}
+
+.slide-in-left {
+    animation: slideInFromLeft 0.3s ease-out;
 }
