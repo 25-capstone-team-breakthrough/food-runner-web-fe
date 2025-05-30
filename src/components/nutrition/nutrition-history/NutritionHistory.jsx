@@ -48,7 +48,7 @@ const NutritionHistory = () => {
         ...filteredMeals.map(log => ({
             type: "meal",
             name: log.foodName || log.mealName || "음식",
-            image: log.foodImage,
+            image: log.foodImage || log.mealImage,
             calories: log.mealLog?.calories || 0,
             nutrients: `${log.mealLog?.carbohydrate || 0}g 탄수화물 | ${log.mealLog?.protein || 0}g 단백질 | ${log.mealLog?.fat || 0}g 지방`
         })),

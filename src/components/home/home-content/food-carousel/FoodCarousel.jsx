@@ -32,7 +32,7 @@ const FoodCarousel = () => {
             ...(mealLogs?.searchMealLogs || []),
         ].map(log => ({
             name: log.foodName || log.mealName || "음식",
-            image: log.foodImage,
+            image: log.foodImage || log.mealImage,
             calories: log.mealLog?.calories || 0,
             date: log?.mealLog?.date || log?.date,
         }));
