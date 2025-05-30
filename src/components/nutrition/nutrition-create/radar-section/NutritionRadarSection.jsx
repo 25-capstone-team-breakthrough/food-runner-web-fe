@@ -58,7 +58,7 @@ const NutritionRadarSection = ({
             <RadarChart data={radarData} minValues={minValues} maxValues={maxValues} />
             <CalorieBar
                 calorieIntake={todayLog.calories}
-                recommendedCalorie={(minObj.calories + maxObj.calories) / 2}
+                recommendedCalorie={minObj.calories}
             />
         </div>
     );
