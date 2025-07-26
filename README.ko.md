@@ -1,6 +1,10 @@
 # <img width="64" height="64" alt="logo192" src="https://github.com/user-attachments/assets/0aacb259-ece1-4272-b1c0-e757bcd1b367" /> Food Runner
 
-**Food Runner**
+**Food Runner**는 **AI 기능**을 활용해 식단과 운동을 손쉽게 관리할 수 있도록 돕는 헬스케어 플랫폼입니다.  
+**AI**가 음식 사진을 분석해 자동으로 영양 정보를 기록하고, **음성 인식**을 통해 간편하게 운동 데이터를 입력할 수 있습니다.  
+개인의 선호나 상태에 맞춘 **식단과 운동 영상을 추천**하여 **체계적인 건강 관리**를 지원합니다.  
+
+웹과 모바일(Android/iOS)을 모두 지원하는 **크로스 플랫폼**으로 개발되어 **뛰어난 접근성과 사용자 경험**을 제공합니다.
 
 ---
 
@@ -17,7 +21,7 @@
 | 구분 | 기술 스택 |
 |------|------|
 | Frontend | HTML5, CSS3, JavaScript, React, React Native |
-| Backend | Spring Boot, JWT, OpenAI API |
+| Backend | Spring Boot, JWT, OpenAI API, Google Cloud Vision API |
 | Database | MySQL |
 | Infra & Deployment | AWS EC2 (Ubuntu), AWS S3, Jenkins |
 | Collaboration & Versioning | GitHub, Figma, Notion |
