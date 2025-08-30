@@ -15,7 +15,10 @@
 ## 📎 기타 정보 / その他の情報
 
 **🌐 포트폴리오 사이트 / ポートフォリオサイト**  
-[`https://seremeety-kr.web.app`](https://seremeety-kr.web.app)  
+[`https://mesel7.dev/projects/food-runner`](https://mesel7.dev/projects/food-runner)  
+
+**🎬 데모 영상 / デモ動画**  
+[`https://www.youtube.com/watch?v=mg_RT6aKlig`](https://www.youtube.com/watch?v=mg_RT6aKlig)  
 
 **✉️ 문의 / お問い合わせ**  
 cejhans1520@gmail.com
